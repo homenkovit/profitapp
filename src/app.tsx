@@ -2,6 +2,7 @@ import React from 'react';
 import { Header } from './components/header/header';
 import { JobList } from './components/job-list/job-list';
 import { SortBar } from './components/sort-bar/sort-bar';
+import './base.css';
 import { user } from './mocks';
 
 export const App = () => {

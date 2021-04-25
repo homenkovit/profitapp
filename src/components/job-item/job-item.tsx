@@ -14,7 +14,7 @@ export const JobItem: FC<JobItemProps> = ({ data }) => {
   return (
     <div>
       <p>{data.description}</p>
-      <strong>{data.price}</strong>
+      <strong>{data.price} ₽</strong>
       {data.isPermanent ? <div>permanent icon</div> : <mark>{data.month}</mark>}
       <ul>
         <li>
