@@ -1,49 +1,11 @@
 .header {
+  flex-shrink: 0;
   padding: 16px 16px 0;
-}
-
-@media screen and (min-width: 481px) {
-  .tabs {
-    display: none;
-  }
-
-  .logo {
-    margin-bottom: 20px;
-  }
-
-  .greeting {
-    max-width: 136px;
-    padding: 0 6px;
-    margin-bottom: 30px;
-    font-size: 14px;
-    color: #909090;
-    text-align: center;
-  }
-
-  .greeting span {
-    color: #000000;
-  }
-
-  .add-new-job-button {
-    width: 130px;
-    height: 30px;
-    padding: 0;
-    border: none;
-    border-radius: 4px;
-    margin-bottom: 40px;
-    background-color: #f79256;
-    box-shadow: 0px 7px 16px rgba(0, 0, 0, 0.12);
-    font-size: 14px;
-    line-height: 30px;
-    color: #ffffff;
-    text-align: center;
-  }
 }
 
 @media screen and (max-width: 480px) {
   .logo,
-  .greeting,
-  .add-new-job-button {
+  .greeting {
     display: none;
   }
 
@@ -100,6 +62,10 @@
     grid-row: 1;
   }
 
+  .profit-in-month-text svg {
+    display: none;
+  }
+
   .profit-in-month-text,
   .totals-where-text,
   .totals-hint-text {
@@ -134,5 +100,177 @@
 
   .chart-section {
     display: none;
+  }
+
+  .add-new-job-button {
+    position: fixed;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 33px;
+    height: 33px;
+    border-radius: 50%;
+    background-color: #f79256;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.25);
+    font-size: 0;
+  }
+
+  .add-new-job-button::before,
+  .add-new-job-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+    background-color: #fff;
+  }
+
+  .add-new-job-button::before {
+    width: 2px;
+    height: 16px;
+  }
+
+  .add-new-job-button::after {
+    width: 16px;
+    height: 2px;
+  }
+
+  .mobile-footer-icon {
+    position: fixed;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media screen and (min-width: 481px) {
+  .header {
+    width: 150px;
+    text-align: center;
+  }
+
+  .tabs,
+  .mobile-footer-icon {
+    display: none;
+  }
+
+  .logo {
+    margin-bottom: 20px;
+  }
+
+  .greeting {
+    margin-bottom: 30px;
+    font-size: 14px;
+    color: #909090;
+    text-align: center;
+  }
+
+  .greeting span {
+    color: #000000;
+  }
+
+  .add-new-job-button {
+    width: 130px;
+    height: 30px;
+    padding: 0;
+    border: none;
+    border-radius: 4px;
+    margin-bottom: 40px;
+    background-color: #f79256;
+    box-shadow: 0px 7px 16px rgba(0, 0, 0, 0.12);
+    font-size: 14px;
+    line-height: 30px;
+    color: #ffffff;
+    text-align: center;
+  }
+
+  .profit-in-month-text {
+    margin-bottom: 6px;
+    font-size: 10px;
+    color: #909090;
+  }
+
+  .profit-in-month-text svg {
+    vertical-align: middle;
+    margin-left: 3px;
+  }
+
+  .total-price {
+    font-size: 32px;
+    font-weight: 500;
+    color: #30343f;
+  }
+
+  .totals-where-text {
+    margin: 8px 0;
+    font-size: 10px;
+    font-weight: 500;
+    color: #8f8f8f;
+  }
+
+  .totals-text {
+    vertical-align: middle;
+    font-size: 12px;
+    font-weight: 500;
+    color: #30343f;
+  }
+
+  .totals-text + .totals-text {
+    margin-left: 10px;
+  }
+
+  .totals-text::before {
+    content: '';
+    vertical-align: middle;
+    display: inline-block;
+    width: 4px;
+    height: 14px;
+    border-radius: 2px;
+    margin-top: -2px;
+    margin-right: 6px;
+  }
+
+  .totals-text.permanent::before {
+    background-color: #e4d9ff;
+  }
+
+  .totals-text.single::before {
+    background-color: #273469;
+  }
+
+  .totals-hint-text {
+    position: absolute;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+  }
+
+  .chart-section {
+    margin-top: 50px;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 720px) {
+  .header {
+    height: 230px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .add-new-job-button {
+    margin-bottom: 0;
+  }
+
+  .statistics {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-height: 100%;
   }
 }

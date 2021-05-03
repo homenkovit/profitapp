@@ -1,4 +1,8 @@
 import React, { FC } from 'react';
+import { ReactComponent as IconLogo } from '../../assets/images/logo.svg';
+import { ReactComponent as IconInfo } from '../../assets/images/info.svg';
+import { ReactComponent as IconChart } from '../../assets/images/chart.svg';
+import { ReactComponent as IconFooter } from '../../assets/images/footer.svg';
 import { User } from '../../mocks';
 import styles from './header.module.css';
 
@@ -23,9 +27,7 @@ export const Header: FC<HeaderProps> = ({ user }) => {
   return (
     <header className={styles.header}>
       <h1 className='visually-hidden'>ProfitApp</h1>
-      <div className={styles.logo}>
-        <img src='../../assets/images/logo.svg' alt='ProfitApp Logo' />
-      </div>
+      <IconLogo className={styles.logo} aria-label='Profit App logo' />
       <p className={styles.greeting}>
         Привет, <span>{user.name}</span>. Хорошего тебе дня!
       </p>
@@ -53,26 +55,29 @@ export const Header: FC<HeaderProps> = ({ user }) => {
           </li>
         </ul>
         <section id='profit-section' className={styles['profit-section']}>
-          <p className={styles['profit-in-month-text']}>доход в текущем месяце</p>
+          <p className={styles['profit-in-month-text']}>
+            доход в текущем месяце <IconInfo />
+          </p>
           <p className={styles['total-price']}>
             {totalPrice} <span className={styles.currency}>₽</span>
           </p>
           <div className={styles.totals}>
             <p className={styles['totals-where-text']}>из них</p>
-            <span className={styles['totals-text']}>
+            <span className={`${styles['totals-text']} ${styles.permanent}`}>
               {totalPermanentPrice} <span className={styles.currency}>₽</span>
               <span className={styles['totals-hint-text']}>разово</span>
             </span>
-            <span className={styles['totals-text']}>
+            <span className={`${styles['totals-text']} ${styles.single}`}>
               {totalSinglePrice} <span className={styles.currency}>₽</span>
               <span className={styles['totals-hint-text']}>постоянно</span>
             </span>
           </div>
         </section>
         <section id='chart-section' className={styles['chart-section']}>
-          <div>column chart stub</div>
+          <IconChart aria-label='chart' />
         </section>
       </div>
+      <IconFooter aria-hidden className={styles['mobile-footer-icon']} />
     </header>
   );
 };

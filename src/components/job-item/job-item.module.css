@@ -1,0 +1,90 @@
+.card {
+  position: relative;
+  padding: 7px 24px 4px 9px;
+  border-width: 0;
+  border-left-width: 8px;
+  border-style: solid;
+  border-radius: 6px;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.07);
+}
+
+.card.single {
+  border-color: #273469;
+}
+
+.card.permanent {
+  border-color: #e4d9ff;
+}
+
+.description {
+  overflow: hidden;
+  margin-bottom: 3px;
+  font-size: 10px;
+  color: #273469;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.price,
+.permanent-icon,
+.month {
+  vertical-align: middle;
+}
+
+.price {
+  margin-right: 7px;
+  vertical-align: top;
+  font-size: 17px;
+  font-weight: 700;
+  color: #1e2749;
+}
+
+.month {
+  padding: 0 4px 1px 4px;
+  border-radius: 7px;
+  background-color: #273469;
+  font-size: 10px;
+  color: #ffffff;
+  text-transform: lowercase;
+}
+
+.actions {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: inline-flex;
+  border-radius: 6px 0px;
+  background-color: #00b2ca;
+  fill: #ffffff;
+}
+
+.actions button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 21px;
+}
+
+@media screen and (min-width: 481px) {
+  .card {
+    border-left-width: 12px;
+    border-radius: 9px;
+  }
+  .description {
+    font-size: 14px;
+  }
+
+  .price {
+    font-size: 20px;
+  }
+
+  .month {
+    font-size: 11px;
+  }
+
+  .actions {
+    border-radius: 9px 0;
+  }
+}

@@ -1,3 +1,10 @@
+html,
+body,
+#root {
+  width: 100vw;
+  height: 100vh;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
 }
@@ -9,8 +16,21 @@ p {
   margin: 0;
 }
 
+main {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
 ul {
   list-style: none;
+}
+
+button {
+  padding: 0;
+  border: none;
+  background-color: transparent;
 }
 
 .visually-hidden {

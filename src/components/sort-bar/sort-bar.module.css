@@ -1,0 +1,55 @@
+.list {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.list li {
+  display: flex;
+}
+
+.list button {
+  vertical-align: top;
+  height: 14px;
+  padding: 0 5px;
+  border: 1px solid rgba(0, 178, 202, 0.5);
+  border-radius: 9px;
+  font-size: 10px;
+  line-height: 12px;
+  font-weight: 500;
+  text-align: center;
+  color: #00b2ca80;
+}
+
+.list button.active {
+  background-color: #00b2ca;
+  color: #ffffff;
+}
+
+@media screen and (max-width: 480px) {
+  .text {
+    position: absolute;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+  }
+}
+
+@media screen and (min-width: 481px) {
+  .text {
+    margin-right: 12px;
+    font-size: 12px;
+    color: #909090;
+  }
+
+  .list {
+    gap: 12px;
+  }
+
+  .list button {
+    height: 16px;
+    font-size: 12px;
+    line-height: 14px;
+  }
+}
