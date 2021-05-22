@@ -8,7 +8,7 @@ import styles from './app.module.css';
 import './base.css';
 import { user } from './mocks';
 
-export const App = () => {
+const App = () => {
   return (
     <div className={styles.app}>
       <Header user={user} />
@@ -27,3 +27,5 @@ export const App = () => {
     </div>
   );
 };
+
+export default App;
