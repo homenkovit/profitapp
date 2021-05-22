@@ -4,7 +4,7 @@ import { JobList } from './components/job-list/job-list';
 import { SortBar } from './components/sort-bar/sort-bar';
 import { user } from './mocks';
 
-export const App = () => {
+const App = () => {
   return (
     <div>
       <Header user={user} />
@@ -19,3 +19,5 @@ export const App = () => {
     </div>
   );
 };
+
+export default App;
