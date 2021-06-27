@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { JobItem } from '../job-item/job-item';
 import { Job } from '../../mocks';
+import styles from './job-list.module.css';
 
 interface JobListProps {
   jobs: Array<Job>;
@@ -8,9 +9,11 @@ interface JobListProps {
 
 export const JobList: FC<JobListProps> = ({ jobs }) => {
   return (
-    <ul>
+    <ul className={styles.list}>
       {jobs.map((job) => (
-        <JobItem key={job.id} data={job} />
+        <li key={job.id}>
+          <JobItem data={job} />
+        </li>
       ))}
     </ul>
   );

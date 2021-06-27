@@ -1,7 +1,7 @@
 interface Job {
   id: string;
   description: string;
-  price?: number;
+  price: number;
   isPermanent: boolean;
   month?: string;
 }
@@ -14,16 +14,16 @@ interface User {
 const user: User = {
   name: 'Sergey',
   jobs: [
-    {
-      id: '1',
-      description: '',
-      price: undefined,
-      isPermanent: true,
-      month: undefined
-    },
+    // {
+    //   id: '1',
+    //   description: '',
+    //   price: 0,
+    //   isPermanent: true,
+    //   month: undefined
+    // },
     {
       id: '2',
-      description: 'some job description',
+      description: 'some loooooooooooooooooooooooooongloooooooooooooooooooooooooongloooooooooooooooooooooooooong job description',
       price: 10500,
       isPermanent: true,
       month: undefined
