@@ -139,10 +139,28 @@
   .mobile-footer-icon {
     position: fixed;
     bottom: -1px;
-    left: 0;
-    right: 0;
-    width: 100%;
+    left: 50%;
     height: auto;
+    transform: translateX(-50%);
+  }
+
+  .header::before,
+  .header::after {
+    content: '';
+    position: fixed;
+    bottom: 0;
+    display: block;
+    width: 100px;
+    height: 30px;
+    background-color: #273469;
+  }
+
+  .header::before {
+    left: 0;
+  }
+
+  .header::after {
+    right: 0;
   }
 }
 

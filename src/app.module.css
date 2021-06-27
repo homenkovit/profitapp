@@ -19,6 +19,10 @@
 }
 
 @media screen and (max-width: 480px) {
+  .app {
+    background-color: #fafaff;
+  }
+
   .settings-button,
   .logout {
     display: none;
