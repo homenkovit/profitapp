@@ -1,0 +1,29 @@
+.chart {
+	height: 90px;
+}
+
+.chart-list {
+  display: inline-flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	width: 100%;
+	height: 100%;
+}
+
+.income-plan {
+	display: flex;
+	width: 5%;
+	background-color: #EFEAFF;
+	border-radius: 10px;
+}
+
+.income-fact {
+	align-self: flex-end;
+	width: 100%;
+	background-color: #8687B4;
+	border-radius: 10px;
+}
+
+.tooltip {
+	font-size: 12px;
+}

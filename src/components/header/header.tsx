@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { ReactComponent as IconLogo } from '../../assets/images/logo.svg';
 import { ReactComponent as IconInfo } from '../../assets/images/info.svg';
-import { ReactComponent as IconChart } from '../../assets/images/chart.svg';
 import { ReactComponent as IconFooter } from '../../assets/images/footer.svg';
-import { User } from '../../mocks';
+import { chartData, User } from '../../mocks';
+import { Chart } from '../chart/chart';
 import styles from './header.module.css';
 
 interface HeaderProps {
@@ -74,7 +74,7 @@ export const Header: FC<HeaderProps> = ({ user }) => {
           </div>
         </section>
         <section id='chart-section' className={styles['chart-section']}>
-          <IconChart aria-label='chart' />
+          <Chart data={chartData} />
         </section>
       </div>
       <IconFooter aria-hidden className={styles['mobile-footer-icon']} />
