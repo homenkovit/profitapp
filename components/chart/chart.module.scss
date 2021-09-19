@@ -1,0 +1,39 @@
+@import '../../resources/pallete.scss';
+
+$column-plan: $violet-1;
+$column-fact: $violet-2;
+$label: $gray-1;
+
+.chart {
+	height: 90px;
+}
+
+.chart-list {
+  display: inline-flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	width: 100%;
+	height: 100%;
+}
+
+.column-plan {
+	display: flex;
+	width: 5%;
+	background-color: $column-plan;
+	border-radius: 10px;
+}
+
+.column-fact {
+	align-self: flex-end;
+	width: 100%;
+	background-color: $column-fact;
+	border-radius: 10px;
+}
+
+.tooltip {
+	font-size: 12px;
+}
+
+.label {
+	color: $label;
+}
