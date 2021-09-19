@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
 import { Job } from '../../mocks';
 import styles from './job-item-form.module.css';
-
-const MONTHS = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+import { MONTHS } from '../../utils';
 
 interface JobItemFormProps {
   data: Job;
