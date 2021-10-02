@@ -1,4 +1,4 @@
-@import '../../resources/pallete.scss';
+@import '../../resources/styles/pallete.scss';
 
 $column-plan: $violet-1;
 $column-fact: $violet-2;
@@ -9,7 +9,7 @@ $label: $gray-1;
 }
 
 .chart-list {
-  display: inline-flex;
+	display: inline-flex;
 	justify-content: space-between;
 	align-items: flex-end;
 	width: 100%;

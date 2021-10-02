@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback, useMemo } from 'react';
 import { ChartItem } from '../../mocks';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
@@ -10,21 +10,25 @@ export interface ChartProps {
 }
 
 export const Chart: FC<ChartProps> = (props) => {
-	const planArray = props.data.map((item) => {
-		return item.plan;
-	});
+	const planArray: number[] = useMemo(() => {
+		return props.data.map((item: ChartItem) => item.plan);
+	}, [props.data]);
 
-	const maxPlan: number = Math.max.apply(null, planArray);
+	const maxPlan: number = useMemo(() => {
+		return Math.max.apply(null, planArray);
+	}, [planArray]);
 
 	const tooltipContent = (plan: number, fact: number, index: number) => (
 		<>
-			<div><span className={styles['month']}>{MONTHS[index]}</span></div>
+			<span className={styles['month']}>{MONTHS[index]}</span>
 			<div><span className={styles['label']}>План:</span> {plan.toLocaleString()} ₽</div>
 			<div><span className={styles['label']}>Факт:</span> {fact.toLocaleString()} ₽</div>
 		</>
 	);
 
-	const definePlanColumnHeight = (planValue: number): string => planValue !== 0 ? `${planValue*100/maxPlan}%` : '3%';
+	const definePlanColumnHeight = useCallback((planValue: number): string => {
+		return planValue !== 0 ? `${planValue*100/maxPlan}%` : '3%';
+	}, [props.data]);
 
 	return (
 		<div className={styles.chart}>
@@ -33,6 +37,7 @@ export const Chart: FC<ChartProps> = (props) => {
 					<Tippy
 						content={tooltipContent(month.plan, month.fact, index)}
 						className={styles.tooltip}
+						key={`${month.fact}-${index}`}
 					>
 						<li
 							className={styles['column-plan']}
@@ -41,7 +46,11 @@ export const Chart: FC<ChartProps> = (props) => {
 							<div
 								className={styles['column-fact']}
 								style={{height: `${month.fact*100/month.plan}%`}}
-							/>
+							>
+								<div className="visually-hidden">
+									{tooltipContent(month.plan, month.fact, index)}
+								</div>
+							</div>
 						</li>
 					</Tippy>
 				))}
