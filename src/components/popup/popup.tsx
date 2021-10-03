@@ -29,7 +29,7 @@ export const Popup: FC<PopupProps> = (props): null | ReactElement => {
           </div> 
         </div>
         <div className={styles.footer}>
-            {props.actionsList}
+          {props.actionsList}
         </div>
       </div>     
     </div>

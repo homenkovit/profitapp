@@ -1,3 +1,11 @@
+@import '../../resources/styles/pallete.scss';
+
+$color-dialog-box-shadow: $black-2;
+$color-overlay-bg: $black-3;
+$color-dialog-bg: $gray-3;
+$color-dialog-bg-mobile: $white-1;
+$color-cancel-button-bg-mobile: $gray-4;
+
 .overlay {
   display: flex;
   position: fixed;
@@ -9,15 +17,15 @@
   align-items: center;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.3);
+  background: $color-overlay-bg;
   z-index: 1000;
 }
 
 .popup-dialog {
   width: 310px;
   padding: 16px;
-  background: #FAFAFF;
-  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.25);
+  background: $color-dialog-bg;
+  box-shadow: 0px 10px 30px $color-dialog-box-shadow;
   border-radius: 10px;
 }
 
@@ -38,8 +46,44 @@
 .footer {
   display: flex;
   justify-content: flex-end;
+  button:not(:last-child) {
+    margin-right: 8px;
+  }
 }
 
-button:not(:last-child) {
-  margin-right: 8px;
+@media screen and (max-width: 480px) {
+  .popup-dialog {
+    width: 240px;
+    padding: 16px 0 0 0;
+    border-radius: 6px;
+    background-color: $color-dialog-bg-mobile;
+  }
+
+  .body {
+    padding: 0 16px;
+    margin-bottom: 26px;
+  }
+
+  .footer {
+    :global {
+      button {
+        &.btn {
+          height: 37px;
+          flex-grow: 1;
+          text-transform: uppercase;
+        }
+        &.btn-complete {
+          border-radius: 0 0 0 4px;
+        }
+        &.btn-default {
+          border-radius: 0 0 4px 0;
+          border: none;
+          background-color: $color-cancel-button-bg-mobile;
+        }
+        &:not(:last-child) {
+          margin-right: 0;
+        }
+      }
+    }
+  }
 }

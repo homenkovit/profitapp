@@ -1,9 +1,8 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { ReactComponent as IconLogo } from '../../assets/images/logo.svg';
 import { ReactComponent as IconInfo } from '../../assets/images/info.svg';
 import { ReactComponent as IconChart } from '../../assets/images/chart.svg';
 import { ReactComponent as IconFooter } from '../../assets/images/footer.svg';
-import { Popup, COMPLETE_ORDER_ICON, REMOVE_ORDER_ICON } from '../popup/popup';
 import { User } from '../../mocks';
 import styles from './header.module.css';
 
@@ -12,7 +11,6 @@ interface HeaderProps {
 }
 
 export const Header: FC<HeaderProps> = ({ user }) => {
-  const [isVisible, setIsVisible] = useState(true);
   const totalPermanentPrice = user.jobs.reduce((counter, job) => {
     if (job.isPermanent) {
       counter += job.price;
@@ -79,17 +77,6 @@ export const Header: FC<HeaderProps> = ({ user }) => {
           <IconChart aria-label='chart' />
         </section>
       </div>
-      <Popup
-        isVisible={isVisible}
-        icon={COMPLETE_ORDER_ICON}
-        message="Ну что же, судя по всему работа выполнена"
-        actionsList={
-          [
-            <button className="btn btn-complete">Готово</button>,
-            <button className="btn btn-default" onClick={() => setIsVisible(false)}>Погоди!</button>,
-          ]
-        }
-      />
       <IconFooter aria-hidden className={styles['mobile-footer-icon']} />
     </header>
   );
