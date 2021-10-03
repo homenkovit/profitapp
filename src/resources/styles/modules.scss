@@ -1,0 +1,32 @@
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  clip: rect(0 0 0 0)
+}
+
+.btn {
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-default {
+  background-color: #FFF;
+  border: 1px solid #ECECEC;
+}
+
+.btn-complete {
+  color: #FFF;
+  background-color: #F79256;
+}
+
+.btn-delete {
+  color: #FFF;
+  background-color: #E25656;
+}
