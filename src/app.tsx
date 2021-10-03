@@ -4,7 +4,7 @@ import { JobList } from './components/job-list/job-list';
 import { SortBar } from './components/sort-bar/sort-bar';
 import { ReactComponent as IconSettings } from './assets/images/settings.svg';
 import { ReactComponent as IconLogout } from './assets/images/logout.svg';
-import styles from './app.module.css';
+import styles from './app.module.scss';
 import './base.css';
 import './resources/styles/modules.scss';
 import { user } from './mocks';

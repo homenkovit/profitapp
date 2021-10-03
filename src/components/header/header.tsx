@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import { ReactComponent as IconLogo } from '../../assets/images/logo.svg';
 import { ReactComponent as IconInfo } from '../../assets/images/info.svg';
-import { ReactComponent as IconChart } from '../../assets/images/chart.svg';
 import { ReactComponent as IconFooter } from '../../assets/images/footer.svg';
-import { User } from '../../mocks';
-import styles from './header.module.css';
+import { chartData, User } from '../../mocks';
+import { Chart } from '../chart/chart';
+import styles from './header.module.scss';
 
 interface HeaderProps {
   user: User;
@@ -32,7 +32,7 @@ export const Header: FC<HeaderProps> = ({ user }) => {
         Привет, <span>{user.name}</span>. Хорошего тебе дня!
       </p>
       <button type='button' className={styles['add-new-job-button']}>
-        Новый клиент
+        Новый заказ
       </button>
       <div className={`${styles.statistics} ${styles['first-tab-selected']}`}>
         <ul className={styles.tabs}>
@@ -56,7 +56,7 @@ export const Header: FC<HeaderProps> = ({ user }) => {
         </ul>
         <section id='profit-section' className={styles['profit-section']}>
           <p className={styles['profit-in-month-text']}>
-            доход в текущем месяце <IconInfo />
+            доход в текущем месяце <IconInfo className={styles['info-icon']} />
           </p>
           <p className={styles['total-price']}>
             {totalPrice} <span className={styles.currency}>₽</span>
@@ -74,7 +74,7 @@ export const Header: FC<HeaderProps> = ({ user }) => {
           </div>
         </section>
         <section id='chart-section' className={styles['chart-section']}>
-          <IconChart aria-label='chart' />
+          <Chart data={chartData} />
         </section>
       </div>
       <IconFooter aria-hidden className={styles['mobile-footer-icon']} />

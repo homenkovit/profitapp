@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { JobItem } from '../job-item/job-item';
 import { Job } from '../../mocks';
-import styles from './job-list.module.css';
+import styles from './job-list.module.scss';
 
 interface JobListProps {
   jobs: Array<Job>;
