@@ -1,6 +1,16 @@
+@import '../../resources/styles/pallete.scss';
+
+$color-icon: $gray-2;
+
 .header {
   flex-shrink: 0;
   padding: 16px 16px 0;
+}
+
+.info-icon {
+  height: 12px;
+  width: 12px;
+  fill: $color-icon;
 }
 
 @media screen and (max-width: 480px) {

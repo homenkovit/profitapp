@@ -1,3 +1,15 @@
+@import '../../resources/styles/pallete.scss';
+
+$color-button-bg: $orange-1;
+$color-card-bg: $white-1;
+$color-card-border-single: $violet-3;
+$color-card-border-permanent: $blue-1;
+$color-action-icon-fill: $white-1;
+$color-text: $blue-1;
+$color-month-text: $white-1;
+$color-month-bg: $blue-1;
+$color-price: $blue-2;
+
 .card {
   position: relative;
   padding: 7px 24px 4px 9px;
@@ -5,23 +17,23 @@
   border-left-width: 8px;
   border-style: solid;
   border-radius: 6px;
-  background-color: #ffffff;
+  background-color: $color-card-bg;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.07);
 }
 
 .card.single {
-  border-color: #273469;
+  border-color: $color-card-border-permanent;
 }
 
 .card.permanent {
-  border-color: #e4d9ff;
+  border-color: $color-card-border-single;
 }
 
 .description {
   overflow: hidden;
   margin-bottom: 3px;
   font-size: 10px;
-  color: #273469;
+  color: $color-text;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
@@ -37,15 +49,15 @@
   vertical-align: top;
   font-size: 17px;
   font-weight: 700;
-  color: #1e2749;
+  color: $color-price;
 }
 
 .month {
   padding: 0 4px 1px 4px;
   border-radius: 7px;
-  background-color: #273469;
+  background-color: $color-month-bg;
   font-size: 10px;
-  color: #ffffff;
+  color: $color-month-text;
   text-transform: lowercase;
 }
 
@@ -55,8 +67,8 @@
   bottom: 0;
   display: inline-flex;
   border-radius: 6px 0px;
-  background-color: #00b2ca;
-  fill: #ffffff;
+  background-color: $color-button-bg;
+  fill: $color-action-icon-fill;
 }
 
 .actions button {
@@ -71,7 +83,7 @@
   .card {
     border-left-width: 12px;
     border-radius: 9px;
-    background-color: #fafaff;
+    background-color: $color-card-bg;
   }
   .description {
     font-size: 14px;
