@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Header } from './components/header/header';
 import { JobList } from './components/job-list/job-list';
 import { SortBar } from './components/sort-bar/sort-bar';
@@ -6,12 +6,28 @@ import { ReactComponent as IconSettings } from './assets/images/settings.svg';
 import { ReactComponent as IconLogout } from './assets/images/logout.svg';
 import styles from './app.module.css';
 import './base.css';
-import { user } from './mocks';
+import { Job, user } from './mocks';
+import { JobItemForm } from './components/job-item/job-item-form';
 
 const App = () => {
+  const [isNewJobFormVisible, setNewJobFormVisible] = useState(false);
+
+  const newJobStub: Job = {
+    id: Math.random().toString(),
+    description: '',
+    isPermanent: false,
+    price: 0,
+  };
+
+  const createNewJob = () => {
+    if (!isNewJobFormVisible) {
+      setNewJobFormVisible(true);
+    }
+  };
+
   return (
     <div className={styles.app}>
-      <Header user={user} />
+      <Header user={user} createNewJob={createNewJob} />
       <main>
         <div className={styles['top-bar']}>
           <SortBar />
@@ -22,7 +38,8 @@ const App = () => {
             <IconLogout aria-hidden />
           </a>
         </div>
-        <JobList jobs={user.jobs} />
+        {isNewJobFormVisible && <JobItemForm data={newJobStub} />}
+        <JobList />
       </main>
     </div>
   );

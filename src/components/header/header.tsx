@@ -8,9 +8,10 @@ import styles from './header.module.css';
 
 interface HeaderProps {
   user: User;
+  createNewJob: () => void;
 }
 
-export const Header: FC<HeaderProps> = ({ user }) => {
+export const Header: FC<HeaderProps> = ({ user, createNewJob }) => {
   const totalPermanentPrice = user.jobs.reduce((counter, job) => {
     if (job.isPermanent) {
       counter += job.price;
@@ -31,7 +32,7 @@ export const Header: FC<HeaderProps> = ({ user }) => {
       <p className={styles.greeting}>
         Привет, <span>{user.name}</span>. Хорошего тебе дня!
       </p>
-      <button type='button' className={styles['add-new-job-button']}>
+      <button type='button' className={styles['add-new-job-button']} onClick={createNewJob}>
         Новый клиент
       </button>
       <div className={`${styles.statistics} ${styles['first-tab-selected']}`}>
