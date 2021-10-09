@@ -3,7 +3,7 @@ import { useAuth } from '../../contexts/auth-context';
 import { Job } from '../../mocks';
 import { JobItem } from '../job-item/job-item';
 import { collection, getFirestore, onSnapshot, query, where } from 'firebase/firestore';
-import styles from './job-list.module.css';
+import styles from './job-list.module.scss';
 
 export const JobList: FC = () => {
   const { user } = useAuth();

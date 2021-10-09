@@ -1,3 +1,7 @@
+@import 'resources/styles/pallete.scss';
+
+$color-icon: $violet-2;
+
 .app {
   height: 100vh;
 }
@@ -5,12 +9,13 @@
 .top-bar {
   display: flex;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 21px;
 }
 
 .settings-button,
 .logout {
   display: flex;
+  fill: $color-icon;
 }
 
 .settings-button {

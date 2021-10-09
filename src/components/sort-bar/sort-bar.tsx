@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './sort-bar.module.css';
+import styles from './sort-bar.module.scss';
 
 export const SortBar = () => {
   return (
@@ -8,17 +8,17 @@ export const SortBar = () => {
       <ul className={styles.list}>
         <li>
           <button type='button' className={styles.active}>
-            цене проекта
+            по дате
           </button>
         </li>
         <li>
-          <button type='button'>постоянным</button>
+          <button type='button'>по цене</button>
         </li>
         <li>
-          <button type='button'>разовым</button>
+          <button type='button'>разовые</button>
         </li>
         <li>
-          <button type='button'>порядку</button>
+          <button type='button'>постоянные</button>
         </li>
       </ul>
     </>
