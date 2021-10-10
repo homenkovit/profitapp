@@ -2,10 +2,10 @@ import React, { FC, useState } from 'react';
 import { Job } from '../../mocks';
 import { JobItemForm } from './job-item-form';
 import { ReactComponent as IconPermanent } from '../../assets/images/permanent.svg';
-import { ReactComponent as IconComplete } from '../../assets/images/complete.svg';
-import { ReactComponent as IconEdit } from '../../assets/images/edit.svg';
-import { ReactComponent as IconDelete } from '../../assets/images/delete.svg';
-import styles from './job-item.module.css';
+import { ReactComponent as IconComplete } from '../../assets/images/complete-small.svg';
+import { ReactComponent as IconEdit } from '../../assets/images/edit-small.svg';
+import { ReactComponent as IconDelete } from '../../assets/images/delete-small.svg';
+import styles from './job-item.module.scss';
 
 interface JobItemProps {
   data: Job;
