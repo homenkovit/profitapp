@@ -38,7 +38,7 @@ const App = () => {
             <IconLogout aria-hidden />
           </a>
         </div>
-        {isNewJobFormVisible && <JobItemForm data={newJobStub} />}
+        {isNewJobFormVisible && <JobItemForm data={newJobStub} onClose={() => setNewJobFormVisible(false)} />}
         <JobList />
       </main>
     </div>

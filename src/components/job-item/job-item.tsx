@@ -12,10 +12,12 @@ interface JobItemProps {
 }
 
 export const JobItem: FC<JobItemProps> = ({ data }) => {
-  const [isForm, setIsForm] = useState(!data.description.length);
+  const [isForm, setIsForm] = useState(false);
+
   if (isForm) {
-    return <JobItemForm data={data} />;
+    return <JobItemForm data={data} onClose={() => setIsForm(false)} />;
   }
+
   return (
     <div className={`${styles.card} ${data.isPermanent ? styles.permanent : styles.single}`}>
       <p className={styles.description}>{data.description}</p>
