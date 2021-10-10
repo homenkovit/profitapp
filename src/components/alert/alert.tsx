@@ -18,7 +18,7 @@ export const Alert: FC<AlertProps> = (props): null | ReactElement => {
   }
 
   return (
-    <div className={[styles.alert, styles[`${AlertType.INFO}`]].join(' ')}>
+    <div className={`${styles.alert} ${styles[AlertType.INFO]}`}>
       <button
         className={styles['close-button']}
         onClick={props.onClose}
