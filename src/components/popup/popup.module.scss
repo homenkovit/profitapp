@@ -4,7 +4,6 @@ $color-dialog-box-shadow: $black-2;
 $color-overlay-bg: $black-3;
 $color-dialog-bg: $gray-3;
 $color-dialog-bg-mobile: $white-1;
-$color-cancel-button-bg-mobile: $gray-4;
 
 .overlay {
   display: flex;
@@ -18,36 +17,21 @@ $color-cancel-button-bg-mobile: $gray-4;
   width: 100vw;
   height: 100vh;
   background: $color-overlay-bg;
+  // TODO: z-index
   z-index: 1000;
 }
 
 .popup-dialog {
-  width: 310px;
-  padding: 16px;
-  background: $color-dialog-bg;
   box-shadow: 0px 10px 30px $color-dialog-box-shadow;
-  border-radius: 10px;
+  overflow: hidden;
 }
 
-.body {
-  display: flex;
-  margin-bottom: 32px;
-}
-
-.message {
-  font-size: 14px;
-  line-height: 18px;
-}
-
-.icon {
-  margin-right: 12px;
-}
-
-.footer {
-  display: flex;
-  justify-content: flex-end;
-  button:not(:last-child) {
-    margin-right: 8px;
+@media screen and (min-width: 481px) {
+  .popup-dialog {
+    width: 310px;
+    padding: 16px;
+    border-radius: 10px;
+    background: $color-dialog-bg;
   }
 }
 
@@ -57,33 +41,5 @@ $color-cancel-button-bg-mobile: $gray-4;
     padding: 16px 0 0 0;
     border-radius: 6px;
     background-color: $color-dialog-bg-mobile;
-  }
-
-  .body {
-    padding: 0 16px;
-    margin-bottom: 26px;
-  }
-
-  .footer {
-    :global {
-      button {
-        &.btn {
-          height: 37px;
-          flex-grow: 1;
-          text-transform: uppercase;
-        }
-        &.btn-complete {
-          border-radius: 0 0 0 4px;
-        }
-        &.btn-default {
-          border-radius: 0 0 4px 0;
-          border: none;
-          background-color: $color-cancel-button-bg-mobile;
-        }
-        &:not(:last-child) {
-          margin-right: 0;
-        }
-      }
-    }
   }
 }

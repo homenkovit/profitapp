@@ -1,3 +1,11 @@
+@import '../../resources/styles/pallete.scss';
+
+$color-btn-default-bg: $white-1;
+$color-btn-on-colored-bg-text: $white-1;
+$color-btn-complete-bg: $orange-1;
+$color-btn-delete-bg: $red-1;
+$color-btn-border: $gray-5;
+
 .btn {
   height: 30px;
   padding: 0 12px;
@@ -7,16 +15,16 @@
 }
 
 .btn-default {
-  background-color: #FFF;
-  border: 1px solid #ECECEC;
+  background-color: $color-btn-default-bg;
+  border: 1px solid $color-btn-border;
 }
 
 .btn-complete {
-  color: #FFF;
-  background-color: #F79256;
+  color: $color-btn-on-colored-bg-text;
+  background-color: $color-btn-complete-bg;
 }
 
 .btn-delete {
-  color: #FFF;
-  background-color: #E25656;
+  color: $color-btn-on-colored-bg-text;
+  background-color: $color-btn-delete-bg;
 }
