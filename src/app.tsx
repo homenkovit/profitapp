@@ -7,6 +7,7 @@ import { ReactComponent as IconLogout } from './assets/images/logout.svg';
 import styles from './app.module.scss';
 import './base.css';
 import { user } from './mocks';
+import { GreetingMessage } from './components/greeting-message/greeting-message';
 
 const App = () => {
   return (
@@ -22,6 +23,8 @@ const App = () => {
             <IconLogout aria-hidden />
           </a>
         </div>
+        { /* TODO: add visibility by auth */ }
+        <GreetingMessage isVisible />
         <JobList jobs={user.jobs} />
       </main>
     </div>
