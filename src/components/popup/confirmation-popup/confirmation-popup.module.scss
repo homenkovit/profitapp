@@ -1,4 +1,4 @@
-@import '../../../../resources/styles/pallete.scss';
+@import '../../../resources/styles/pallete.scss';
 
 $color-cancel-button-bg-mobile: $gray-4;
 
@@ -13,6 +13,7 @@ $color-cancel-button-bg-mobile: $gray-4;
 
 .icon {
   margin-right: 12px;
+  transform: translateY(-4px);
 }
 
 .footer {
