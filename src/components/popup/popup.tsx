@@ -6,7 +6,7 @@ export interface PopupProps {
   isVisible: boolean;
 };
 
-export const Popup: FC<PopupProps> = (props): null | ReactElement => {
+export const Popup: FC<PopupProps> = (props) => {
   if (!props.isVisible) {
     return null;
   }
