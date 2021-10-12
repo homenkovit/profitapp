@@ -1,0 +1,26 @@
+@import '../../resources/styles/pallete.scss';
+
+$color-alert-info-bg: $violet-1;
+$color-alert-info-text: $violet-4;
+$color-alert-info-close-btn: $violet-4;
+
+.alert {
+  position: relative;
+  margin-bottom: 20px;
+  padding: 16px 48px 16px 16px;
+  font-size: 14px;
+  line-height: 20px;
+  border-radius: 10px;
+}
+
+.info {
+  color: $color-alert-info-text;
+  background-color: $color-alert-info-bg;
+  fill: $color-alert-info-close-btn;
+}
+
+.close-button {
+  position: absolute;
+  top: 19px;
+  right: 16px;
+}
