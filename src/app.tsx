@@ -24,11 +24,11 @@ const App = () => (
         </a>
       </div>
       { /* TODO: add visibility by auth and onLogIn / onRegister methods */ }
-        <GreetingMessage
-          isVisible
-          onLogIn={() => {}}
-          onRegister={() => {}}
-        />
+      <GreetingMessage
+        isVisible
+        onLogIn={() => {}}
+        onRegister={() => {}}
+      />
       <JobList jobs={user.jobs} />
     </main>
   </div>
