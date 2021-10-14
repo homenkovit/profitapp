@@ -1,10 +1,30 @@
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  border: 0;
-  clip: rect(0 0 0 0)
+@import '../../resources/styles/pallete.scss';
+
+$color-btn-default-bg: $white-1;
+$color-btn-on-colored-bg-text: $white-1;
+$color-btn-complete-bg: $orange-1;
+$color-btn-delete-bg: $red-1;
+$color-btn-border: $gray-5;
+
+.btn {
+  height: 30px;
+  padding: 0 12px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-default {
+  background-color: $color-btn-default-bg;
+  border: 1px solid $color-btn-border;
+}
+
+.btn-complete {
+  color: $color-btn-on-colored-bg-text;
+  background-color: $color-btn-complete-bg;
+}
+
+.btn-delete {
+  color: $color-btn-on-colored-bg-text;
+  background-color: $color-btn-delete-bg;
 }

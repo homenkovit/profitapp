@@ -6,6 +6,7 @@ import { ReactComponent as IconSettings } from './assets/images/settings.svg';
 import { ReactComponent as IconLogout } from './assets/images/logout.svg';
 import styles from './app.module.scss';
 import './base.css';
+import './resources/styles/modules.scss';
 import { user } from './mocks';
 import { GreetingMessage } from './components/greeting-message/greeting-message';
 

@@ -1,0 +1,60 @@
+@import '../../../resources/styles/pallete.scss';
+
+$color-cancel-button-bg-mobile: $gray-4;
+
+.body {
+  display: flex;
+}
+
+.message {
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.icon {
+  margin-right: 12px;
+  transform: translateY(-4px);
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media screen and (min-width: 481px) {
+  .body {
+    margin-bottom: 36px;
+  }
+
+  .footer {
+    :global {
+      button:not(:last-child) {
+        margin-right: 8px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .body {
+    padding: 0 16px;
+    margin-bottom: 26px;
+  }
+
+  .footer {
+    :global {
+      button {
+        &.btn {
+          height: 37px;
+          flex-grow: 1;
+          border-radius: 0;
+          text-transform: uppercase;
+        }
+        &.btn-default {
+          border: none;
+          background-color: $color-cancel-button-bg-mobile;
+        }
+      }
+    }
+  }
+}
