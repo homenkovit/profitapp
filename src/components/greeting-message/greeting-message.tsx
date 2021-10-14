@@ -4,9 +4,11 @@ import styles from '../greeting-message/greeting-message.module.scss';
 
 export interface GreetingMessageProps {
   isVisible: boolean;
+  onLogIn: () => void;
+  onRegister: () => void;
 }
 
-export const GreetingMessage: FC<GreetingMessageProps> = (props): null | ReactElement => {
+export const GreetingMessage: FC<GreetingMessageProps> = (props) => {
   const [isExpand, setIsExpand] = useState<boolean>(true);
 
   if (!props.isVisible) {
@@ -26,10 +28,10 @@ export const GreetingMessage: FC<GreetingMessageProps> = (props): null | ReactEl
         <div className={styles.description}>
           <p className={styles['description-text']}>Добро пожаловать, коллега! Если ты находишься в данном режиме - значит либо разлогинился, либо еще не до конца представляешь, чем может помочь тебе данное приложение. Ничего сверхествественного мы не написали. Это просто удобный сервис, помогающей тебе держать в одном месте информацию о своих клиентах с возможностью оценивать свой ежемесячный доход. Некий ToDo лист для фрилансера.</p>
           <div className={styles['auth-buttons']}>
-            <button>
+            <button className="btn btn-primary" onClick={props.onLogIn}>
               Войти
             </button>
-            <button>
+            <button className="btn btn-default" onClick={props.onRegister}>
               Зарегистрироваться
             </button>
           </div>

@@ -23,8 +23,12 @@ const App = () => (
           <IconLogout aria-hidden />
         </a>
       </div>
-      { /* TODO: add visibility by auth */ }
-        <GreetingMessage isVisible />
+      { /* TODO: add visibility by auth and onLogIn / onRegister methods */ }
+        <GreetingMessage
+          isVisible
+          onLogIn={() => {}}
+          onRegister={() => {}}
+        />
       <JobList jobs={user.jobs} />
     </main>
   </div>

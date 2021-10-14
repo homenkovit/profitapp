@@ -46,5 +46,9 @@ $color-alert-info-close-btn: $violet-4;
 }
 
 .auth-buttons {
-  
+  display: flex;
+  justify-content: flex-end;
+  :global(.btn):not(:last-child) {
+    margin-right: 8px;
+  }
 }
