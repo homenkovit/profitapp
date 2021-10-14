@@ -1,0 +1,45 @@
+@import '../../resources/styles/pallete.scss';
+
+$color-dialog-box-shadow: $black-2;
+$color-overlay-bg: $black-3;
+$color-dialog-bg: $gray-3;
+$color-dialog-bg-mobile: $white-1;
+
+.overlay {
+  display: flex;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background: $color-overlay-bg;
+  // TODO: z-index
+  z-index: 1000;
+}
+
+.popup-dialog {
+  box-shadow: 0px 10px 30px $color-dialog-box-shadow;
+  overflow: hidden;
+}
+
+@media screen and (min-width: 481px) {
+  .popup-dialog {
+    width: 310px;
+    padding: 16px;
+    border-radius: 10px;
+    background: $color-dialog-bg;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .popup-dialog {
+    width: 240px;
+    padding: 16px 0 0 0;
+    border-radius: 6px;
+    background-color: $color-dialog-bg-mobile;
+  }
+}
