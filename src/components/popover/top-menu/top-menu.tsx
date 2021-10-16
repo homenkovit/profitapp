@@ -44,4 +44,4 @@ export const TopMenu: FC<TopMenuProps> = (props) => {
       </button>
   </Popover>
   );
-}
+};

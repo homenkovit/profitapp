@@ -32,4 +32,3 @@ export const TopMenuContent: FC<TopMenuContentProps> = (props) => {
     </ul>
   );
 }
-
