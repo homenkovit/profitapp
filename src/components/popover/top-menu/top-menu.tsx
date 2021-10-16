@@ -38,8 +38,9 @@ export const TopMenu: FC<TopMenuProps> = (props) => {
       }
     >
       <button
-        type='button'
-        aria-label='settings'
+        type="button"
+        aria-label="open settings menu"
+        aria-haspopup="true"
         className={`${styles['settings-button']} ${props.className ?? ''}`}
       >
         <IconSettings aria-hidden />
