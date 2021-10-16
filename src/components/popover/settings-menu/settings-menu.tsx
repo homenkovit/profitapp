@@ -45,6 +45,6 @@ export const SettingsMenu: FC<SettingsMenuProps> = (props) => {
       >
         <IconSettings aria-hidden />
       </button>
-  </Popover>
+    </Popover>
   );
 };
