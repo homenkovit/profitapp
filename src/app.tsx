@@ -8,6 +8,7 @@ import styles from './app.module.scss';
 import './base.css';
 import './resources/styles/modules.scss';
 import { user } from './mocks';
+import { GreetingMessage } from './components/greeting-message/greeting-message';
 
 const App = () => (
   <div className={styles.app}>
@@ -22,6 +23,12 @@ const App = () => (
           <IconLogout aria-hidden />
         </a>
       </div>
+      { /* TODO: add visibility by auth and onLogIn / onRegister methods */ }
+      <GreetingMessage
+        isVisible
+        onLogIn={() => {}}
+        onRegister={() => {}}
+      />
       <JobList jobs={user.jobs} />
     </main>
   </div>

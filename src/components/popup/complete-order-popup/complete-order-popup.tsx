@@ -14,7 +14,7 @@ export const CompleteOrderPopup: FC<CompleteOrderPopupProps> = (props) => {
       emoji="🎉"
       message="Ну что же, судя по всему работа выполнена!"
       actionsList={[
-        <button className="btn btn-complete" onClick={props.onComplete} key="complete">Готово</button>,
+        <button className="btn btn-primary" onClick={props.onComplete} key="complete">Готово</button>,
         <button className="btn btn-default" onClick={props.onCancel} key="cancel">Погоди!</button>
       ]}
     />

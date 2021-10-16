@@ -14,7 +14,7 @@ export const DeleteOrderPopup: FC<DeleteOrderPopupProps> = (props) => {
       emoji="😧"
       message="Вы уверены, что хотите удалить заказ?"
       actionsList={[
-        <button className="btn btn-delete" onClick={props.onDelete} key="delete">Удалить</button>,
+        <button className="btn btn-danger" onClick={props.onDelete} key="delete">Удалить</button>,
         <button className="btn btn-default" onClick={props.onCancel} key="cancel">Ой, стоп!</button>
       ]}
     />

@@ -1,0 +1,54 @@
+@import '../../resources/styles/pallete.scss';
+
+$color-alert-info-bg: $violet-1;
+$color-alert-info-text: $violet-4;
+$color-alert-info-close-btn: $violet-4;
+
+.greeting {
+  position: relative;
+  margin-bottom: 20px;
+  padding: 16px;
+  color: $color-alert-info-text;
+  background-color: $color-alert-info-bg;
+  fill: $color-alert-info-close-btn;
+  font-size: 14px;
+  line-height: 20px;
+  border-radius: 10px;
+}
+
+.expand-button {
+  position: absolute;
+  top: 19px;
+  right: 13px;
+  padding: 0 3px;
+}
+
+.header-text {
+  font-size: 16px;
+  margin: 0;
+  font-weight: 500;
+}
+
+.expand-icon {
+  transition: transform 150ms ease-in;
+}
+
+.expanded {
+  transform: rotate(180deg);
+}
+
+.description {
+  margin-top: 10px;
+}
+
+.description-text {
+  margin-bottom: 10px;
+}
+
+.auth-buttons {
+  display: flex;
+  justify-content: flex-end;
+  :global(.btn):not(:last-child) {
+    margin-right: 8px;
+  }
+}

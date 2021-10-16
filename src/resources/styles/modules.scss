@@ -2,8 +2,8 @@
 
 $color-btn-default-bg: $white-1;
 $color-btn-on-colored-bg-text: $white-1;
-$color-btn-complete-bg: $orange-1;
-$color-btn-delete-bg: $red-1;
+$color-btn-primary-bg: $orange-1;
+$color-btn-danger-bg: $red-1;
 $color-btn-border: $gray-5;
 
 .btn {
@@ -19,12 +19,12 @@ $color-btn-border: $gray-5;
   border: 1px solid $color-btn-border;
 }
 
-.btn-complete {
+.btn-primary {
   color: $color-btn-on-colored-bg-text;
-  background-color: $color-btn-complete-bg;
+  background-color: $color-btn-primary-bg;
 }
 
-.btn-delete {
+.btn-danger {
   color: $color-btn-on-colored-bg-text;
-  background-color: $color-btn-delete-bg;
+  background-color: $color-btn-danger-bg;
 }
