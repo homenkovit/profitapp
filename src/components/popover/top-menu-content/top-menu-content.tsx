@@ -15,6 +15,7 @@ export const TopMenuContent: FC<TopMenuContentProps> = (props) => {
         <button
           className={styles['menu-item-button']}
           onClick={props.onHistoryClick}
+          aria-label="open screen with orders history"
         >
           <IconClock className={styles.icon} />
           История заказов
@@ -24,6 +25,7 @@ export const TopMenuContent: FC<TopMenuContentProps> = (props) => {
         <button
           className={styles['menu-item-button']}
           onClick={props.onDarkModeClick}
+          aria-label="switch color theme mode"
         >
           <IconMoon className={styles.icon} />
           Темная тема
