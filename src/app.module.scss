@@ -12,15 +12,13 @@ $color-icon: $violet-2;
   margin-bottom: 21px;
 }
 
-.settings-button,
+.top-menu {
+  margin-right: 14px;
+}
+
 .logout {
   display: flex;
   fill: $color-icon;
-}
-
-.settings-button {
-  margin-left: auto;
-  margin-right: 14px;
 }
 
 @media screen and (max-width: 480px) {
@@ -28,7 +26,6 @@ $color-icon: $violet-2;
     background-color: #fafaff;
   }
 
-  .settings-button,
   .logout {
     display: none;
   }

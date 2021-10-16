@@ -9,6 +9,7 @@ import './base.css';
 import './resources/styles/modules.scss';
 import { user } from './mocks';
 import { GreetingMessage } from './components/greeting-message/greeting-message';
+import { TopMenu } from './components/popover/top-menu/top-menu';
 
 const App = () => (
   <div className={styles.app}>
@@ -16,9 +17,12 @@ const App = () => (
     <main>
       <div className={styles['top-bar']}>
         <SortBar />
-        <button type='button' aria-label='settings' className={styles['settings-button']}>
-          <IconSettings aria-hidden />
-        </button>
+        { /* TODO: add onHistoryClick / onDarkModeClick methods */ }
+        <TopMenu
+          className={styles['top-menu']}
+          onHistoryClick={() => {}}
+          onDarkModeClick={() => {}}
+        />
         <a href='#' aria-label='logout' className={styles.logout}>
           <IconLogout aria-hidden />
         </a>

@@ -1,0 +1,53 @@
+@import '../../resources/styles/pallete.scss';
+
+$color-popover-bg: $white-1;
+$color-border: $gray-5;
+$color-popover-box-shadow: $black-4;
+
+.popover {
+  position: relative;
+  background-color: $color-popover-bg;
+  border-radius: 7px;
+  border: 1px solid $color-border;
+  box-shadow: 0px 12px 30px $color-popover-box-shadow;
+  .arrow::before {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background-color: $color-popover-bg;
+    border-top: 1px solid;
+    border-left: 1px solid;
+    border-color: $color-border;
+    border-top-left-radius: 3px;
+  }
+  &[data-placement^="bottom"] .arrow {
+    top: -8px;
+    &::before {
+      transform: translateX(-7px) rotate(45deg);
+    }
+  }
+  &[data-placement^="top"] .arrow {
+    bottom: 7px;
+    &::before {
+      transform: translateX(-7px) rotate(-135deg);
+    }
+  }
+  &[data-placement^="right"] .arrow {
+    left: -8px;
+    &::before {
+      transform: translateY(-7px) rotate(-45deg); 
+    }
+  }
+  &[data-placement^="left"] .arrow {
+    right: 7px;
+    &::before {
+      transform: translateY(-7px) rotate(135deg);
+    }
+  }
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+}
