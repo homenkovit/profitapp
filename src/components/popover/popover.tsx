@@ -64,7 +64,7 @@ export const Popover: FC<PopoverProps> = (props) => {
                 tabIndex={-1}
                 className={styles.content}
               >
-                { props.content }
+                {props.content}
               </div>
               <div data-popper-arrow="" className={styles.arrow}></div>
             </div>
@@ -72,7 +72,7 @@ export const Popover: FC<PopoverProps> = (props) => {
         } return <div />;
       }}
     >
-      { props.children }
+      {props.children}
     </Tippy>
   )
 };
