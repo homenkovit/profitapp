@@ -8,17 +8,13 @@ $color-popover-box-shadow: $black-4;
   position: relative;
   background-color: $color-popover-bg;
   border-radius: 7px;
-  border: 1px solid $color-border;
-  box-shadow: 0px 12px 30px $color-popover-box-shadow;
+  box-shadow: 0px 8px 30px $color-popover-box-shadow;
   .arrow::before {
     content: '';
     position: absolute;
     width: 14px;
     height: 14px;
     background-color: $color-popover-bg;
-    border-top: 1px solid;
-    border-left: 1px solid;
-    border-color: $color-border;
     border-top-left-radius: 3px;
   }
   &[data-placement^="bottom"] .arrow {
