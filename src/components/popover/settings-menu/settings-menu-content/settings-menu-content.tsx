@@ -11,7 +11,7 @@ export interface SettingsMenuContentProps {
 export const SettingsMenuContent: FC<SettingsMenuContentProps> = (props) => {
   return (
     <ul role="menu" className={styles['menu-list']}>
-      <li role="menuitem" key="history" className={styles['menu-item']}>
+      <li role="menuitem" className={styles['menu-item']}>
         <button
           className={styles['menu-item-button']}
           onClick={props.onHistoryClick}
@@ -21,7 +21,7 @@ export const SettingsMenuContent: FC<SettingsMenuContentProps> = (props) => {
           История заказов
         </button>
       </li>
-      <li role="menuitem" key="dark-mode" className={styles['menu-item']}>
+      <li role="menuitem" className={styles['menu-item']}>
         <button
           className={styles['menu-item-button']}
           onClick={props.onDarkModeClick}
