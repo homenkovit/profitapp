@@ -1,40 +1,49 @@
 import React, { FC, FormEvent, useState } from 'react';
-import { Order } from '../../mocks';
-import styles from './order-item-form.module.css';
 import { MONTHS } from '../../utils';
-import { getFirestore, query, collection, where, addDoc } from '@firebase/firestore';
 import { useAuth } from '../../contexts/auth-context';
+import { useOrder, Order, StoreOrder } from '../../contexts/order-context';
+import styles from './order-item-form.module.css';
 
 interface OrderItemFormProps {
-  data: Order;
+  data?: Order;
   onClose: () => void;
 }
 
 export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose }) => {
   const { user } = useAuth();
-  const [description, setDescription] = useState<string>(data.description);
-  const [isPermanent, setIsPermanent] = useState<boolean>(data.isPermanent);
-  const [month, setMonth] = useState<string | undefined>(data.month ?? MONTHS[0]);
-  const [price, setPrice] = useState<number>(data.price);
+  const { addOrder, editOrder } = useOrder();
+  const [description, setDescription] = useState<string>(data?.description ?? '');
+  const [isPermanent, setIsPermanent] = useState<boolean>(data?.isPermanent ?? false);
+  const [month, setMonth] = useState<string>(data?.month ?? MONTHS[0]);
+  const [price, setPrice] = useState<number>(data?.price ?? 0);
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (user) {
-      const { uid } = user;
-      const db = getFirestore();
+      const newOrder: Partial<StoreOrder> = {
+        description,
+        isPermanent,
+        price,
+      };
 
-      addDoc(
-        collection(db, 'orders'),
-        {
-          description,
-          isPermanent,
-          month,
-          price,
-          uid,
-        },
-      ).then(() => onClose())
-      .catch((reason) => console.error(`Can't add new order: ${reason}`));
+      if (!isPermanent) {
+        newOrder.month = month;
+      }
+
+      if (data) {
+        editOrder(data.id, newOrder)
+          .then(() => onClose())
+          .catch((reason) => console.error(`Can't edit order for a reason: ${reason}`));
+      } else {
+        const { uid } = user;
+        newOrder.uid = uid;
+        newOrder.isCompleted = false;
+
+        addOrder(newOrder as StoreOrder)
+          .then(() => onClose())
+          .catch((reason) => console.error(`Can't add new order for a reason: ${reason}`));
+      }
     }
   };
 
@@ -75,7 +84,7 @@ export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose }) => {
         />
         <label htmlFor='single'>разовый</label>
       </fieldset>
-      {!data.isPermanent && (
+      {!isPermanent && (
         <fieldset className={`${styles.fieldset} ${styles.month}`}>
           <label className={styles.label} htmlFor='month'>
             Месяц оплаты
@@ -104,7 +113,7 @@ export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose }) => {
       </fieldset>
       <div className={styles.buttons}>
         <button className={styles.submit} type='submit'>
-          Добавить
+          {data ? 'Изменить' : 'Добавить'}
         </button>
         <button className={styles.reset} type='reset' onClick={() => onClose()}>
           Отменить

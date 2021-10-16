@@ -7,9 +7,14 @@ $color-icon: $violet-2;
 }
 
 .top-bar {
+  z-index: 999;
+  position: sticky;
+  top: 0;
   display: flex;
   align-items: center;
-  margin-bottom: 21px;
+  padding: 16px 0;
+  margin-bottom: 4px;
+  background-image: linear-gradient(to bottom, white, 95%, rgba(255, 255, 255, 0.5));
 }
 
 .settings-button,

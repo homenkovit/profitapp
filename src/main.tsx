@@ -4,6 +4,7 @@ import App from './app';
 
 import { initializeApp } from 'firebase/app';
 import { AuthProvider } from './contexts/auth-context';
+import { OrderProvider } from './contexts/order-context';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCr6hkPOB_QlXsuaed8ENXFwFBjpHEBvOE',
@@ -20,7 +21,9 @@ initializeApp(firebaseConfig);
 ReactDOM.render(
   <React.StrictMode>
     <AuthProvider>
-      <App />
+      <OrderProvider>
+        <App />
+      </OrderProvider>
     </AuthProvider>
   </React.StrictMode>,
   document.getElementById('root')
