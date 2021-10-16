@@ -1,14 +1,14 @@
 import React, { FC } from 'react';
-import { ReactComponent as IconClock } from '../../../assets/images/clock.svg';
-import { ReactComponent as IconMoon } from '../../../assets/images/moon.svg';
-import styles from './top-menu-content.module.scss';
+import { ReactComponent as IconClock } from '../../../../assets/images/clock.svg';
+import { ReactComponent as IconMoon } from '../../../../assets/images/moon.svg';
+import styles from './settings-menu-content.module.scss';
 
-export interface TopMenuContentProps {
+export interface SettingsMenuContentProps {
   onHistoryClick: () => void;
   onDarkModeClick: () => void;
 };
 
-export const TopMenuContent: FC<TopMenuContentProps> = (props) => {
+export const SettingsMenuContent: FC<SettingsMenuContentProps> = (props) => {
   return (
     <ul role="menu" className={styles['menu-list']}>
       <li role="menuitem" key="history" className={styles['menu-item']}>

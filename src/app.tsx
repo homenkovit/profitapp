@@ -9,7 +9,7 @@ import './base.css';
 import './resources/styles/modules.scss';
 import { user } from './mocks';
 import { GreetingMessage } from './components/greeting-message/greeting-message';
-import { TopMenu } from './components/popover/top-menu/top-menu';
+import { SettingsMenu } from './components/popover/settings-menu/settings-menu';
 
 const App = () => (
   <div className={styles.app}>
@@ -18,7 +18,7 @@ const App = () => (
       <div className={styles['top-bar']}>
         <SortBar />
         { /* TODO: add onHistoryClick / onDarkModeClick methods */ }
-        <TopMenu
+        <SettingsMenu
           className={styles['top-menu']}
           onHistoryClick={() => {}}
           onDarkModeClick={() => {}}

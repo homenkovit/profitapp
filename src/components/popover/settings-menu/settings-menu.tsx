@@ -1,17 +1,17 @@
 import React, { FC, useRef } from 'react';
 import { Popover } from '../popover';
 import { Instance } from 'tippy.js';
-import { TopMenuContent } from '../top-menu-content/top-menu-content';
+import { SettingsMenuContent } from './settings-menu-content/settings-menu-content';
 import { ReactComponent as IconSettings } from '../../../assets/images/settings.svg';
-import styles from './top-menu.module.scss';
+import styles from './settings-menu.module.scss';
 
-export interface TopMenuProps {
+export interface SettingsMenuProps {
   className?: string;
   onHistoryClick: () => void;
   onDarkModeClick: () => void;
 };
 
-export const TopMenu: FC<TopMenuProps> = (props) => {
+export const SettingsMenu: FC<SettingsMenuProps> = (props) => {
   const popoverRef = useRef<Instance>();
 
   const onHistoryButtonClick = (): void => {
@@ -31,7 +31,7 @@ export const TopMenu: FC<TopMenuProps> = (props) => {
         popoverRef.current = instance;
       }}
       content={
-        <TopMenuContent
+        <SettingsMenuContent
           onHistoryClick={onHistoryButtonClick}
           onDarkModeClick={onDarkModeButtonClick}
         />
