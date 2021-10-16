@@ -19,7 +19,7 @@ const App = () => (
         <SortBar />
         { /* TODO: add onHistoryClick / onDarkModeClick methods */ }
         <SettingsMenu
-          className={styles['top-menu']}
+          className={styles['settings-menu']}
           onHistoryClick={() => {}}
           onDarkModeClick={() => {}}
         />
