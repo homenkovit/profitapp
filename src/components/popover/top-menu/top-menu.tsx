@@ -1,5 +1,6 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useRef } from 'react';
 import { Popover } from '../popover';
+import { Instance } from 'tippy.js';
 import { TopMenuContent } from '../top-menu-content/top-menu-content';
 import { ReactComponent as IconSettings } from '../../../assets/images/settings.svg';
 import styles from './top-menu.module.scss';
@@ -11,23 +12,24 @@ export interface TopMenuProps {
 };
 
 export const TopMenu: FC<TopMenuProps> = (props) => {
-  const [isPopoverHidden, setPopoverHidden] = useState(false);
+  const popoverRef = useRef<Instance>();
 
   const onHistoryButtonClick = (): void => {
     props.onHistoryClick();
-    setPopoverHidden(true);
+    popoverRef.current?.hide();
   };
 
   const onDarkModeButtonClick = (): void => {
     props.onDarkModeClick();
-    setPopoverHidden(true);
+    popoverRef.current?.hide();
   };
 
   return (
     <Popover
       role="menu"
-      hideOnElementClick={isPopoverHidden}
-      onHide={() => setPopoverHidden(false)}
+      onMount={(instance): void => {
+        popoverRef.current = instance;
+      }}
       content={
         <TopMenuContent
           onHistoryClick={onHistoryButtonClick}
