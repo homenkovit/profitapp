@@ -1,4 +1,4 @@
-interface Job {
+interface Order {
   id: string;
   description: string;
   price: number;
@@ -8,7 +8,7 @@ interface Job {
 
 interface User {
   name: string;
-  jobs: Array<Job>;
+  orders: Array<Order>;
 }
 
 interface ChartItem {
@@ -18,7 +18,7 @@ interface ChartItem {
 
 const user: User = {
   name: 'Sergey',
-  jobs: [
+  orders: [
     // {
     //   id: '1',
     //   description: '',
@@ -28,14 +28,14 @@ const user: User = {
     // },
     {
       id: '2',
-      description: 'some loooooooooooooooooooooooooongloooooooooooooooooooooooooongloooooooooooooooooooooooooong job description',
+      description: 'some loooooooooooooooooooooooooongloooooooooooooooooooooooooongloooooooooooooooooooooooooong order description',
       price: 10500,
       isPermanent: true,
       month: undefined
     },
     {
       id: '3',
-      description: 'some other job description',
+      description: 'some other order description',
       price: 18000,
       isPermanent: false,
       month: 'Апрель'
@@ -59,4 +59,4 @@ const chartData = [
 ];
 
 export { user, chartData };
-export type { User, Job, ChartItem };
+export type { User, Order, ChartItem };

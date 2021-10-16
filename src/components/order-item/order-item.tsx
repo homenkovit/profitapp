@@ -1,21 +1,21 @@
 import React, { FC, useState } from 'react';
-import { Job } from '../../mocks';
-import { JobItemForm } from './job-item-form';
+import { Order } from '../../mocks';
+import { OrderItemForm } from './order-item-form';
 import { ReactComponent as IconPermanent } from '../../assets/images/permanent.svg';
 import { ReactComponent as IconComplete } from '../../assets/images/complete-small.svg';
 import { ReactComponent as IconEdit } from '../../assets/images/edit-small.svg';
 import { ReactComponent as IconDelete } from '../../assets/images/delete-small.svg';
-import styles from './job-item.module.scss';
+import styles from './order-item.module.scss';
 
-interface JobItemProps {
-  data: Job;
+interface OrderItemProps {
+  data: Order;
 }
 
-export const JobItem: FC<JobItemProps> = ({ data }) => {
+export const OrderItem: FC<OrderItemProps> = ({ data }) => {
   const [isForm, setIsForm] = useState(false);
 
   if (isForm) {
-    return <JobItemForm data={data} onClose={() => setIsForm(false)} />;
+    return <OrderItemForm data={data} onClose={() => setIsForm(false)} />;
   }
 
   return (

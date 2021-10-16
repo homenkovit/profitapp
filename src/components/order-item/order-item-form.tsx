@@ -1,16 +1,16 @@
 import React, { FC, FormEvent, useState } from 'react';
-import { Job } from '../../mocks';
-import styles from './job-item-form.module.css';
+import { Order } from '../../mocks';
+import styles from './order-item-form.module.css';
 import { MONTHS } from '../../utils';
 import { getFirestore, query, collection, where, addDoc } from '@firebase/firestore';
 import { useAuth } from '../../contexts/auth-context';
 
-interface JobItemFormProps {
-  data: Job;
+interface OrderItemFormProps {
+  data: Order;
   onClose: () => void;
 }
 
-export const JobItemForm: FC<JobItemFormProps> = ({ data, onClose }) => {
+export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose }) => {
   const { user } = useAuth();
   const [description, setDescription] = useState<string>(data.description);
   const [isPermanent, setIsPermanent] = useState<boolean>(data.isPermanent);
@@ -25,7 +25,7 @@ export const JobItemForm: FC<JobItemFormProps> = ({ data, onClose }) => {
       const db = getFirestore();
 
       addDoc(
-        collection(db, 'jobs'),
+        collection(db, 'orders'),
         {
           description,
           isPermanent,
@@ -34,7 +34,7 @@ export const JobItemForm: FC<JobItemFormProps> = ({ data, onClose }) => {
           uid,
         },
       ).then(() => onClose())
-      .catch((reason) => console.error(`Can't add new job: ${reason}`));
+      .catch((reason) => console.error(`Can't add new order: ${reason}`));
     }
   };
 
@@ -95,7 +95,7 @@ export const JobItemForm: FC<JobItemFormProps> = ({ data, onClose }) => {
         </label>
         <input
           className={styles.field}
-          type='text'
+          type='number'
           id='price'
           name='price'
           value={price}

@@ -118,7 +118,7 @@ $color-icon: $gray-2;
     display: none;
   }
 
-  .add-new-job-button {
+  .add-new-order-button {
     position: fixed;
     bottom: 14px;
     left: 50%;
@@ -131,8 +131,8 @@ $color-icon: $gray-2;
     font-size: 0;
   }
 
-  .add-new-job-button::before,
-  .add-new-job-button::after {
+  .add-new-order-button::before,
+  .add-new-order-button::after {
     content: '';
     position: absolute;
     top: 50%;
@@ -142,12 +142,12 @@ $color-icon: $gray-2;
     background-color: #fff;
   }
 
-  .add-new-job-button::before {
+  .add-new-order-button::before {
     width: 2px;
     height: 16px;
   }
 
-  .add-new-job-button::after {
+  .add-new-order-button::after {
     width: 16px;
     height: 2px;
   }
@@ -206,7 +206,7 @@ $color-icon: $gray-2;
     color: #000000;
   }
 
-  .add-new-job-button {
+  .add-new-order-button {
     width: 130px;
     height: 30px;
     padding: 0;
@@ -297,7 +297,7 @@ $color-icon: $gray-2;
     flex-wrap: wrap;
   }
 
-  .add-new-job-button {
+  .add-new-order-button {
     margin-bottom: 0;
   }
 
