@@ -4,10 +4,12 @@ import { JobList } from './components/job-list/job-list';
 import { SortBar } from './components/sort-bar/sort-bar';
 import { ReactComponent as IconSettings } from './assets/images/settings.svg';
 import { ReactComponent as IconLogout } from './assets/images/logout.svg';
-import styles from './app.module.scss';
-import './base.css';
 import { Job, user } from './mocks';
 import { JobItemForm } from './components/job-item/job-item-form';
+import { GreetingMessage } from './components/greeting-message/greeting-message';
+import './base.css';
+import './resources/styles/modules.scss';
+import styles from './app.module.scss';
 
 const App = () => {
   const [isNewJobFormVisible, setNewJobFormVisible] = useState(false);
@@ -38,6 +40,12 @@ const App = () => {
             <IconLogout aria-hidden />
           </a>
         </div>
+        { /* TODO: add visibility by auth and onLogIn / onRegister methods */ }
+        <GreetingMessage
+          isVisible
+          onLogIn={() => {}}
+          onRegister={() => {}}
+        />
         {isNewJobFormVisible && <JobItemForm data={newJobStub} onClose={() => setNewJobFormVisible(false)} />}
         <JobList />
       </main>
