@@ -42,6 +42,7 @@ export const Popover: FC<PopoverProps> = (props) => {
   };
 
   const onPopoverMount = (instance: Instance): void => {
+    // @ts-ignore
     popoverRef.current = instance;
     if (props.onMount) {
       props.onMount(instance);
