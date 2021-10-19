@@ -70,7 +70,7 @@ export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose }) => {
           name='type'
           value='permanent'
           checked={isPermanent}
-          onChange={(e) => setIsPermanent(e.target.checked)}
+          onChange={(e) => setIsPermanent(!isPermanent)}
         />
         <label htmlFor='permanent'>постоянный</label>
         <input
@@ -80,7 +80,7 @@ export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose }) => {
           name='type'
           value='single'
           checked={!isPermanent}
-          onChange={(e) => setIsPermanent(e.target.checked)}
+          onChange={(e) => setIsPermanent(!isPermanent)}
         />
         <label htmlFor='single'>разовый</label>
       </fieldset>

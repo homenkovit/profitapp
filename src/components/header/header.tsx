@@ -32,11 +32,10 @@ export const Header: FC<HeaderProps> = ({ createNewOrder }) => {
     <header className={styles.header}>
       <h1 className='visually-hidden'>ProfitApp</h1>
       <IconLogo className={styles.logo} aria-label='Profit App logo' />
-      {user && !user.isAnonymous && <p className={styles.greeting}>
-        Привет, <span>{user.displayName}</span>. Хорошего тебе дня!
-      </p>}
-      {user && user.isAnonymous && <p className={styles.greeting}>
-        Режим анонимного пользователя
+      {user && <p className={styles.greeting}>
+        {user.isAnonymous
+          ? 'Режим анонимного пользователя'
+          : <>Привет, <span>{user.displayName}</span>. Хорошего тебе дня!</>}
       </p>}
       <button type='button' className={styles['add-new-order-button']} onClick={createNewOrder}>
         Новый заказ
