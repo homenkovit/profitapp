@@ -7,21 +7,19 @@ import styles from './settings-menu.module.scss';
 
 export interface SettingsMenuProps {
   className?: string;
-  onHistoryClick: () => void;
-  onDarkModeClick: () => void;
 };
 
 export const SettingsMenu: FC<SettingsMenuProps> = (props) => {
   const popoverRef = useRef<Instance>();
 
   const onHistoryButtonClick = (): void => {
-    props.onHistoryClick();
     popoverRef.current?.hide();
+    {/* TODO: Add history button click handler */}
   };
 
   const onDarkModeButtonClick = (): void => {
-    props.onDarkModeClick();
     popoverRef.current?.hide();
+    {/* TODO: Add theme mode button click handler */}
   };
 
   return (
@@ -41,6 +39,7 @@ export const SettingsMenu: FC<SettingsMenuProps> = (props) => {
         type="button"
         aria-label="open settings menu"
         aria-haspopup="true"
+        aria-expanded
         className={`${styles['settings-button']} ${props.className ?? ''}`}
       >
         <IconSettings aria-hidden />

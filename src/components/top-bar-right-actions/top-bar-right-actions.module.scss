@@ -1,0 +1,28 @@
+@import '../../resources/styles/pallete.scss';
+
+$color-icon: $violet-2;
+
+.top-bar-right-actions {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  & > :not(:last-child) {
+    margin-right: 14px
+  }
+}
+
+.logout {
+  fill: $color-icon;
+}
+
+@media screen and (min-width: 481px) {
+  .logout {
+    display: flex;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .logout {
+    display: none;
+  }
+}

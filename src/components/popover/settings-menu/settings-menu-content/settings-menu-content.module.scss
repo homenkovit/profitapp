@@ -30,7 +30,7 @@ $color-text-hover: $white-1;
   width: 100%;
   padding: 8px 16px;
   font-size: 14px;
-  transition: all 0.1s ease;
+  transition: background-color 0.1s ease, color 0.1s ease;
 }
 
 .icon {

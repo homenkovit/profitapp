@@ -1,7 +1,3 @@
-@import 'resources/styles/pallete.scss';
-
-$color-icon: $violet-2;
-
 .app {
   height: 100vh;
 }
@@ -12,22 +8,9 @@ $color-icon: $violet-2;
   margin-bottom: 21px;
 }
 
-.settings-menu {
-  margin-right: 14px;
-}
-
-.logout {
-  display: flex;
-  fill: $color-icon;
-}
-
 @media screen and (max-width: 480px) {
   .app {
     background-color: #fafaff;
-  }
-
-  .logout {
-    display: none;
   }
 }
 
