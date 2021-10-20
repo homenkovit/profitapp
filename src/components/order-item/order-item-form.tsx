@@ -7,9 +7,10 @@ import styles from './order-item-form.module.css';
 interface OrderItemFormProps {
   data?: Order;
   onClose: () => void;
+  className?: string;
 }
 
-export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose }) => {
+export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose, className }) => {
   const { user } = useAuth();
   const { addOrder, editOrder } = useOrder();
   const [description, setDescription] = useState<string>(data?.description ?? '');
@@ -33,7 +34,6 @@ export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose }) => {
 
       if (data) {
         editOrder(data.id, newOrder)
-          .then(() => onClose())
           .catch((reason) => console.error(`Can't edit order for a reason: ${reason}`));
       } else {
         const { uid } = user;
@@ -41,14 +41,15 @@ export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose }) => {
         newOrder.isCompleted = false;
 
         addOrder(newOrder as StoreOrder)
-          .then(() => onClose())
           .catch((reason) => console.error(`Can't add new order for a reason: ${reason}`));
       }
+
+      onClose();
     }
   };
 
   return (
-    <form className={styles.form} action='' onSubmit={onSubmit}>
+    <form className={`${styles.form} ${className}`} action='' onSubmit={onSubmit}>
       <fieldset className={`${styles.fieldset} ${styles.description}`}>
         <label className={styles.label} htmlFor='description'>
           Описание заказа

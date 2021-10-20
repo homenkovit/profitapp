@@ -40,7 +40,7 @@ const App = () => {
           onLogIn={() => {}}
           onRegister={() => {}}
         />
-        {isNewOrderFormVisible && <OrderItemForm onClose={() => setNewOrderFormVisible(false)} />}
+        {isNewOrderFormVisible && <OrderItemForm className={styles.form} onClose={() => setNewOrderFormVisible(false)} />}
         <OrderList />
       </main>
     </div>

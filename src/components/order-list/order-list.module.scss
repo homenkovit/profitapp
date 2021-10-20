@@ -2,12 +2,14 @@
   flex-grow: 1;
 }
 
-.list > li:not(:last-child) {
-  margin-bottom: 17px;
+@media screen and (max-width: 480px) {
+  .list > li:not(:last-child) {
+    margin-bottom: 16px;
+  }
 }
 
 @media screen and (min-width: 481px) {
   .list > li:not(:last-child) {
-    margin-bottom: 21px;
+    margin-bottom: 20px;
   }
 }
