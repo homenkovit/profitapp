@@ -1,0 +1,40 @@
+@import '../../../../resources/styles/pallete.scss';
+
+$color-icon: $gray-2;
+$color-border: $gray-5;
+$color-item-hover-bg: $violet-2;
+$color-icon-hover-fill: $white-1;
+$color-text-hover: $white-1;
+
+.menu-list {
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+.menu-item {
+  &:not(:last-child) {
+    border-bottom: 1px solid $color-border;
+  }
+  &:hover .menu-item-button {
+    background-color: $color-item-hover-bg;
+    color: $color-text-hover;
+    .icon {
+      fill: $color-icon-hover-fill;
+    }
+  }
+}
+
+.menu-item-button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 8px 16px;
+  font-size: 14px;
+  transition: background-color 0.1s ease, color 0.1s ease;
+}
+
+.icon {
+  margin-right: 8px;
+  fill: $color-icon;
+  transition: fill 0.1s ease;
+}
