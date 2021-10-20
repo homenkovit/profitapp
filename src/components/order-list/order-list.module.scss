@@ -1,0 +1,15 @@
+.list {
+  flex-grow: 1;
+}
+
+@media screen and (max-width: 480px) {
+  .list > li:not(:last-child) {
+    margin-bottom: 16px;
+  }
+}
+
+@media screen and (min-width: 481px) {
+  .list > li:not(:last-child) {
+    margin-bottom: 20px;
+  }
+}

@@ -2,24 +2,28 @@ import React, { FC } from 'react';
 import { ReactComponent as IconLogo } from '../../assets/images/logo.svg';
 import { ReactComponent as IconInfo } from '../../assets/images/info.svg';
 import { ReactComponent as IconFooter } from '../../assets/images/footer.svg';
-import { chartData, User } from '../../mocks';
+import { chartData } from '../../mocks';
 import { Chart } from '../chart/chart';
 import styles from './header.module.scss';
+import { useOrder } from '../../contexts/order-context';
+import { useAuth } from '../../contexts/auth-context';
 
 interface HeaderProps {
-  user: User;
+  createNewOrder: () => void;
 }
 
-export const Header: FC<HeaderProps> = ({ user }) => {
-  const totalPermanentPrice = user.jobs.reduce((counter, job) => {
-    if (job.isPermanent) {
-      counter += job.price;
+export const Header: FC<HeaderProps> = ({ createNewOrder }) => {
+  const { user } = useAuth();
+  const { orders } = useOrder();
+  const totalPermanentPrice = orders.reduce((counter, order) => {
+    if (order.isPermanent) {
+      counter += order.price;
     }
     return counter;
   }, 0);
-  const totalSinglePrice = user.jobs.reduce((counter, job) => {
-    if (!job.isPermanent) {
-      counter += job.price;
+  const totalSinglePrice = orders.reduce((counter, order) => {
+    if (!order.isPermanent) {
+      counter += order.price;
     }
     return counter;
   }, 0);
@@ -28,10 +32,12 @@ export const Header: FC<HeaderProps> = ({ user }) => {
     <header className={styles.header}>
       <h1 className='visually-hidden'>ProfitApp</h1>
       <IconLogo className={styles.logo} aria-label='Profit App logo' />
-      <p className={styles.greeting}>
-        Привет, <span>{user.name}</span>. Хорошего тебе дня!
-      </p>
-      <button type='button' className={styles['add-new-job-button']}>
+      {user && <p className={styles.greeting}>
+        {user.isAnonymous
+          ? 'Режим анонимного пользователя'
+          : <>Привет, <span>{user.displayName}</span>. Хорошего тебе дня!</>}
+      </p>}
+      <button type='button' className={styles['add-new-order-button']} onClick={createNewOrder}>
         Новый заказ
       </button>
       <div className={`${styles.statistics} ${styles['first-tab-selected']}`}>
