@@ -15,7 +15,8 @@ export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose, className
   const { addOrder, editOrder } = useOrder();
   const [description, setDescription] = useState<string>(data?.description ?? '');
   const [isPermanent, setIsPermanent] = useState<boolean>(data?.isPermanent ?? false);
-  const [month, setMonth] = useState<string>(data?.month ?? MONTHS[0]);
+  const [year, setYear] = useState<number>(data?.year ?? new Date().getFullYear());
+  const [month, setMonth] = useState<string>(data?.month ?? MONTHS[new Date().getMonth()]);
   const [price, setPrice] = useState<number>(data?.price ?? 0);
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -30,6 +31,7 @@ export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose, className
 
       if (!isPermanent) {
         newOrder.month = month;
+        newOrder.year = year;
       }
 
       if (data) {
@@ -97,6 +99,17 @@ export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose, className
               </option>
             ))}
           </select>
+          <label className={styles.label} htmlFor='year'>Год</label>
+          <input
+            className={styles.field}
+            type='number'
+            id='year'
+            name='year'
+            min={data?.year ?? new Date().getFullYear()}
+            minLength={4}
+            value={year}
+            onChange={(e) => setYear(Number(e.target.value))}
+          />
         </fieldset>
       )}
       <fieldset className={`${styles.fieldset} ${styles.price}`}>

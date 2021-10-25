@@ -1,14 +1,20 @@
 import React, { FC, useEffect, useState, createContext, useContext, useMemo, useCallback } from 'react';
-import { getFirestore, query, collection, where, onSnapshot, addDoc, DocumentReference, DocumentData, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { getFirestore, query, collection, where, onSnapshot, addDoc, DocumentReference, DocumentData, deleteDoc, doc, updateDoc, deleteField, serverTimestamp, Timestamp } from 'firebase/firestore';
 import { useAuth } from './auth-context';
+import { MONTHS } from '../utils';
 
 export interface Order {
   id: string;
   description: string;
   price: number;
   isPermanent: boolean;
+  year?: number;
   month?: string;
   isCompleted?: boolean;
+  completedYear?: number;
+  completedMonth?: string;
+  createdAt: Timestamp;
+  updatedAt?: Timestamp;
 }
 
 export interface StoreOrder extends Omit<Order, 'id'> {
@@ -17,6 +23,7 @@ export interface StoreOrder extends Omit<Order, 'id'> {
 
 interface OrderStore {
   orders: Order[];
+  currentYearCompletedOrders: Order[];
   addOrder: (order: StoreOrder) => Promise<DocumentReference<DocumentData>>;
   completeOrder: (id: string) => Promise<void>;
   editOrder: (id: string, data: Partial<StoreOrder>) => Promise<void>;
@@ -40,38 +47,93 @@ export const OrderProvider: FC = ({ children }) => {
   const db = useMemo(() => getFirestore(), []);
   const ordersCollection = useMemo(() => collection(db, 'orders'), [db]);
   const [orders, setOrders] = useState<Order[]>([]);
+  const [currentYearCompletedOrders, setCurrentYearCompletedOrders] = useState<Order[]>([]);
 
   useEffect(() => {
     if (user) {
       const { uid } = user;
-      const ordersQueryByUserid = query(ordersCollection, where('uid', '==', uid), where('isCompleted', '==', false));
+      const ordersQuery = query(ordersCollection, where('uid', '==', uid), where('isCompleted', '==', false));
 
-      return onSnapshot(ordersQueryByUserid, (querySnapshot) => {
-        setOrders(querySnapshot.docs.map((doc: any) => {
-          const { description, isPermanent, month, price } = doc.data();
+      return onSnapshot(ordersQuery, (querySnapshot) => {
+        setOrders(querySnapshot.docs.map((doc) => {
+          console.log()
+          const { description, isPermanent, year, month, price, createdAt, updatedAt } = doc.data() as StoreOrder;
 
           return {
             id: doc.id,
             description,
             isPermanent,
+            year,
             month,
             price,
+            createdAt,
+            updatedAt,
           };
         }));
       });
     }
   }, [user]);
 
-  const addOrder = useCallback((order: StoreOrder) => addDoc(ordersCollection, order), []);
+  useEffect(() => {
+    if (user) {
+      const { uid } = user;
+      const ordersQuery = query(
+        ordersCollection,
+        where('uid', '==', uid),
+        where('isCompleted', '==', true),
+        where('completedYear', '==', new Date().getFullYear()),
+      );
 
-  const completeOrder = useCallback((id: string) => updateDoc(doc(ordersCollection, id), { isCompleted: true }), []);
+      return onSnapshot(ordersQuery, (querySnapshot) => {
+        setCurrentYearCompletedOrders(querySnapshot.docs.map((doc) => {
+          const { description, isPermanent, year, month, price, isCompleted, createdAt, updatedAt, completedYear, completedMonth } = doc.data() as StoreOrder;
 
-  const editOrder = useCallback((id: string, data: Partial<StoreOrder>) => updateDoc(doc(ordersCollection, id), data), []);
+          return {
+            id: doc.id,
+            description,
+            isPermanent,
+            year,
+            month,
+            price,
+            isCompleted,
+            completedYear,
+            completedMonth,
+            createdAt,
+            updatedAt,
+          };
+        }));
+      });
+    }
+  }, [user]);
+
+  const addOrder = useCallback((order: StoreOrder) => addDoc(ordersCollection, { ...order, createdAt: serverTimestamp() }), []);
+
+  const completeOrder = useCallback((id: string) => updateDoc(
+    doc(ordersCollection, id),
+    {
+      isCompleted: true,
+      updatedAt: serverTimestamp(),
+      completedYear: new Date().getFullYear(),
+      completedMonth: MONTHS[new Date().getMonth()],
+    },
+  ), []);
+
+  const editOrder = useCallback((id: string, data: Partial<StoreOrder>) => {
+    let permanentOptions;
+    if (data.isPermanent) {
+      permanentOptions = {
+        year: deleteField(),
+        month: deleteField(),
+      }
+    }
+    return updateDoc(doc(ordersCollection, id), { ...data, ...permanentOptions, updatedAt: serverTimestamp() });
+  }, []);
 
   const deleteOrder = useCallback((id: string) => deleteDoc(doc(ordersCollection, id)), []);
 
   const value: OrderStore = {
     orders,
+    currentYearCompletedOrders,
     addOrder,
     completeOrder,
     editOrder,
