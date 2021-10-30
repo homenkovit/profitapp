@@ -13,8 +13,8 @@ export interface Order {
   isCompleted?: boolean;
   completedYear?: number;
   completedMonth?: number;
-  createdAt: Timestamp;
-  updatedAt?: Timestamp;
+  createdAt: Timestamp | null;
+  updatedAt?: Timestamp | null;
 }
 
 export interface StoreOrder extends Omit<Order, 'id'> {
