@@ -6,9 +6,3 @@ $color-icon: $violet-2;
   display: flex;
   fill: $color-icon;
 }
-
-@media screen and (max-width: 480px) {
-  .settings-button {
-    display: none;
-  }
-}

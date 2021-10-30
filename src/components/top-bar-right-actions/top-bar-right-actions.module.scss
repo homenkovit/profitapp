@@ -12,17 +12,14 @@ $color-icon: $violet-2;
 }
 
 .logout {
+  display: flex;
   fill: $color-icon;
 }
 
-@media screen and (min-width: 481px) {
-  .logout {
-    display: flex;
-  }
-}
-
 @media screen and (max-width: 480px) {
-  .logout {
-    display: none;
+  .top-bar-right-actions {
+    position: fixed;
+    top: 20px;
+    right: 16px;
   }
 }

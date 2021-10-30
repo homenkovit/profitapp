@@ -15,7 +15,8 @@ export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose, className
   const { addOrder, editOrder } = useOrder();
   const [description, setDescription] = useState<string>(data?.description ?? '');
   const [isPermanent, setIsPermanent] = useState<boolean>(data?.isPermanent ?? false);
-  const [month, setMonth] = useState<string>(data?.month ?? MONTHS[0]);
+  const [year, setYear] = useState<number>(data?.year ?? new Date().getFullYear());
+  const [month, setMonth] = useState<number>(data?.month ?? new Date().getMonth());
   const [price, setPrice] = useState<number>(data?.price ?? 0);
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -30,6 +31,7 @@ export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose, className
 
       if (!isPermanent) {
         newOrder.month = month;
+        newOrder.year = year;
       }
 
       if (data) {
@@ -90,13 +92,24 @@ export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose, className
           <label className={styles.label} htmlFor='month'>
             Месяц оплаты
           </label>
-          <select className={styles.select} name='month' id='month' value={month} onChange={(e) => setMonth(e.target.value)}>
-            {MONTHS.map((month) => (
-              <option key={month} value={month}>
-                {month}
+          <select className={styles.select} name='month' id='month' value={month} onChange={(e) => setMonth(Number(e.target.value))}>
+            {MONTHS.map((monthString, monthIndex) => (
+              <option key={monthString} value={monthIndex}>
+                {monthString}
               </option>
             ))}
           </select>
+          <label className={styles.label} htmlFor='year'>Год</label>
+          <input
+            className={styles.field}
+            type='number'
+            id='year'
+            name='year'
+            min={data?.year ?? new Date().getFullYear()}
+            minLength={4}
+            value={year}
+            onChange={(e) => setYear(Number(e.target.value))}
+          />
         </fieldset>
       )}
       <fieldset className={`${styles.fieldset} ${styles.price}`}>

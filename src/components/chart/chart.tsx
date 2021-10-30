@@ -1,9 +1,13 @@
 import React, { FC, useCallback, useMemo } from 'react';
-import { ChartItem } from '../../mocks';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import { MONTHS } from '../../utils';
 import styles from './chart.module.scss';
+
+export interface ChartItem {
+  plan: number,
+  fact: number,
+}
 
 export interface ChartProps {
 	data: ChartItem[];
