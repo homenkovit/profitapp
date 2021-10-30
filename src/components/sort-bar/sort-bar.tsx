@@ -47,14 +47,15 @@ export const SortBar: FC<SortBarProps> = (props) => {
       <ul className={styles.list}>
         {actionButtons.map((button, index) => {
           return (
-            <button
-              type='button'
-              key={button.text}
-              onClick={() => onClickHandler(button, index)}
-              className={activeButtonIndex === index ? styles.active : ''}
-            >
-              {button.text}
-            </button>
+            <li key={button.text}>
+              <button
+                type='button'
+                onClick={() => onClickHandler(button, index)}
+                className={activeButtonIndex === index ? styles.active : ''}
+              >
+                {button.text}
+              </button>
+            </li>
           )
         })}
       </ul>
