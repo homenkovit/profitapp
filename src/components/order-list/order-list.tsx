@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC } from 'react';
 import { OrderItem } from '../order-item/order-item';
 import styles from './order-list.module.scss';
 import { useOrder } from '../../contexts/order-context';
@@ -13,7 +13,7 @@ export const OrderList: FC<OrderListProps> = (props) => {
 
   switch(props.sortType) {
     case SortType.DATE: 
-      console.log('in progress');
+      orders.sort((prev, next) => Number(prev.createdAt) - Number(next.createdAt));
       break;
     case SortType.ASC_PRICE: 
       orders.sort((prev, next) => prev.price - next.price);
