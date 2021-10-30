@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState, createContext, useContext, useMemo, useCallback } from 'react';
-import { getFirestore, query, collection, where, onSnapshot, addDoc, DocumentReference, DocumentData, deleteDoc, doc, updateDoc, deleteField, serverTimestamp, Timestamp } from 'firebase/firestore';
+import { getFirestore, query, collection, where, onSnapshot, addDoc, DocumentReference, DocumentData, deleteDoc, doc, updateDoc, deleteField, serverTimestamp, Timestamp, getDoc } from 'firebase/firestore';
 import { useAuth } from './auth-context';
 import { MONTHS } from '../utils';
 
@@ -117,16 +117,15 @@ export const OrderProvider: FC = ({ children }) => {
     },
   ), []);
 
-  const editOrder = useCallback((id: string, data: Partial<StoreOrder>) => {
-    let permanentOptions;
-    if (data.isPermanent) {
-      permanentOptions = {
-        year: deleteField(),
-        month: deleteField(),
-      }
+  const editOrder = useCallback(async (id: string, data: Partial<StoreOrder>) => {
+    const originalOrder = await (await getDoc(doc(ordersCollection, id))).data() as Order;
+    if (!originalOrder.isPermanent && data.isPermanent && user) {
+      await deleteOrder(id);
+      addOrder({ ...data, isCompleted: false, uid: user.uid } as StoreOrder);
+      return;
     }
-    return updateDoc(doc(ordersCollection, id), { ...data, ...permanentOptions, updatedAt: serverTimestamp() });
-  }, []);
+    return updateDoc(doc(ordersCollection, id), { ...data, updatedAt: serverTimestamp() });
+  }, [user]);
 
   const deleteOrder = useCallback((id: string) => deleteDoc(doc(ordersCollection, id)), []);
 
