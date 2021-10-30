@@ -21,7 +21,7 @@ export const Statistics: FC = () => {
 
     [...orders, ...currentYearCompletedOrders]
       .forEach((order) => {
-        if (order.isPermanent) {
+        if (order.isPermanent && order.createdAt) {
           const orderCreatedYear = order.createdAt.toDate().getFullYear();
           const orderCreatedMonthIndex = order.createdAt.toDate().getMonth();
           for (let monthIndex = 0; monthIndex < newPlansAndFacts.length; monthIndex++) {
