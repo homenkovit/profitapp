@@ -9,10 +9,10 @@ export interface Order {
   price: number;
   isPermanent: boolean;
   year?: number;
-  month?: string;
+  month?: number;
   isCompleted?: boolean;
   completedYear?: number;
-  completedMonth?: string;
+  completedMonth?: number;
   createdAt: Timestamp;
   updatedAt?: Timestamp;
 }
@@ -56,7 +56,6 @@ export const OrderProvider: FC = ({ children }) => {
 
       return onSnapshot(ordersQuery, (querySnapshot) => {
         setOrders(querySnapshot.docs.map((doc) => {
-          console.log()
           const { description, isPermanent, year, month, price, createdAt, updatedAt } = doc.data() as StoreOrder;
 
           return {

@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
 import { useAuth } from '../../contexts/auth-context';
 import { ReactComponent as IconLogo } from '../../assets/images/logo.svg';
-import { ReactComponent as IconFooter } from '../../assets/images/footer.svg';
-import styles from './header.module.scss';
 import { Statistics } from '../statistics/statistics';
+import styles from './header.module.scss';
 
 interface HeaderProps {
   createNewOrder: () => void;
@@ -26,7 +25,6 @@ export const Header: FC<HeaderProps> = ({ createNewOrder }) => {
         Новый заказ
       </button>
       <Statistics />
-      <IconFooter aria-hidden className={styles['mobile-footer-icon']} />
     </header>
   );
 };

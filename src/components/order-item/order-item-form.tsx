@@ -16,7 +16,7 @@ export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose, className
   const [description, setDescription] = useState<string>(data?.description ?? '');
   const [isPermanent, setIsPermanent] = useState<boolean>(data?.isPermanent ?? false);
   const [year, setYear] = useState<number>(data?.year ?? new Date().getFullYear());
-  const [month, setMonth] = useState<string>(data?.month ?? MONTHS[new Date().getMonth()]);
+  const [month, setMonth] = useState<number>(data?.month ?? new Date().getMonth());
   const [price, setPrice] = useState<number>(data?.price ?? 0);
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -92,10 +92,10 @@ export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose, className
           <label className={styles.label} htmlFor='month'>
             Месяц оплаты
           </label>
-          <select className={styles.select} name='month' id='month' value={month} onChange={(e) => setMonth(e.target.value)}>
-            {MONTHS.map((month) => (
-              <option key={month} value={month}>
-                {month}
+          <select className={styles.select} name='month' id='month' value={month} onChange={(e) => setMonth(Number(e.target.value))}>
+            {MONTHS.map((monthString, monthIndex) => (
+              <option key={monthString} value={monthIndex}>
+                {monthString}
               </option>
             ))}
           </select>

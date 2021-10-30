@@ -43,13 +43,17 @@ button {
 }
 
 @media screen and (max-width: 480px) {
+  body {
+    background-color: #fafaff;
+  }
+
   main {
-    padding-bottom: 54px;
+    padding-bottom: 65px;
   }
 }
 
 @media screen and (min-width: 721px) {
   main {
-    overflow: auto;
+    overflow-y: auto;
   }
 }
