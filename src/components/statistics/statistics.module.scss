@@ -1,0 +1,152 @@
+@import '../../resources/styles/pallete.scss';
+
+$color-icon: $gray-2;
+
+.info-icon {
+  height: 12px;
+  width: 12px;
+  fill: $color-icon;
+}
+
+.profit-in-month-text {
+  font-size: 10px;
+}
+
+@media screen and (max-width: 480px) {
+  .statistics {
+    position: relative;
+    padding: 12px;
+    border-radius: 12px;
+    margin-top: 32px;
+    background-image: radial-gradient(40.68% 329.69% at 56.42% 40.68%, #4759a5 4.17%, #273469 100%);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    color: #ffffff;
+  }
+
+  .statistics.first-tab-selected {
+    border-top-left-radius: 0;
+  }
+
+  .tabs {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    transform: translateY(-100%);
+  }
+
+  .tabs li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .tabs li svg {
+    fill: #273469;
+  }
+
+  .tabs li.active {
+    background-color: #273469;
+  }
+
+  .tabs li.active svg {
+    fill: #ffffff;
+  }
+
+  .currency {
+    display: none;
+  }
+
+  .profit-section {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .info-icon {
+    display: none;
+  }
+
+  .profit-in-month-text {
+    width: 100%;
+    font-weight: 500;
+  }
+
+  .profit-in-month-text,
+  .fact {
+    color: #6c7cbe;
+  }
+
+  .plan,
+  .fact {
+    font-weight: 700;
+  }
+
+  .plan {
+    font-size: 36px;
+    margin-right: 6px;
+  }
+
+  .fact {
+    align-self: flex-end;
+    transform: translateY(-5px);
+    font-size: 14px;
+    &::before {
+      content: "из ";
+    }
+  }
+
+  .chart-section {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 481px) {
+  .tabs {
+    display: none;
+  }
+
+  .profit-in-month-text {
+    margin-bottom: 10px;
+    color: #909090;
+  }
+
+  .info-icon {
+    vertical-align: middle;
+    margin-right: 4px;
+  }
+
+  .plan,
+  .fact {
+    text-align: left;
+    font-weight: 500;
+    padding-left: 6px;
+  }
+
+  .plan {
+    font-size: 14px;
+    color: rgba(39, 52, 105, 0.28);
+  }
+
+  .fact {
+    font-size: 32px;
+    color: #273469;
+  }
+
+  .chart-section {
+    margin-top: 50px;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 720px) {
+  .statistics {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-height: 100%;
+  }
+}

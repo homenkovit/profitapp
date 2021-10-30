@@ -5,7 +5,6 @@
 .top-bar {
   z-index: 999;
   position: sticky;
-  top: 0;
   display: flex;
   align-items: center;
   padding: 16px 0;
@@ -14,6 +13,10 @@
 }
 
 @media screen and (min-width: 481px) {
+  .top-bar {
+    top: 0;
+  }
+
   .form {
     margin-bottom: 20px;
   }
@@ -21,7 +24,13 @@
 
 @media screen and (max-width: 480px) {
   .app {
+    display: grid;
     background-color: #fafaff;
+  }
+
+  .top-bar {
+    top: 125px;
+    background-image: linear-gradient(to bottom, #fafaff, 95%, rgba(255, 255, 255, 0.5));
   }
 
   .form {

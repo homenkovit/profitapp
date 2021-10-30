@@ -8,6 +8,7 @@ import { DeleteOrderPopup } from '../popup/delete-order-popup/delete-order-popup
 import { useOrder, Order } from '../../contexts/order-context';
 import { CompleteOrderPopup } from '../popup/complete-order-popup/complete-order-popup';
 import styles from './order-item.module.scss';
+import { MONTHS } from '../../utils';
 
 interface OrderItemProps {
   data: Order;
@@ -28,7 +29,9 @@ export const OrderItem: FC<OrderItemProps> = ({ data }) => {
       <div className={`${styles.card} ${data.isPermanent ? styles.permanent : styles.single}`}>
         <p className={styles.description}>{data.description}</p>
         <strong className={styles.price}>{data.price} ₽</strong>
-        {data.isPermanent ? <IconPermanent aria-label='permanent' className={styles['permanent-icon']} /> : <mark className={styles.month}>{data.month}</mark>}
+        {data.isPermanent
+          ? <IconPermanent aria-label='permanent' className={styles['permanent-icon']} />
+          : data.month !== undefined && <mark className={styles.month}>{MONTHS[data.month]}</mark>}
         <ul className={styles.actions}>
           <li>
             <button type='button' aria-label='complete' onClick={() => setCompletePopupVisible(true)}>
