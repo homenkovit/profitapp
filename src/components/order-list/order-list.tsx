@@ -4,11 +4,11 @@ import styles from './order-list.module.scss';
 import { useOrder } from '../../contexts/order-context';
 
 export const OrderList: FC = () => {
-  const { orders } = useOrder();
+  const { sortedOrders } = useOrder();
 
   return (
     <ul className={styles.list}>
-      {orders.map((order) => (
+      {sortedOrders.map((order) => (
         <li key={order.id}>
           <OrderItem data={order} />
         </li>
