@@ -1,8 +1,8 @@
-import React, { FC, FormEvent, useState } from 'react';
+import React, { FC, FormEvent, useState, useMemo } from 'react';
 import { MONTHS } from '../../utils';
 import { useAuth } from '../../contexts/auth-context';
 import { useOrder, Order, StoreOrder } from '../../contexts/order-context';
-import styles from './order-item-form.module.css';
+import styles from './order-item-form.module.scss';
 
 interface OrderItemFormProps {
   data?: Order;
@@ -18,6 +18,14 @@ export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose, className
   const [year, setYear] = useState<number>(data?.year ?? new Date().getFullYear());
   const [month, setMonth] = useState<number>(data?.month ?? new Date().getMonth());
   const [price, setPrice] = useState<number>(data?.price ?? 0);
+
+  let yearsList: number[] = [];
+	yearsList = useMemo((): number[] => {
+    for (let i = new Date().getFullYear(); i <= new Date().getFullYear() + 5; i++) {
+      yearsList.push(i);
+    }
+    return yearsList;
+	}, [new Date().getFullYear()]);
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -52,79 +60,86 @@ export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose, className
 
   return (
     <form className={`${styles.form} ${className}`} action='' onSubmit={onSubmit}>
-      <fieldset className={`${styles.fieldset} ${styles.description}`}>
-        <label className={styles.label} htmlFor='description'>
-          Описание заказа
-        </label>
-        <textarea
-          className={styles.field}
-          name='description'
-          id='description'
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        ></textarea>
-      </fieldset>
-      <fieldset className={`${styles.fieldset} ${styles.type}`}>
-        <p className={styles.label}>Тип заказа</p>
-        <input
-          className={styles.radio}
-          type='radio'
-          id='permanent'
-          name='type'
-          value='permanent'
-          checked={isPermanent}
-          onChange={(e) => setIsPermanent(!isPermanent)}
-        />
-        <label htmlFor='permanent'>постоянный</label>
-        <input
-          className={styles.radio}
-          type='radio'
-          id='single'
-          name='type'
-          value='single'
-          checked={!isPermanent}
-          onChange={(e) => setIsPermanent(!isPermanent)}
-        />
-        <label htmlFor='single'>разовый</label>
-      </fieldset>
-      {!isPermanent && (
-        <fieldset className={`${styles.fieldset} ${styles.month}`}>
-          <label className={styles.label} htmlFor='month'>
-            Месяц оплаты
+      <div className={styles['row-order-title']}>
+        <fieldset className={`${styles.fieldset} ${styles.description}`}>
+          <label className={styles.label} htmlFor='description'>
+            Описание заказа
           </label>
-          <select className={styles.select} name='month' id='month' value={month} onChange={(e) => setMonth(Number(e.target.value))}>
-            {MONTHS.map((monthString, monthIndex) => (
-              <option key={monthString} value={monthIndex}>
-                {monthString}
-              </option>
-            ))}
-          </select>
-          <label className={styles.label} htmlFor='year'>Год</label>
+          <textarea
+            className={styles.field}
+            name='description'
+            id='description'
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Введите описание заказа"
+          ></textarea>
+        </fieldset>
+      </div>
+      <div className={styles['row-order-options']}>
+        <fieldset className={`${styles.fieldset} ${styles.price} ${!isPermanent ? styles.fixed : ''}`}>
+          <label className={styles.label} htmlFor='price'>
+            Стоимость заказа (руб.)
+          </label>
           <input
             className={styles.field}
             type='number'
-            id='year'
-            name='year'
-            min={data?.year ?? new Date().getFullYear()}
-            minLength={4}
-            value={year}
-            onChange={(e) => setYear(Number(e.target.value))}
+            id='price'
+            name='price'
+            value={price}
+            onChange={(e) => setPrice(Number(e.target.value))}
+            min={0}
           />
         </fieldset>
-      )}
-      <fieldset className={`${styles.fieldset} ${styles.price}`}>
-        <label className={styles.label} htmlFor='price'>
-          Стоимость заказа (руб.)
-        </label>
-        <input
-          className={styles.field}
-          type='number'
-          id='price'
-          name='price'
-          value={price}
-          onChange={(e) => setPrice(Number(e.target.value))}
-        />
-      </fieldset>
+        <fieldset className={`${styles.fieldset} ${styles.type}`}>
+          <p className={`${styles.label} ${styles['label-radio']}`}>Тип заказа</p>
+          <input
+            className={styles.radio}
+            type='radio'
+            id='permanent'
+            name='type'
+            value='permanent'
+            checked={isPermanent}
+            onChange={(e) => setIsPermanent(!isPermanent)}
+          />
+          <label htmlFor='permanent'>постоянный</label>
+          <input
+            className={styles.radio}
+            type='radio'
+            id='single'
+            name='type'
+            value='single'
+            checked={!isPermanent}
+            onChange={(e) => setIsPermanent(!isPermanent)}
+          />
+          <label htmlFor='single'>разовый</label>
+        </fieldset>
+        {!isPermanent && (<>
+          <fieldset className={`${styles.fieldset} ${styles.month}`}>
+            <label className={`${styles.label} ${styles['label-select']}`} htmlFor='month'>
+              Месяц оплаты
+            </label>
+            <select className={styles.select} name='month' id='month' value={month} onChange={(e) => setMonth(Number(e.target.value))}>
+              {MONTHS.map((monthString, monthIndex) => (
+                <option key={monthString} value={monthIndex}>
+                  {monthString}
+                </option>
+              ))}
+            </select>
+          </fieldset>
+          <fieldset className={`${styles.fieldset} ${styles.year}`}>
+            <label className={`${styles.label} ${styles['label-select']}`} htmlFor='year'>
+              Год
+            </label>
+            <select className={styles.select} name='year' id='year' value={year} onChange={(e) => setYear(Number(e.target.value))}>
+              {yearsList.map((year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+            </select>
+          </fieldset>
+        </>)}
+      </div>
       <div className={styles.buttons}>
         <button className={styles.submit} type='submit'>
           {data ? 'Изменить' : 'Добавить'}
