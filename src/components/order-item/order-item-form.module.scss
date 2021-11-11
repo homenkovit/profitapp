@@ -1,24 +1,26 @@
 @import '../../resources/styles/pallete.scss';
 
 $color-form-bg: $black-5;
-$color-box-shadow: $black-5;
+$color-form-box-shadow: $black-5;
 $color-toggle-active: $violet-2;
+$color-field-border: $black-5;
+$color-error: $red-1;
 
 .form {
   padding: 16px;
   border-radius: 6px;
-  box-shadow: 0px 4px 15px $color-box-shadow;
+  box-shadow: 0px 4px 15px $color-form-box-shadow;
   font-size: 12px;
 }
 
 .fieldset {
-  border: 0;
+  margin: 0 0 16px 0;
   padding: 0;
+  border: 0;
 }
 
-.type,
-.month {
-  display: inline-block;
+.month-year-wrapper {
+  display: flex;
 }
 
 .field {
@@ -26,9 +28,8 @@ $color-toggle-active: $violet-2;
   width: 100%;
   height: 30px;
   padding: 8px;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border: 1px solid $color-field-border;
   border-radius: 3px;
-  background-color: #f9f9fe;
   font-family: inherit;
   font-size: inherit;
 }
@@ -38,6 +39,7 @@ $color-toggle-active: $violet-2;
   margin-bottom: 6px;
   font-size: 12px;
   color: #999999;
+  white-space: nowrap;
 }
 
 .label-select {
@@ -68,7 +70,7 @@ $color-toggle-active: $violet-2;
   color: #ffffff;
 }
 
-.buttons {
+.footer-form, .buttons {
   display: flex;
 }
 
@@ -94,6 +96,24 @@ $color-toggle-active: $violet-2;
 
 .row-order-options {
   display: flex;
+  flex-wrap: wrap;
+}
+
+.price, .type, .month {
+  margin-right: 27px;
+}
+
+.validate-error {
+  display: flex;
+  align-items: center;
+  color: $color-error;
+  overflow: hidden;
+}
+
+.error-icon {
+  margin-right: 8px;
+  flex-shrink: 0;
+  fill: $color-error;
 }
 
 @media screen and (min-width: 481px) {
@@ -102,26 +122,7 @@ $color-toggle-active: $violet-2;
   }
 
   .field {
-    border: 1px solid #f1f1f1;
-    border-radius: 4px;
     background-color: #ffffff;
-  }
-
-  .fieldset {
-    margin: 0;
-  }
-
-  .row-order-title,
-  .row-order-options {
-    margin-bottom: 16px;
-  }
-
-  .row-order-options {
-    .fieldset {
-      &:not(:last-child) {
-        margin-right: 27px;
-      }
-    }
   }
 
   .price {
@@ -141,6 +142,13 @@ $color-toggle-active: $violet-2;
   .label-radio {
     margin-bottom: 12px;
   }
+
+  .message {
+    padding-right: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 @media screen and (max-width: 480px) {
@@ -148,12 +156,13 @@ $color-toggle-active: $violet-2;
     background-color: #ffffff;
   }
 
-  .fieldset {
-    margin: 0 0 16px 0;
+  .field {
+    background-color: #f9f9fe;
   }
 
   .price {
     width: 100%;
+    margin-right: 0;
   }
 
   .type {
@@ -166,11 +175,15 @@ $color-toggle-active: $violet-2;
     margin: 0 12px 0 0;
   }
 
-  .row-order-options {
-    flex-wrap: wrap;
+  .submit, .reset {
+    text-transform: uppercase;
   }
 
-  .year {
-    margin-left: 27px;
+  .footer-form {
+    flex-direction: column;
+  }
+
+  .validate-error {
+    margin-bottom: 20px;
   }
 }
