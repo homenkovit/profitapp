@@ -9,6 +9,7 @@ import { useOrder, Order } from '../../contexts/order-context';
 import { CompleteOrderPopup } from '../popup/complete-order-popup/complete-order-popup';
 import styles from './order-item.module.scss';
 import { MONTHS } from '../../utils';
+import { decodeText } from './order-item-form-utils';
 
 interface OrderItemProps {
   data: Order;
@@ -27,7 +28,7 @@ export const OrderItem: FC<OrderItemProps> = ({ data }) => {
   return (
     <>
       <div className={`${styles.card} ${data.isPermanent ? styles.permanent : styles.single}`}>
-        <p className={styles.description}>{data.description}</p>
+        <p className={styles.description}>{decodeText(data.description)}</p>
         <strong className={styles.price}>{data.price} ₽</strong>
         {data.isPermanent
           ? <IconPermanent aria-label='permanent' className={styles['permanent-icon']} />

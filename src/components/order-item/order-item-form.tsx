@@ -1,8 +1,9 @@
-import React, { FC, FormEvent, useState, useMemo } from 'react';
+import React, { FC, FormEvent, useState, useMemo, useRef } from 'react';
 import { MONTHS } from '../../utils';
 import { useAuth } from '../../contexts/auth-context';
 import { useOrder, Order, StoreOrder } from '../../contexts/order-context';
 import { ReactComponent as IconErrorSmall } from '../../assets/images/error-small.svg';
+import { encodeText, decodeText, onKeyDown, onPaste, Field, ValidationFields } from './order-item-form-utils';
 import styles from './order-item-form.module.scss';
 
 interface OrderItemFormProps {
@@ -14,12 +15,20 @@ interface OrderItemFormProps {
 export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose, className }) => {
   const { user } = useAuth();
   const { addOrder, editOrder } = useOrder();
-  const [description, setDescription] = useState<string>(data?.description ?? '');
+
+  const [description, setDescription] = useState<string>(decodeText(data?.description) ?? '');
   const [isPermanent, setIsPermanent] = useState<boolean>(data?.isPermanent ?? false);
   const [year, setYear] = useState<number>(data?.year ?? new Date().getFullYear());
   const [month, setMonth] = useState<number>(data?.month ?? new Date().getMonth());
-  const [price, setPrice] = useState<number>(data?.price ?? 0);
+  const [price, setPrice] = useState<number | undefined>(data?.price ?? undefined);
   const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
+  const [validationFields, setValidationFields] = useState<ValidationFields>({
+    isDescriptionInvalid: false,
+    isPriceInvalid: false,
+  });
+
+  const fieldDescription = useRef<HTMLTextAreaElement | null>(null);
+  const fieldPrice = useRef<HTMLInputElement | null>(null);
 
   let yearsList: number[] = [];
 	yearsList = useMemo((): number[] => {
@@ -32,9 +41,16 @@ export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose, className
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    validateFields([fieldDescription.current, fieldPrice.current]);
+
+    const isFormInvalid = Object.values(validationFields).find(value => value);
+    if (isFormInvalid) {
+      return;
+    };
+
     if (user) {
       const newOrder: Partial<StoreOrder> = {
-        description,
+        description: encodeText(description),
         isPermanent,
         price,
       };
@@ -60,6 +76,40 @@ export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose, className
     }
   };
 
+  const validateFields = (fields: (HTMLTextAreaElement | HTMLInputElement | null)[]) => {
+    let validationFieldsObject = validationFields;
+
+    fields.forEach(field => {
+      if (field) {
+        if (field.name === Field.DESCRIPTION) {
+          if (field.value === '') {
+            validationFieldsObject.isDescriptionInvalid = true;
+          } else {
+            validationFieldsObject.isDescriptionInvalid = false;
+          }
+        } else if (field.name === Field.PRICE) {
+          if (field.value === '') {
+            validationFieldsObject.isPriceInvalid = true;
+          } else {
+            validationFieldsObject.isPriceInvalid = false;
+          }
+        }
+      } 
+    })
+
+    if (validationFieldsObject.isPriceInvalid && validationFieldsObject.isDescriptionInvalid) {
+      setErrorMessage('Вы не заполнили поля');
+    } else if (validationFieldsObject.isDescriptionInvalid) {
+      setErrorMessage('Вы забыли указать описание заказа');
+    } else if (validationFieldsObject.isPriceInvalid) {
+      setErrorMessage('Вы забыли указать стоимость заказа');
+    } else {
+      setErrorMessage(undefined);
+    }
+ 
+    setValidationFields(validationFieldsObject);
+  }
+
   return (
     <form className={`${styles.form} ${className}`} action='' onSubmit={onSubmit}>
       <fieldset className={`${styles.fieldset} ${styles.description}`}>
@@ -67,32 +117,39 @@ export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose, className
           Описание заказа
         </label>
         <textarea
-          className={styles.field}
-          name='description'
-          id='description'
+          className={`${styles.field} ${validationFields.isDescriptionInvalid ? styles.invalid : ''}`}
+          name={Field.DESCRIPTION}
+          id={Field.DESCRIPTION}
           value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          ref={fieldDescription}
           placeholder="Введите описание заказа"
+          onChange={(e) => setDescription(e.target.value)}
+          onBlur={(e) => validateFields([fieldDescription.current])}
         ></textarea>
       </fieldset>
       <div className={styles['row-order-options']}>
-        <fieldset className={`${styles.fieldset} ${styles.price} ${!isPermanent ? styles.fixed : ''}`}>
+        <fieldset className={`${styles.fieldset} ${styles.price}`}>
           <label className={styles.label} htmlFor='price'>
             Стоимость заказа (руб.)
           </label>
           <input
-            className={styles.field}
+            className={`${styles.field} ${validationFields.isPriceInvalid ? styles.invalid : ''}`}
             type='number'
-            id='price'
-            name='price'
-            value={price}
-            onChange={(e) => setPrice(Number(e.target.value))}
+            id={Field.PRICE}
+            name={Field.PRICE}
+            defaultValue={price}
+            placeholder='Введите стоимость заказа (руб.)'
             min={0}
+            ref={fieldPrice}
+            onChange={(e) => setPrice(Number(e.target.value))}
+            onBlur={(e) => validateFields([fieldPrice.current])}
+            onKeyDown={onKeyDown}
+            onPaste={onPaste}
           />
         </fieldset>
         {!data && (
           <fieldset className={`${styles.fieldset} ${styles.type}`}>
-            <p className={`${styles.label} ${styles['label-radio']}`}>Тип заказа</p>
+            <p className={styles['label-radio']}>Тип заказа</p>
             <input
               className={styles.radio}
               type='radio'
@@ -100,7 +157,7 @@ export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose, className
               name='type'
               value='permanent'
               checked={isPermanent}
-              onChange={(e) => setIsPermanent(!isPermanent)}
+              onChange={() => setIsPermanent(!isPermanent)}
             />
             <label htmlFor='permanent'>постоянный</label>
             <input
@@ -110,7 +167,7 @@ export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose, className
               name='type'
               value='single'
               checked={!isPermanent}
-              onChange={(e) => setIsPermanent(!isPermanent)}
+              onChange={() => setIsPermanent(!isPermanent)}
             />
             <label htmlFor='single'>разовый</label>
           </fieldset>) 
@@ -118,7 +175,7 @@ export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose, className
         {!isPermanent && (
           <div className={styles['month-year-wrapper']}>
             <fieldset className={`${styles.fieldset} ${styles.month}`}>
-              <label className={`${styles.label} ${styles['label-select']}`} htmlFor='month'>
+              <label className={styles['label-select']} htmlFor='month'>
                 Месяц оплаты
               </label>
               <select
@@ -136,7 +193,7 @@ export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose, className
               </select>
             </fieldset>
             <fieldset className={`${styles.fieldset} ${styles.year}`}>
-              <label className={`${styles.label} ${styles['label-select']}`} htmlFor='year'>
+              <label className={styles['label-select']} htmlFor='year'>
                 Год
               </label>
               <select
@@ -162,7 +219,10 @@ export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose, className
           <p className={styles.message}>{ errorMessage }</p>
         </div>}
         <div className={styles.buttons}>
-          <button className={styles.submit} type='submit'>
+          <button
+            className={`${styles.submit}`}
+            type='submit'
+          >
             {data ? 'Изменить' : 'Добавить'}
           </button>
           <button className={styles.reset} type='reset' onClick={() => onClose()}>
