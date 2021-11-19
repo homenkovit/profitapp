@@ -156,16 +156,6 @@ export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose, className
             <input
               className={styles.radio}
               type='radio'
-              id='permanent'
-              name='type'
-              value='permanent'
-              checked={isPermanent}
-              onChange={() => setIsPermanent(!isPermanent)}
-            />
-            <label htmlFor='permanent'>постоянный</label>
-            <input
-              className={styles.radio}
-              type='radio'
               id='single'
               name='type'
               value='single'
@@ -173,6 +163,16 @@ export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose, className
               onChange={() => setIsPermanent(!isPermanent)}
             />
             <label htmlFor='single'>разовый</label>
+            <input
+              className={styles.radio}
+              type='radio'
+              id='permanent'
+              name='type'
+              value='permanent'
+              checked={isPermanent}
+              onChange={() => setIsPermanent(!isPermanent)}
+            />
+            <label htmlFor='permanent'>постоянный</label>
           </fieldset>) 
         }
         {!isPermanent && (
