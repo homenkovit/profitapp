@@ -25,6 +25,8 @@
 @media screen and (max-width: 480px) {
   .app {
     display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: max-content;
     background-color: #fafaff;
   }
 

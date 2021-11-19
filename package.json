@@ -7,10 +7,12 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "firebase": "^9.0.2",
     "@tippyjs/react": "^4.2.5",
+    "firebase": "^9.0.2",
+    "install": "^0.13.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
+    "react-textarea-autosize": "^8.3.3",
     "vite-plugin-svgr": "^0.2.0"
   },
   "devDependencies": {

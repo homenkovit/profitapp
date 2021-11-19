@@ -24,7 +24,6 @@ $color-alert-info-close-btn: $violet-4;
 }
 
 .header-text {
-  font-size: 16px;
   margin: 0;
   font-weight: 500;
 }
@@ -50,5 +49,17 @@ $color-alert-info-close-btn: $violet-4;
   justify-content: flex-end;
   :global(.btn):not(:last-child) {
     margin-right: 8px;
+  }
+}
+
+@media screen and (min-width: 481px) {
+  .header-text {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .header-text {
+    font-size: 14px;
   }
 }

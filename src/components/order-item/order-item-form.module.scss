@@ -27,7 +27,7 @@ $color-error: $red-1;
   box-sizing: border-box;
   width: 100%;
   height: 30px;
-  padding: 8px;
+  padding: 6px 8px;
   border: 1px solid $color-field-border;
   border-radius: 3px;
   font-family: inherit;
@@ -49,6 +49,10 @@ $color-error: $red-1;
   &::-moz-placeholder {
     color: #999;
   }
+}
+
+textarea.field {
+  resize: none;
 }
 
 .label, .label-radio, .label-select {

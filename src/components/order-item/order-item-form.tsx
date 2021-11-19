@@ -4,6 +4,7 @@ import { useAuth } from '../../contexts/auth-context';
 import { useOrder, Order, StoreOrder } from '../../contexts/order-context';
 import { ReactComponent as IconErrorSmall } from '../../assets/images/error-small.svg';
 import { encodeText, decodeText, onKeyDown, onPaste, Field, ValidationFields } from './order-item-form-utils';
+import TextareaAutosize from 'react-textarea-autosize';
 import styles from './order-item-form.module.scss';
 
 interface OrderItemFormProps {
@@ -116,7 +117,7 @@ export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose, className
         <label className={styles.label} htmlFor='description'>
           Описание заказа
         </label>
-        <textarea
+        <TextareaAutosize
           className={`${styles.field} ${validationFields.isDescriptionInvalid ? styles.invalid : ''}`}
           name={Field.DESCRIPTION}
           id={Field.DESCRIPTION}
@@ -124,8 +125,10 @@ export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose, className
           ref={fieldDescription}
           placeholder="Введите описание заказа"
           onChange={(e) => setDescription(e.target.value)}
-          onBlur={(e) => validateFields([fieldDescription.current])}
-        ></textarea>
+          onBlur={() => validateFields([fieldDescription.current])}
+          maxRows={6}
+          autoFocus
+        />
       </fieldset>
       <div className={styles['row-order-options']}>
         <fieldset className={`${styles.fieldset} ${styles.price}`}>
@@ -142,7 +145,7 @@ export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose, className
             min={0}
             ref={fieldPrice}
             onChange={(e) => setPrice(Number(e.target.value))}
-            onBlur={(e) => validateFields([fieldPrice.current])}
+            onBlur={() => validateFields([fieldPrice.current])}
             onKeyDown={onKeyDown}
             onPaste={onPaste}
           />
@@ -225,7 +228,7 @@ export const OrderItemForm: FC<OrderItemFormProps> = ({ data, onClose, className
           >
             {data ? 'Изменить' : 'Добавить'}
           </button>
-          <button className={styles.reset} type='reset' onClick={() => onClose()}>
+          <button className={styles.reset} type='reset' onClick={onClose}>
             Отменить
           </button>
         </div>

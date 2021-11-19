@@ -1,9 +1,10 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState, useRef } from 'react';
 import { OrderItemForm } from './order-item-form';
 import { ReactComponent as IconPermanent } from '../../assets/images/permanent.svg';
 import { ReactComponent as IconComplete } from '../../assets/images/complete-small.svg';
 import { ReactComponent as IconEdit } from '../../assets/images/edit-small.svg';
 import { ReactComponent as IconDelete } from '../../assets/images/delete-small.svg';
+import { ReactComponent as IcExpand } from '../../assets/images/expand.svg';
 import { DeleteOrderPopup } from '../popup/delete-order-popup/delete-order-popup';
 import { useOrder, Order } from '../../contexts/order-context';
 import { CompleteOrderPopup } from '../popup/complete-order-popup/complete-order-popup';
@@ -17,9 +18,25 @@ interface OrderItemProps {
 
 export const OrderItem: FC<OrderItemProps> = ({ data }) => {
   const { completeOrder, deleteOrder } = useOrder();
+
   const [isForm, setIsForm] = useState<boolean>(false);
   const [isDeletePopupVisible, setDeletePopupVisible] = useState<boolean>(false);
   const [isCompletePopupVisible, setCompletePopupVisible] = useState<boolean>(false);
+  const [isDescriptionExpand, setIsDescriptionExpand] = useState<boolean>(false);
+  const [isExpandBtnVisible, setExpandBtnVisible] = useState<boolean>(false);
+
+  const descriptionRef = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    const description = descriptionRef.current;
+    if (description && !isDescriptionExpand) {
+      if (description.offsetWidth < description.scrollWidth) {
+        setExpandBtnVisible(true);
+      } else {
+        setExpandBtnVisible(false);
+      }
+    }
+  }, []);
 
   if (isForm) {
     return <OrderItemForm data={data} onClose={() => setIsForm(false)} />;
@@ -28,7 +45,23 @@ export const OrderItem: FC<OrderItemProps> = ({ data }) => {
   return (
     <>
       <div className={`${styles.card} ${data.isPermanent ? styles.permanent : styles.single}`}>
-        <p className={styles.description}>{decodeText(data.description)}</p>
+        {isExpandBtnVisible && <button
+          type='button'
+          aria-label='expand'
+          className={styles['expand-button']}
+          onClick={() => setIsDescriptionExpand(!isDescriptionExpand)}
+        >
+          <IcExpand
+            className={`${styles['expand-icon']} ${isDescriptionExpand ? styles.expanded : ''}`} 
+            aria-hidden
+          />
+        </button>}
+        <p
+          className={`${styles.description} ${isDescriptionExpand ? styles['full-text'] : ''}`}
+          ref={descriptionRef}
+        >
+          {decodeText(data.description)}
+        </p>
         <strong className={styles.price}>{data.price} ₽</strong>
         {data.isPermanent
           ? <IconPermanent aria-label='permanent' className={styles['permanent-icon']} />
