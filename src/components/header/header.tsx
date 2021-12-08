@@ -16,9 +16,7 @@ export const Header: FC<HeaderProps> = ({ createNewOrder }) => {
       <IconLogo className={styles.logo} aria-label='Profit App logo' />
       {user && (
         <p className={styles.greeting}>
-          {user.isAnonymous
-            ? 'Режим анонимного пользователя'
-            : <>Привет, <span>{user.displayName}</span>. Хорошего тебе дня!</>}
+          Привет{user.isAnonymous ? <>.<br /></> : <>, <span>{user.displayName}</span>.</>} Хорошего тебе дня!
         </p>
       )}
       <button type='button' className={styles['add-new-order-button']} onClick={createNewOrder}>

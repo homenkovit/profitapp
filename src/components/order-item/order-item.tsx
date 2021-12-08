@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState, useRef } from 'react';
+import React, { FC, useState, useRef, useLayoutEffect } from 'react';
 import { OrderItemForm } from './order-item-form';
 import { ReactComponent as IconPermanent } from '../../assets/images/permanent.svg';
 import { ReactComponent as IconComplete } from '../../assets/images/complete-small.svg';
@@ -27,7 +27,7 @@ export const OrderItem: FC<OrderItemProps> = ({ data }) => {
 
   const descriptionRef = useRef<HTMLParagraphElement>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const description = descriptionRef.current;
     if (description && !isDescriptionExpand) {
       if (description.offsetWidth < description.scrollWidth) {
@@ -36,7 +36,7 @@ export const OrderItem: FC<OrderItemProps> = ({ data }) => {
         setExpandBtnVisible(false);
       }
     }
-  }, []);
+  }, [data.description]);
 
   if (isForm) {
     return <OrderItemForm data={data} onClose={() => setIsForm(false)} />;
@@ -45,27 +45,34 @@ export const OrderItem: FC<OrderItemProps> = ({ data }) => {
   return (
     <>
       <div className={`${styles.card} ${data.isPermanent ? styles.permanent : styles.single}`}>
-        {isExpandBtnVisible && <button
-          type='button'
-          aria-label='expand'
-          className={styles['expand-button']}
-          onClick={() => setIsDescriptionExpand(!isDescriptionExpand)}
-        >
-          <IcExpand
-            className={`${styles['expand-icon']} ${isDescriptionExpand ? styles.expanded : ''}`} 
-            aria-hidden
-          />
-        </button>}
-        <p
-          className={`${styles.description} ${isDescriptionExpand ? styles['full-text'] : ''}`}
-          ref={descriptionRef}
-        >
-          {decodeText(data.description)}
-        </p>
-        <strong className={styles.price}>{data.price} ₽</strong>
-        {data.isPermanent
-          ? <IconPermanent aria-label='permanent' className={styles['permanent-icon']} />
-          : data.month !== undefined && <mark className={styles.month}>{MONTHS[data.month]}</mark>}
+        {isExpandBtnVisible ? (
+          <button
+            type='button'
+            aria-label='expand'
+            className={styles['expand-button']}
+            onClick={() => setIsDescriptionExpand(!isDescriptionExpand)}
+          >
+            <div className={`${styles.description} ${isDescriptionExpand ? styles['full-text'] : ''}`}>
+              {decodeText(data.description)}
+            </div>
+            <IcExpand
+              className={`${styles['expand-icon']} ${isDescriptionExpand ? styles.expanded : ''}`}
+              aria-hidden
+            />
+          </button>) : (
+          <p
+            className={styles.description}
+            ref={descriptionRef}
+          >
+            {decodeText(data.description)}
+          </p>
+        )}
+        <div className={styles['last-row']}>
+          <strong className={styles.price}>{data.price} ₽</strong>
+          {data.isPermanent
+            ? <IconPermanent aria-label='permanent' className={styles['permanent-icon']} />
+            : data.month !== undefined && <mark className={styles.month}>{MONTHS[data.month]}</mark>}
+        </div>
         <ul className={styles.actions}>
           <li>
             <button type='button' aria-label='complete' onClick={() => setCompletePopupVisible(true)}>

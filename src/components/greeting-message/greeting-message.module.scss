@@ -7,7 +7,7 @@ $color-alert-info-close-btn: $violet-4;
 .greeting {
   position: relative;
   margin-bottom: 20px;
-  padding: 16px;
+  // padding: 16px;
   color: $color-alert-info-text;
   background-color: $color-alert-info-bg;
   fill: $color-alert-info-close-btn;
@@ -17,18 +17,25 @@ $color-alert-info-close-btn: $violet-4;
 }
 
 .expand-button {
-  position: absolute;
-  top: 19px;
-  right: 13px;
-  padding: 0 3px;
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  padding: 16px;
+  text-align: left;
+  font-family: inherit;
+  color: inherit;
 }
 
 .header-text {
+  flex-grow: 1;
   margin: 0;
+  padding-right: 13px;
   font-weight: 500;
 }
 
 .expand-icon {
+  flex-shrink: 0;
+  margin-top: 6px;
   transition: transform 150ms ease-in;
 }
 
@@ -37,17 +44,14 @@ $color-alert-info-close-btn: $violet-4;
 }
 
 .description {
-  margin-top: 10px;
-}
-
-.description-text {
-  margin-bottom: 10px;
+  padding: 0 16px 10px;
+  margin-top: -6px;
 }
 
 .auth-buttons {
-  display: flex;
-  justify-content: flex-end;
-  :global(.btn):not(:last-child) {
+  padding: 0 16px 16px;
+  text-align: right;
+  & > :not(:last-child) {
     margin-right: 8px;
   }
 }
@@ -61,5 +65,9 @@ $color-alert-info-close-btn: $violet-4;
 @media screen and (max-width: 480px) {
   .header-text {
     font-size: 14px;
+  }
+
+  .description-text {
+    font-size: 12px;
   }
 }

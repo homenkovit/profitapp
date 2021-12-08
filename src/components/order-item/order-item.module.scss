@@ -13,7 +13,7 @@ $color-ic-expand: $violet-2;
 
 .card {
   position: relative;
-  padding: 11px 40px 8px 11px;
+  padding: 13px 16px 8px 12px;
   border-width: 0;
   border-left-width: 8px;
   border-style: solid;
@@ -40,6 +40,7 @@ $color-ic-expand: $violet-2;
 .full-text {
   white-space: normal;
   text-overflow: inherit;
+  word-break: break-all;
 }
 
 .price,
@@ -50,7 +51,6 @@ $color-ic-expand: $violet-2;
 
 .price {
   margin-right: 7px;
-  vertical-align: top;
   font-size: 17px;
   font-weight: 700;
   color: $color-price;
@@ -84,18 +84,26 @@ $color-ic-expand: $violet-2;
 }
 
 .expand-button {
-  position: absolute;
-  right: 13px;
-  padding: 0 3px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  max-width: 100%;
+  text-align: left;
 }
 
 .expand-icon {
+  flex-shrink: 0;
+  margin-left: 12px;
   fill: $color-ic-expand;
   transition: transform 150ms ease-in;
+
+  &.expanded {
+    transform: rotate(180deg);
+  }
 }
 
-.expanded {
-  transform: rotate(180deg);
+.last-row {
+  padding-right: 96px;
 }
 
 @media screen and (min-width: 481px) {
@@ -123,8 +131,8 @@ $color-ic-expand: $violet-2;
     border-radius: 9px 0;
   }
 
-  .expand-button {
-    top: 12px;
+  .expand-icon {
+    margin-top: 6px;
   }
 }
 
@@ -135,7 +143,15 @@ $color-ic-expand: $violet-2;
     line-height: 16px;
   }
 
-  .expand-button {
-    top: 10px;
+  .expand-icon {
+    margin-top: 4px;
+  }
+}
+
+@media screen and (min-width: 721px) {
+  .card {
+    display: inline-block;
+    min-width: 312px;
+    max-width: 100%;
   }
 }
