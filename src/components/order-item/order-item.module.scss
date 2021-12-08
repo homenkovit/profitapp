@@ -9,10 +9,11 @@ $color-text: $blue-1;
 $color-month-text: $white-1;
 $color-month-bg: $blue-1;
 $color-price: $blue-2;
+$color-ic-expand: $violet-2;
 
 .card {
   position: relative;
-  padding: 7px 24px 4px 9px;
+  padding: 13px 16px 8px 12px;
   border-width: 0;
   border-left-width: 8px;
   border-style: solid;
@@ -31,11 +32,15 @@ $color-price: $blue-2;
 
 .description {
   overflow: hidden;
-  margin-bottom: 3px;
-  font-size: 10px;
   color: $color-text;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.full-text {
+  white-space: normal;
+  text-overflow: inherit;
+  word-break: break-all;
 }
 
 .price,
@@ -46,7 +51,6 @@ $color-price: $blue-2;
 
 .price {
   margin-right: 7px;
-  vertical-align: top;
   font-size: 17px;
   font-weight: 700;
   color: $color-price;
@@ -79,14 +83,40 @@ $color-price: $blue-2;
   height: 21px;
 }
 
+.expand-button {
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  max-width: 100%;
+  text-align: left;
+}
+
+.expand-icon {
+  flex-shrink: 0;
+  margin-left: 12px;
+  fill: $color-ic-expand;
+  transition: transform 150ms ease-in;
+
+  &.expanded {
+    transform: rotate(180deg);
+  }
+}
+
+.last-row {
+  padding-right: 96px;
+}
+
 @media screen and (min-width: 481px) {
   .card {
     border-left-width: 12px;
     border-radius: 9px;
     background-color: $color-card-bg;
   }
+
   .description {
+    margin-bottom: 6px;
     font-size: 14px;
+    line-height: 20px;
   }
 
   .price {
@@ -99,5 +129,29 @@ $color-price: $blue-2;
 
   .actions {
     border-radius: 9px 0;
+  }
+
+  .expand-icon {
+    margin-top: 6px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .description {
+    margin-bottom: 3px;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .expand-icon {
+    margin-top: 4px;
+  }
+}
+
+@media screen and (min-width: 721px) {
+  .card {
+    display: inline-block;
+    min-width: 312px;
+    max-width: 100%;
   }
 }

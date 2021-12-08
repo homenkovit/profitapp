@@ -10,10 +10,6 @@ const AuthContext = createContext<Auth>({});
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider: FC = ({ children }) => {
-  const auth = useMemo(() => getAuth(), []);
-
-  signInAnonymously(auth);
-
   const [user, setUser] = useState<User>();
 
   const value: Auth = {
@@ -21,7 +17,9 @@ export const AuthProvider: FC = ({ children }) => {
   };
 
   useEffect(() => {
-    return onAuthStateChanged(auth, (user) => {
+    signInAnonymously(getAuth());
+
+    return onAuthStateChanged(getAuth(), (user) => {
       if (user) {
         setUser(user);
       }

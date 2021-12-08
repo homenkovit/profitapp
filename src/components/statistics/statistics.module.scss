@@ -77,7 +77,7 @@ $color-icon: $gray-2;
   }
 
   .profit-in-month-text,
-  .fact {
+  .plan {
     color: #6c7cbe;
   }
 
@@ -86,12 +86,13 @@ $color-icon: $gray-2;
     font-weight: 700;
   }
 
-  .plan {
+  .fact {
     font-size: 36px;
     margin-right: 6px;
   }
 
-  .fact {
+  .plan {
+    order: 1;
     align-self: flex-end;
     transform: translateY(-5px);
     font-size: 14px;

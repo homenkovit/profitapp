@@ -45,16 +45,11 @@
     bottom: 0;
     left: 0;
     height: 50px;
-    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FAFAFF 100%);
+    background-image: linear-gradient(180deg, transparent 0%, #FAFAFF 100%);
   }
 }
 
 @media screen and (min-width: 481px) {
-  .header {
-    width: 150px;
-    text-align: center;
-  }
-
   .mobile-footer-icon {
     display: none;
   }
@@ -96,5 +91,14 @@
 
   .add-new-order-button {
     margin-bottom: 0;
+  }
+}
+
+@media screen and (min-width: 721px) {
+  .header {
+    position: sticky;
+    top: 0;
+    width: 168px;
+    text-align: center;
   }
 }
