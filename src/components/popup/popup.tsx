@@ -4,6 +4,7 @@ import styles from './popup.module.scss';
 
 export interface PopupProps {
   isVisible: boolean;
+  className?: string;
 };
 
 export const Popup: FC<PopupProps> = (props) => {
@@ -13,9 +14,9 @@ export const Popup: FC<PopupProps> = (props) => {
 
   const dialog: ReactElement = (
     <div className={styles.overlay}>
-      <div className={styles['popup-dialog']}>
+      <div className={`${styles['popup-dialog']} ${props.className}`}>
         {props.children}
-      </div>     
+      </div>
     </div>
   );
 

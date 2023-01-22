@@ -10,13 +10,14 @@ interface HeaderProps {
 
 export const Header: FC<HeaderProps> = ({ createNewOrder }) => {
   const { user } = useAuth();
+
   return (
     <header className={styles.header}>
       <h1 className='visually-hidden'>ProfitApp</h1>
       <IconLogo className={styles.logo} aria-label='Profit App logo' />
       {user && (
         <p className={styles.greeting}>
-          Привет{user.isAnonymous ? <>.<br /></> : <>, <span>{user.displayName}</span>.</>} Хорошего тебе дня!
+          Привет{user.isAnonymous || !user.displayName ? <>.<br /></> : <>, <span>{user.displayName}</span>.</>} Хорошего тебе дня!
         </p>
       )}
       <button type='button' className={styles['add-new-order-button']} onClick={createNewOrder}>

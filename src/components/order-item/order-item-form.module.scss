@@ -41,7 +41,8 @@ $color-error: $red-1;
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
   }
-  -moz-appearance:textfield;
+  appearance: textfield;
+  -moz-appearance: textfield;
   &::-webkit-input-placeholder,
   &:-moz-placeholder,
   &::-moz-placeholder {
@@ -238,7 +239,7 @@ textarea.field {
 @media screen and (min-width: 721px) {
   .form {
     display: grid;
-    grid-template-columns: 135px;
+    grid-template-columns: 132px;
     grid-column-gap: 24px;
     grid-row-gap: 16px;
   }

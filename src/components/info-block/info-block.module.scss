@@ -1,0 +1,91 @@
+@import '../../resources/styles/pallete.scss';
+
+$color-alert-info-bg: $violet-1;
+$color-alert-info-title: $violet-5;
+$color-alert-info-text: $violet-4;
+$color-alert-info-close-btn: $violet-4;
+
+.container {
+  position: relative;
+  padding: 16px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  background-color: $color-alert-info-bg;
+  font-size: 14px;
+  line-height: 20px;
+  color: $color-alert-info-text;
+  fill: $color-alert-info-close-btn;
+}
+
+.button {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  width: calc(100% + 32px);
+  padding: 16px;
+  margin: -16px;
+  text-align: left;
+  font-family: inherit;
+  color: inherit;
+  
+  &.expanded {
+    padding-bottom: 26px;
+  }
+  
+  &:not(.expanded) {
+    .title {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    & + .actions {
+      margin-top: 16px;
+    }
+  }
+}
+
+.title {
+  flex-grow: 1;
+  padding-right: 13px;
+  font-weight: 500;
+  color: $color-alert-info-title;
+}
+
+p.title {
+  margin-bottom: 10px;
+}
+
+.icon {
+  flex-shrink: 0;
+  margin-top: 6px;
+  transition: transform 150ms ease-in;
+
+  &.expanded {
+    transform: rotate(180deg);
+  }
+}
+
+.actions {
+  margin-top: 10px;
+  text-align: right;
+
+  & > :not(:last-child) {
+    margin-right: 8px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .title {
+    font-size: 14px;
+  }
+
+  .text {
+    font-size: 12px;
+  }
+}
+
+@media screen and (min-width: 481px) {
+  .title {
+    font-size: 16px;
+  }
+}

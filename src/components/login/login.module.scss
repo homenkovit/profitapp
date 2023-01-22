@@ -1,0 +1,49 @@
+.container {
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
+.card {
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+@media screen and (max-width: 480px) {
+  .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding-top: 180px;
+  }
+}
+
+@media screen and (min-width: 481px) {
+  .container {
+    position: relative;
+    display: grid;
+    place-items: center;
+
+    &::after {
+      content: "";
+      z-index: -1;
+      position: absolute;
+      top: 50%;
+      width: 1856px;
+      height: 793px;
+      display: block;
+      border-radius: 50%;
+      background-color: #FF3855;
+      transform: rotate(-12deg);
+    }
+  }
+
+  .card {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 732px;
+    height: 462px;
+    border-radius: 20px;
+    box-shadow: 0px 15px 39px rgba(0, 0, 0, 0.12);
+  }
+}
