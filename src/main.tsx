@@ -9,13 +9,12 @@ import App from './app';
 import { Login } from './components/login/login';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyCr6hkPOB_QlXsuaed8ENXFwFBjpHEBvOE',
-  authDomain: 'profitapp-519b8.firebaseapp.com',
-  projectId: 'profitapp-519b8',
-  storageBucket: 'profitapp-519b8.appspot.com',
-  messagingSenderId: '1023128594610',
-  appId: '1:1023128594610:web:3302016163febd5cbf81ab',
-  measurementId: 'G-V305676PD7',
+  apiKey: "AIzaSyBuJvNVlN8mZQhI3MLlP7bbw0erP7LXUIY",
+  authDomain: "app-getprofit.firebaseapp.com",
+  projectId: "app-getprofit",
+  storageBucket: "app-getprofit.appspot.com",
+  messagingSenderId: "472910799216",
+  appId: "1:472910799216:web:89da688add178e9490efb5"
 };
 
 initializeApp(firebaseConfig);

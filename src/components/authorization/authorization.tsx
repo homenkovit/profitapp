@@ -1,6 +1,6 @@
 import React, { FC, FormEvent, useState } from 'react';
-import { sendPasswordResetEmail, getAuth } from 'firebase/auth';
 import { ReactComponent as IcGoogle } from '../../assets/images/google.svg';
+import { ReactComponent as IcError } from '../../assets/images/error.svg';
 import { useAuth } from '../../contexts/auth-context';
 import styles from './authorization.module.scss';
 
@@ -15,17 +15,15 @@ interface AuthorizationProps {
 }
 
 export const Authorization: FC<AuthorizationProps> = ({ type, onCancel }) => {
-  const { signUpWithEmail, signInWithEmail, signUpWithGoogle, signInWithGoogle } = useAuth();
+  const { authError, signUpWithEmail, signInWithEmail, signUpWithGoogle, signInWithGoogle, resetPassword } = useAuth();
   const [email, setEmail] = useState<string>('');
 
   const isSignUp = type === AuthorizationType.SIGN_UP;
 
   const onSubmit = (event: FormEvent) => {
     event.preventDefault();
-    console.log(event);
 
     const formData = new FormData(event.currentTarget as HTMLFormElement);
-    console.log(formData.get('email'), formData.get('password'), formData.get('passwordApprove'));
 
     const name = formData.get('name')?.toString();
     const email = formData.get('email')?.toString();
@@ -47,7 +45,7 @@ export const Authorization: FC<AuthorizationProps> = ({ type, onCancel }) => {
 
   const onResetPasswordButtonClick = () => {
     if (email) {
-      sendPasswordResetEmail(getAuth(), email);
+      resetPassword(email);
     }
   };
 
@@ -92,6 +90,12 @@ export const Authorization: FC<AuthorizationProps> = ({ type, onCancel }) => {
             <span className="visually-hidden">Подтвердите пароль</span>
             <input type="password" id="passwordApprove" name="passwordApprove" placeholder='Подтвердите пароль' className={styles.input} required />
           </label>
+        )}
+        {authError && (
+          <p className={styles.error}>
+            <IcError />
+            {authError}
+          </p>
         )}
         <div className={styles['form-buttons']}>
           <button type="submit" className="btn btn-primary">{isSignUp ? 'Зарегистрироваться' : 'Войти'}</button>

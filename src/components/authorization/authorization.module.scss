@@ -19,6 +19,16 @@
   font-size: 14px;
 }
 
+.error {
+  display: flex;
+  align-items: center;
+  color: #E02F36;
+  svg {
+    margin-right: 8px;
+    fill: currentColor;
+  }
+}
+
 .form-buttons {
   display: flex;
   align-items: center;
@@ -99,6 +109,11 @@
     }
   }
 
+  .error {
+    margin-top: 12px;
+    font-size: 12px;
+  }
+
   .form-buttons {
     margin-top: 20px;
     flex-wrap: wrap;
@@ -133,5 +148,11 @@
   .service-button {
     width: 30px;
     height: 30px;
+  }
+}
+
+@media screen and (min-width: 481px) {
+  .error {
+    margin-top: 16px;
   }
 }
