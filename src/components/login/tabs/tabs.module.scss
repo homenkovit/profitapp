@@ -1,0 +1,38 @@
+.tab {
+  display: inline-block;
+  padding: 0 8px 8px;
+  border-bottom: 2px solid #DDDDDD;
+  font-size: 14px;
+  color: #999999;
+  text-align: center;
+
+  &:has(input[type="radio"]:checked) {
+    border-color: #8687B4;
+    color: #8687B4;
+  }
+  &:has(input[type="radio"]:focus) {
+    outline: auto;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  .tabs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (min-width: 481px) {
+  .container {
+    padding: 30px;
+  }
+
+  .tabs {
+    margin-bottom: 24px;
+  }
+}
