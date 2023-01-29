@@ -1,4 +1,4 @@
-import React, { FC, FormEvent, useState } from 'react';
+import React, { FC, FormEvent, useEffect, useState } from 'react';
 import { ReactComponent as IcGoogle } from '../../assets/images/google.svg';
 import { ReactComponent as IcError } from '../../assets/images/error.svg';
 import { useAuth } from '../../contexts/auth-context';
@@ -17,6 +17,11 @@ interface AuthorizationProps {
 export const Authorization: FC<AuthorizationProps> = ({ type, onCancel }) => {
   const { authError, signUpWithEmail, signInWithEmail, signUpWithGoogle, signInWithGoogle, resetPassword } = useAuth();
   const [email, setEmail] = useState<string>('');
+  const [error, setError] = useState<string | undefined>(authError);
+
+  useEffect(() => {
+    setError(authError);
+  }, [authError]);
 
   const isSignUp = type === AuthorizationType.SIGN_UP;
 
@@ -34,11 +39,15 @@ export const Authorization: FC<AuthorizationProps> = ({ type, onCancel }) => {
       if (isSignUp) {
         if (password === passwordApprove && name) {
           signUpWithEmail(email, password, name);
+        } else {
+          setError('Пароль не совпадает');
+          return;
         }
       } else {
         signInWithEmail(email, password);
       }
 
+      setError(undefined);
       onCancel?.();
     }
   };
@@ -46,6 +55,8 @@ export const Authorization: FC<AuthorizationProps> = ({ type, onCancel }) => {
   const onResetPasswordButtonClick = () => {
     if (email) {
       resetPassword(email);
+    } else {
+      setError('Введите email');
     }
   };
 
@@ -91,10 +102,10 @@ export const Authorization: FC<AuthorizationProps> = ({ type, onCancel }) => {
             <input type="password" id="passwordApprove" name="passwordApprove" placeholder='Подтвердите пароль' className={styles.input} required />
           </label>
         )}
-        {authError && (
+        {error && (
           <p className={styles.error}>
             <IcError />
-            {authError}
+            {error}
           </p>
         )}
         <div className={styles['form-buttons']}>

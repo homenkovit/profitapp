@@ -30,7 +30,7 @@ type AuthErrorCode = typeof AuthErrorCodes[keyof typeof AuthErrorCodes];
 const AuthErrorMap = {
   [AuthErrorCodes.USER_DELETED]: 'Пользователь не найден',
   [AuthErrorCodes.INVALID_PASSWORD]: 'Неверный пароль',
-  [AuthErrorCodes.EMAIL_EXISTS]: 'Такой пользователь уже существует',
+  [AuthErrorCodes.EMAIL_EXISTS]: 'Пользователь уже существует',
 } as Record<AuthErrorCode, string>
 
 interface AuthStore {
