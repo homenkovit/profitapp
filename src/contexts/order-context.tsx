@@ -74,7 +74,7 @@ export const useOrder = (): OrderStore => {
   return store;
 }
 
-export const OrderProvider: FC = ({ children }) => {
+export const OrderProvider: FC<{ children?: React.ReactNode }> = ({ children }) => {
   const { user } = useAuth();
   const db = useMemo(() => getFirestore(), []);
   const ordersCollection = useMemo(() => collection(db, 'orders'), [db]);
