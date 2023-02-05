@@ -57,7 +57,7 @@ export const useAuth = (): AuthStore => {
   return store;
 };
 
-export const AuthProvider: FC = ({ children }) => {
+export const AuthProvider: FC<{ children?: React.ReactNode }> = ({ children }) => {
   const auth = getAuth();
 
   const [user, setUser] = useState<AuthStore['user']>();
