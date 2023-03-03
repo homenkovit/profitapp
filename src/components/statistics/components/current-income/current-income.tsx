@@ -21,4 +21,4 @@ export const CurrentIncome: FC<CurrentIncomeProps> = ({ data }) => {
       </p>
     </section>
   );
-}
+};
