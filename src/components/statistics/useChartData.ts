@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ChartItem } from '../chart/chart';
+import { ChartItem } from '../chart/types';
 import { useOrder } from '../../contexts/order-context';
 import { MONTHS } from '../../utils';
 
@@ -56,5 +56,5 @@ export const useChartData = (): useChartDataType => {
     setPlansAndFacts(newPlansAndFacts);
   }, [orders, currentYearCompletedOrders]);
 
-  return { plansAndFacts: plansAndFacts, currentPlanAndFact: currentPlanAndFact }; 
+  return { plansAndFacts, currentPlanAndFact }; 
 };

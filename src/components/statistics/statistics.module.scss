@@ -1,17 +1,5 @@
 @import '../../resources/styles/pallete.scss';
 
-$color-icon: $gray-2;
-
-.info-icon {
-  height: 12px;
-  width: 12px;
-  fill: $color-icon;
-}
-
-.profit-in-month-text {
-  font-size: 10px;
-}
-
 @media screen and (max-width: 480px) {
   .statistics {
     position: relative;
@@ -22,7 +10,7 @@ $color-icon: $gray-2;
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    color: #ffffff;
+    color: $white-1;
   }
 
   .statistics.first-tab-selected {
@@ -37,7 +25,7 @@ $color-icon: $gray-2;
     transform: translateY(-100%);
   }
 
-  .tabs li {
+  .tabs label {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -46,62 +34,19 @@ $color-icon: $gray-2;
     border-radius: 8px 8px 0 0;
   }
 
-  .tabs li svg {
+  .tabs label svg {
     fill: #273469;
   }
 
-  .tabs li.active {
+  .tabs label.active {
     background-color: #273469;
   }
 
-  .tabs li.active svg {
+  .tabs label.active svg {
     fill: #ffffff;
   }
 
   .currency {
-    display: none;
-  }
-
-  .profit-section {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .info-icon {
-    display: none;
-  }
-
-  .profit-in-month-text {
-    width: 100%;
-    font-weight: 500;
-  }
-
-  .profit-in-month-text,
-  .plan {
-    color: #6c7cbe;
-  }
-
-  .plan,
-  .fact {
-    font-weight: 700;
-  }
-
-  .fact {
-    font-size: 36px;
-    margin-right: 6px;
-  }
-
-  .plan {
-    order: 1;
-    align-self: flex-end;
-    transform: translateY(-5px);
-    font-size: 14px;
-    &::before {
-      content: "из ";
-    }
-  }
-
-  .chart-section {
     display: none;
   }
 }
@@ -109,37 +54,6 @@ $color-icon: $gray-2;
 @media screen and (min-width: 481px) {
   .tabs {
     display: none;
-  }
-
-  .profit-in-month-text {
-    margin-bottom: 10px;
-    color: #909090;
-  }
-
-  .info-icon {
-    vertical-align: middle;
-    margin-right: 4px;
-  }
-
-  .plan,
-  .fact {
-    text-align: left;
-    font-weight: 500;
-    padding-left: 6px;
-  }
-
-  .plan {
-    font-size: 14px;
-    color: rgba(39, 52, 105, 0.28);
-  }
-
-  .fact {
-    font-size: 32px;
-    color: #273469;
-  }
-
-  .chart-section {
-    margin-top: 50px;
   }
 }
 
