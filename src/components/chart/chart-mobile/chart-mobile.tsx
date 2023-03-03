@@ -5,7 +5,7 @@ interface ChartMobileProps {
   data: ChartItem[];
 }
 
-export const ChartMobile: FC<ChartMobileProps> = (props) => {
+export const ChartMobile: FC<ChartMobileProps> = ({ data }) => {
   return (
     <div>Mobile chart</div>
   );
