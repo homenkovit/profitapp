@@ -3,14 +3,14 @@ import { ChartItem } from '../chart/types';
 import { useOrder } from '../../contexts/order-context';
 import { MONTHS } from '../../utils';
 
-type useChartDataType = {
+interface UseChartData {
   plansAndFacts: ChartItem[];
   currentPlanAndFact: ChartItem;
 }
 
 const getInitialPlansAndFact = () => MONTHS.map(() => ({ plan: 0, fact: 0 }));
 
-export const useChartData = (): useChartDataType => {
+export const useChartData = (): UseChartData => {
   const { orders, currentYearCompletedOrders } = useOrder();
   const [plansAndFacts, setPlansAndFacts] = useState<ChartItem[]>(getInitialPlansAndFact());
   const currentYear = useMemo(() => new Date().getFullYear(), []);

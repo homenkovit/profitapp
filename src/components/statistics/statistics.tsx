@@ -22,16 +22,15 @@ export const Statistics: FC = () => {
     setCurrentTab(nextTab);
   }, []);
 
-  const getMobileStatisticsContent = () => {
+  const getMobileStatisticsContent = useCallback(() => {
     switch (currentTab) {
       case StatisticsTabs.CURRENT_INCOME:
+      default:
         return <CurrentIncome data={currentPlanAndFact} />;
       case StatisticsTabs.MONTHLY_INCOME:
         return <MonthlyIncome data={plansAndFacts} />;
-      default:
-        return <CurrentIncome data={currentPlanAndFact} />;
     }
-  };
+  }, [currentTab]);
 
   return (
     <div className={`${styles.statistics} ${styles['first-tab-selected']}`}>
