@@ -1,19 +1,15 @@
 import React, { FC, useCallback, useMemo } from 'react';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
-import { MONTHS } from '../../utils';
-import styles from './chart.module.scss';
+import { MONTHS } from '../../../utils';
+import { ChartItem } from '../types';
+import styles from './chart-desktop.module.scss';
 
-export interface ChartItem {
-  plan: number,
-  fact: number,
-}
-
-export interface ChartProps {
+export interface ChartDesktopProps {
 	data: ChartItem[];
 }
 
-export const Chart: FC<ChartProps> = (props) => {
+export const ChartDesktop: FC<ChartDesktopProps> = (props) => {
 	const planArray: number[] = useMemo(() => {
 		return props.data.map((item: ChartItem) => item.plan);
 	}, [props.data]);
