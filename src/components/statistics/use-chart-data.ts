@@ -32,6 +32,8 @@ export const useChartData = (): UseChartData => {
         // eslint-disable-next-line no-restricted-syntax
         for (const [monthIndex, item] of newPlansAndFacts.entries()) {
           if (order.isCompleted && order.completedYear && order.completedMonth !== undefined) {
+            console.log(order.completedMonth)
+
             const orderCompletedMonthIndex = order.completedMonth
             if (
               (orderCreatedYear === order.completedYear &&

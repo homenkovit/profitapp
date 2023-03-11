@@ -17,8 +17,6 @@ import {
   Timestamp,
 } from 'firebase/firestore'
 
-import { MONTHS } from '../utils'
-
 import { useAuth } from './auth-context'
 
 export interface Order {
@@ -28,6 +26,9 @@ export interface Order {
   isPermanent: boolean
   year?: number
   month?: number
+  isOverdue?: boolean
+  originalYear?: number
+  originalMonth?: number
   isCompleted?: boolean
   completedYear?: number
   completedMonth?: number
@@ -114,6 +115,93 @@ export const OrderProvider: FC<{ children?: React.ReactNode }> = ({ children }) 
     }
   }, [])
 
+  useEffect(() => {
+    if (!user) return
+
+    const { uid } = user
+    const ordersQuery = query(
+      ordersCollection,
+      where('uid', '==', uid),
+      where('isCompleted', '==', true),
+      where('completedYear', '==', new Date().getFullYear()),
+    )
+
+    // eslint-disable-next-line consistent-return
+    return onSnapshot(ordersQuery, (querySnapshot) => {
+      setCurrentYearCompletedOrders(
+        querySnapshot.docs.map((document_) => {
+          const {
+            description,
+            isPermanent,
+            year,
+            month,
+            price,
+            isCompleted,
+            createdAt,
+            updatedAt,
+            completedYear,
+            completedMonth,
+          } = document_.data() as StoreOrder
+
+          return {
+            id: document_.id,
+            description,
+            isPermanent,
+            year,
+            month,
+            price,
+            isCompleted,
+            completedYear,
+            completedMonth,
+            createdAt,
+            updatedAt,
+          }
+        }),
+      )
+    })
+  }, [ordersCollection, user])
+
+  useEffect(() => {
+    if (!user) return
+
+    const { uid } = user
+    const ordersQuery = query(ordersCollection, where('uid', '==', uid), where('isCompleted', '==', false))
+
+    // eslint-disable-next-line consistent-return
+    return onSnapshot(ordersQuery, (querySnapshot) => {
+      setOrders(
+        querySnapshot.docs.map((document_) => {
+          const {
+            description,
+            isPermanent,
+            year,
+            month,
+            isOverdue,
+            originalYear,
+            originalMonth,
+            price,
+            createdAt,
+            updatedAt,
+          } = document_.data() as StoreOrder
+
+          return {
+            id: document_.id,
+            description,
+            isPermanent,
+            year,
+            month,
+            isOverdue,
+            originalYear,
+            originalMonth,
+            price,
+            createdAt,
+            updatedAt,
+          }
+        }),
+      )
+    })
+  }, [ordersCollection, user])
+
   const sortOrders = useCallback(
     (sortType: SortType) => {
       localStorage.setItem(LOCAL_STORAGE_SORT_KEY, sortType)
@@ -177,79 +265,6 @@ export const OrderProvider: FC<{ children?: React.ReactNode }> = ({ children }) 
     }
   }, [orders, sortOrders])
 
-  useEffect(() => {
-    if (!user) return
-
-    const { uid } = user
-    const ordersQuery = query(ordersCollection, where('uid', '==', uid), where('isCompleted', '==', false))
-
-    // eslint-disable-next-line consistent-return
-    return onSnapshot(ordersQuery, (querySnapshot) => {
-      setOrders(
-        querySnapshot.docs.map((document_) => {
-          const { description, isPermanent, year, month, price, createdAt, updatedAt } = document_.data() as StoreOrder
-
-          return {
-            id: document_.id,
-            description,
-            isPermanent,
-            year,
-            month,
-            price,
-            createdAt,
-            updatedAt,
-          }
-        }),
-      )
-    })
-  }, [ordersCollection, user])
-
-  useEffect(() => {
-    if (!user) return
-
-    const { uid } = user
-    const ordersQuery = query(
-      ordersCollection,
-      where('uid', '==', uid),
-      where('isCompleted', '==', true),
-      where('completedYear', '==', new Date().getFullYear()),
-    )
-
-    // eslint-disable-next-line consistent-return
-    return onSnapshot(ordersQuery, (querySnapshot) => {
-      setCurrentYearCompletedOrders(
-        querySnapshot.docs.map((document_) => {
-          const {
-            description,
-            isPermanent,
-            year,
-            month,
-            price,
-            isCompleted,
-            createdAt,
-            updatedAt,
-            completedYear,
-            completedMonth,
-          } = document_.data() as StoreOrder
-
-          return {
-            id: document_.id,
-            description,
-            isPermanent,
-            year,
-            month,
-            price,
-            isCompleted,
-            completedYear,
-            completedMonth,
-            createdAt,
-            updatedAt,
-          }
-        }),
-      )
-    })
-  }, [ordersCollection, user])
-
   const addOrder = useCallback(
     (order: StoreOrder) => addDoc(ordersCollection, { ...order, createdAt: serverTimestamp() }),
     [ordersCollection],
@@ -261,7 +276,7 @@ export const OrderProvider: FC<{ children?: React.ReactNode }> = ({ children }) 
         isCompleted: true,
         updatedAt: serverTimestamp(),
         completedYear: new Date().getFullYear(),
-        completedMonth: MONTHS[new Date().getMonth()],
+        completedMonth: new Date().getMonth(),
       }),
     [ordersCollection],
   )
@@ -281,6 +296,30 @@ export const OrderProvider: FC<{ children?: React.ReactNode }> = ({ children }) 
   )
 
   const deleteOrder = useCallback((id: string) => deleteDoc(doc(ordersCollection, id)), [ordersCollection])
+
+  useEffect(() => {
+    const currentYear = new Date().getFullYear()
+    const currentMonth = new Date().getMonth()
+
+    const overdueOrders = orders.filter(
+      (order) =>
+        !order.isPermanent &&
+        !order.isOverdue &&
+        ((order.month && order.month < currentMonth) || (order.year && order.year < currentYear)),
+    )
+
+    if (overdueOrders.length > 0) {
+      overdueOrders.forEach((order) => {
+        editOrder(order.id, {
+          isOverdue: true,
+          originalYear: order.year,
+          originalMonth: order.month,
+          year: currentYear,
+          month: currentMonth,
+        })
+      })
+    }
+  }, [editOrder, orders])
 
   const value: OrderStore = useMemo(
     () => ({

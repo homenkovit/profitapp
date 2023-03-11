@@ -2,12 +2,16 @@
 
 $color-button-bg: $orange-1;
 $color-card-bg: $white-1;
-$color-card-border-single: $violet-3;
-$color-card-border-permanent: $blue-1;
+$color-card-border-permanent: $violet-3;
+$color-card-border-single: $blue-1;
+$color-card-border-overdue: $red-1;
 $color-action-icon-fill: $white-1;
 $color-text: $blue-1;
 $color-month-text: $white-1;
 $color-month-bg: $blue-1;
+$color-month-overdue-bg: $red-1;
+$color-overdue-label-border: $red-1;
+$color-overdue-label-text: $red-1;
 $color-price: $blue-2;
 $color-ic-expand: $violet-2;
 
@@ -23,11 +27,20 @@ $color-ic-expand: $violet-2;
 }
 
 .card.single {
-  border-color: $color-card-border-permanent;
+  border-color: $color-card-border-single;
 }
 
 .card.permanent {
-  border-color: $color-card-border-single;
+  border-color: $color-card-border-permanent;
+}
+
+.card.overdue {
+  border-color: $color-card-border-overdue;
+}
+
+.overdue-icon {
+  margin-right: 8px;
+  vertical-align: text-top;
 }
 
 .description {
@@ -45,7 +58,8 @@ $color-ic-expand: $violet-2;
 
 .price,
 .permanent-icon,
-.month {
+.month,
+.overdue-label {
   vertical-align: middle;
 }
 
@@ -56,13 +70,28 @@ $color-ic-expand: $violet-2;
   color: $color-price;
 }
 
-.month {
+.month,
+.overdue-label {
   padding: 0 4px 1px 4px;
   border-radius: 7px;
-  background-color: $color-month-bg;
   font-size: 10px;
-  color: $color-month-text;
   text-transform: lowercase;
+}
+
+.month {
+  background-color: $color-month-bg;
+  color: $color-month-text;
+}
+
+.month.overdue {
+  background-color: $color-month-overdue-bg;
+}
+
+.overdue-label {
+  margin-left: 8px;
+  background-color: transparent;
+  border: 1px solid $color-overdue-label-border;
+  color: $color-overdue-label-text;
 }
 
 .actions {
