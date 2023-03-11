@@ -1,0 +1,132 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "airbnb",
+    "airbnb/hooks",
+    "plugin:react-hooks/recommended",
+    "plugin:react/jsx-runtime",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
+    "plugin:unicorn/recommended",
+    "plugin:prettier/recommended",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "project": "./tsconfig.json",
+    "createDefaultProgram": true
+  },
+  "plugins": ["@typescript-eslint", "unicorn", "require-explicit-generics"],
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": "./tsconfig.json"
+      }
+    }
+  },
+  "ignorePatterns": ["*.html"],
+  "rules": {
+    "max-lines": [
+      "error",
+      {
+        "max": 100
+      }
+    ],
+    "no-param-reassign": [
+      "error",
+      {
+        "props": true,
+        "ignorePropertyModificationsFor": ["state"]
+      }
+    ],
+    "no-shadow": "off",
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-shadow": ["error"],
+    "@typescript-eslint/no-use-before-define": [
+      "error",
+      {
+        "functions": false,
+        "classes": false
+      }
+    ],
+    "@typescript-eslint/explicit-function-return-type": ["error"],
+    "@typescript-eslint/prefer-enum-initializers": "error",
+    "import/extensions": ["error", "never"],
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "internal", "parent", "sibling", "index", "object"],
+        "pathGroups": [
+          {
+            "pattern": "{assets,styles}/**",
+            "group": "internal",
+            "position": "before"
+          },
+          {
+            "pattern": "{@semcore/**}",
+            "group": "external",
+            "position": "after"
+          }
+        ],
+        "newlines-between": "always"
+      }
+    ],
+    "import/prefer-default-export": "off",
+    "import/no-default-export": "error",
+    "react/prop-types": "off",
+    "react/jsx-filename-extension": [
+      "error",
+      {
+        "extensions": [".tsx"]
+      }
+    ],
+    "react/prefer-stateless-function": [
+      "error",
+      {
+        "ignorePureComponents": false
+      }
+    ],
+    "react/function-component-definition": [
+      "error",
+      {
+        "namedComponents": "arrow-function",
+        "unnamedComponents": "arrow-function"
+      }
+    ],
+    "react/no-multi-comp": ["error"],
+    "require-explicit-generics/require-explicit-generics": ["error", ["useState", "React.useState"]],
+    "unicorn/filename-case": [
+      "error",
+      {
+        "case": "kebabCase"
+      }
+    ],
+    "unicorn/prefer-node-protocol": "off",
+    "unicorn/no-array-for-each": "off",
+    "unicorn/no-array-reduce": "off",
+    "unicorn/no-useless-undefined": "off",
+    "unicorn/no-null": "off"
+  },
+  "overrides": [
+    {
+      "files": ["*.tsx"],
+      "rules": {
+        "import/no-default-export": "off",
+        "import/prefer-default-export": "error"
+      }
+    }
+  ]
+}
