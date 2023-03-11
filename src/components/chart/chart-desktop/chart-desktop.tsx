@@ -32,7 +32,6 @@ const ChartDesktop: FC<ChartDesktopProperties> = ({ data }) => {
       </div>
     </>
   )
-  console.log(planArray, maxPlan)
 
   const definePlanColumnHeight = useCallback(
     (planValue: number): string => {
