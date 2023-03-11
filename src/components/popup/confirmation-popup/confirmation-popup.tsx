@@ -1,26 +1,24 @@
-import React, { FC, ReactNode } from 'react';
-import { Popup } from '../popup';
-import styles from './confirmation-popup.module.scss';
+import { FC, memo, ReactNode } from 'react'
 
-export interface ConfirmationPopupProps {
-  message: string;
-  actionsList: ReactNode[];
-  emoji: string;
-  isVisible: boolean;
+import { Popup } from '../popup'
+
+import styles from './confirmation-popup.module.scss'
+
+interface ConfirmationPopupProperties {
+  message: string
+  actionsList: ReactNode[]
+  emoji: string
+  isVisible: boolean
 }
 
-export const ConfirmationPopup: FC<ConfirmationPopupProps> = (props) => (
-  <Popup isVisible={props.isVisible}>
+const ConfirmationPopup: FC<ConfirmationPopupProperties> = ({ message, actionsList, emoji, isVisible }) => (
+  <Popup isVisible={isVisible}>
     <div className={styles.body}>
-      <div className={styles.icon}>
-        {props.emoji}
-      </div>
-      <div className={styles.message}>
-        {props.message}
-      </div> 
+      <div className={styles.icon}>{emoji}</div>
+      <div className={styles.message}>{message}</div>
     </div>
-    <div className={styles.footer}>
-      {props.actionsList}
-    </div>
+    <div className={styles.footer}>{actionsList}</div>
   </Popup>
-);
+)
+
+export default memo(ConfirmationPopup)

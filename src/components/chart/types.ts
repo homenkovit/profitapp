@@ -1,4 +1,4 @@
 export interface ChartItem {
-  plan: number,
-  fact: number,
+  plan: number
+  fact: number
 }

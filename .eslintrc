@@ -107,6 +107,20 @@
       }
     ],
     "react/no-multi-comp": ["error"],
+    "react/require-default-props": [
+      "error",
+      {
+        "functions": "ignore"
+      }
+    ],
+    "react/button-has-type": [
+      "error",
+      {
+        "button": true,
+        "submit": true,
+        "reset": true
+      }
+    ],
     "require-explicit-generics/require-explicit-generics": ["error", ["useState", "React.useState"]],
     "unicorn/filename-case": [
       "error",

@@ -1,82 +1,85 @@
-import React, { FC, ReactElement, useRef, ReactNode } from 'react';
-import { Placement } from '@popperjs/core';
-import Tippy from '@tippyjs/react/headless';
-import { Instance } from 'tippy.js';
-import styles from './popover.module.scss';
+import { FC, ReactElement, useRef, ReactNode, memo } from 'react'
+import Tippy, { TippyProps } from '@tippyjs/react/headless'
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { Instance } from 'tippy.js'
 
-export interface PopoverProps {
-  visible?: boolean;
-  className?: string;
-  placement?: Placement;
-  role?: string;
-  children?: ReactElement;
-  content?: ReactNode;
-  onMount?: (instance: Instance) => void;
+import styles from './popover.module.scss'
+
+interface PopoverProperties {
+  visible?: boolean
+  className?: string
+  placement?: TippyProps['placement']
+  role?: string
+  children?: ReactElement
+  content?: ReactNode
+  onMount?: (instance: Instance) => void
 }
 
-export const Popover: FC<PopoverProps> = (props) => {
-  const popoverRef = useRef<Instance>(null);
-  const popoverContentRef = useRef<HTMLDivElement>(null);
+const Popover: FC<PopoverProperties> = ({
+  visible,
+  className,
+  placement = 'bottom',
+  role,
+  children,
+  content,
+  onMount,
+}) => {
+  const popoverReference = useRef<Instance>()
+  const popoverContentReference = useRef<HTMLDivElement>(null)
 
-  let trigger: string | undefined;
-  if (props.visible === undefined) {
-    trigger = 'click';
+  let trigger: string | undefined
+  if (visible === undefined) {
+    trigger = 'click'
   }
 
   const onPopoverRootKeyDown = (event: React.KeyboardEvent<HTMLDivElement>): void => {
-    if (event.key === 'Escape') {
-      if (popoverRef.current) {
-        popoverRef.current.hide();
-      }
+    if (event.key === 'Escape' && popoverReference.current) {
+      popoverReference.current.hide()
     }
-  };
+  }
 
   const onPopoverMount = (instance: Instance): void => {
-    // @ts-ignore
-    popoverRef.current = instance;
-    if (popoverContentRef.current) {
-      popoverContentRef.current.focus();
+    popoverReference.current = instance
+    if (popoverContentReference.current) {
+      popoverContentReference.current.focus()
     }
-    if (props.onMount) {
-      props.onMount(instance);
+    if (onMount) {
+      onMount(instance)
     }
-  };
+  }
 
   return (
     <Tippy
-      visible={props.visible}
-      placement={props.placement}
+      visible={visible}
+      placement={placement}
       interactive
       trigger={trigger}
       appendTo={(): HTMLElement => document.body}
       onMount={onPopoverMount}
-      render={(attrs): ReactElement => {
-        if (props.visible !== false) {
+      render={(attributes): ReactElement => {
+        if (visible !== false) {
           return (
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions
             <div
-              role={props.role || 'dialog'}
-              className={`${styles.popover} ${props.className ?? ''}`}
+              role={role || 'dialog'}
+              className={`${styles.popover} ${className ?? ''}`}
               onKeyDown={onPopoverRootKeyDown}
-              {...attrs}
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...attributes}
             >
-              <div
-                ref={popoverContentRef}
-                tabIndex={-1}
-                className={styles.content}
-              >
-                {props.content}
+              <div ref={popoverContentReference} tabIndex={-1} className={styles.content}>
+                {content}
               </div>
-              <div data-popper-arrow="" className={styles.arrow}></div>
+              <div data-popper-arrow="" className={styles.arrow} />
             </div>
           )
-        } return <div />;
+        }
+        return <div />
       }}
     >
-      {props.children}
+      {children}
     </Tippy>
   )
-};
-
-Popover.defaultProps = {
-  placement: "bottom",
 }
+
+export default memo(Popover)
