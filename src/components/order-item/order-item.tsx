@@ -1,56 +1,59 @@
-import React, { FC, useState, useRef, useLayoutEffect } from 'react';
-import { OrderItemForm } from './order-item-form';
-import { ReactComponent as IconPermanent } from '../../assets/images/permanent.svg';
-import { ReactComponent as IconComplete } from '../../assets/images/complete-small.svg';
-import { ReactComponent as IconEdit } from '../../assets/images/edit-small.svg';
-import { ReactComponent as IconDelete } from '../../assets/images/delete-small.svg';
-import { ReactComponent as IcExpand } from '../../assets/images/expand.svg';
-import { DeleteOrderPopup } from '../popup/delete-order-popup/delete-order-popup';
-import { useOrder, Order } from '../../contexts/order-context';
-import { CompleteOrderPopup } from '../popup/complete-order-popup/complete-order-popup';
-import styles from './order-item.module.scss';
-import { MONTHS } from '../../utils';
-import { decodeText } from './order-item-form-utils';
+/* eslint-disable max-lines */
+import { FC, useState, useRef, useLayoutEffect, memo } from 'react'
 
-interface OrderItemProps {
-  data: Order;
+import { ReactComponent as IconPermanent } from '../../assets/images/permanent.svg'
+import { ReactComponent as IconComplete } from '../../assets/images/complete-small.svg'
+import { ReactComponent as IconEdit } from '../../assets/images/edit-small.svg'
+import { ReactComponent as IconDelete } from '../../assets/images/delete-small.svg'
+import { ReactComponent as IcExpand } from '../../assets/images/expand.svg'
+import { DeleteOrderPopup } from '../popup/delete-order-popup'
+import { useOrder, Order } from '../../contexts/order-context'
+import { CompleteOrderPopup } from '../popup/complete-order-popup'
+import { MONTHS } from '../../utils'
+
+import styles from './order-item.module.scss'
+import { OrderItemForm } from './components/order-item-form'
+import { decodeText } from './components/order-item-form/order-item-form-utils'
+
+interface OrderItemProperties {
+  data: Order
 }
 
-export const OrderItem: FC<OrderItemProps> = ({ data }) => {
-  const { completeOrder, deleteOrder } = useOrder();
+const OrderItem: FC<OrderItemProperties> = ({ data }) => {
+  const { completeOrder, deleteOrder } = useOrder()
 
-  const [isForm, setIsForm] = useState<boolean>(false);
-  const [isDeletePopupVisible, setDeletePopupVisible] = useState<boolean>(false);
-  const [isCompletePopupVisible, setCompletePopupVisible] = useState<boolean>(false);
-  const [isDescriptionExpand, setIsDescriptionExpand] = useState<boolean>(false);
-  const [isExpandBtnVisible, setExpandBtnVisible] = useState<boolean>(false);
+  const [isForm, setIsForm] = useState<boolean>(false)
+  const [isDeletePopupVisible, setDeletePopupVisible] = useState<boolean>(false)
+  const [isCompletePopupVisible, setCompletePopupVisible] = useState<boolean>(false)
+  const [isDescriptionExpand, setIsDescriptionExpand] = useState<boolean>(false)
+  const [isExpandButtonVisible, setExpandButtonVisible] = useState<boolean>(false)
 
-  const descriptionRef = useRef<HTMLParagraphElement>(null);
+  const descriptionReference = useRef<HTMLParagraphElement>(null)
 
   useLayoutEffect(() => {
-    const description = descriptionRef.current;
+    const description = descriptionReference.current
     if (description && !isDescriptionExpand) {
       if (description.offsetWidth < description.scrollWidth) {
-        setExpandBtnVisible(true);
+        setExpandButtonVisible(true)
       } else {
-        setExpandBtnVisible(false);
+        setExpandButtonVisible(false)
       }
     }
-  }, [data.description]);
+  }, [data.description, isDescriptionExpand])
 
   if (isForm) {
-    return <OrderItemForm data={data} onClose={() => setIsForm(false)} />;
+    return <OrderItemForm data={data} onClose={(): void => setIsForm(false)} />
   }
 
   return (
     <>
       <div className={`${styles.card} ${data.isPermanent ? styles.permanent : styles.single}`}>
-        {isExpandBtnVisible ? (
+        {isExpandButtonVisible ? (
           <button
-            type='button'
-            aria-label='expand'
+            type="button"
+            aria-label="expand"
             className={styles['expand-button']}
-            onClick={() => setIsDescriptionExpand(!isDescriptionExpand)}
+            onClick={(): void => setIsDescriptionExpand(!isDescriptionExpand)}
           >
             <div className={`${styles.description} ${isDescriptionExpand ? styles['full-text'] : ''}`}>
               {decodeText(data.description)}
@@ -59,33 +62,33 @@ export const OrderItem: FC<OrderItemProps> = ({ data }) => {
               className={`${styles['expand-icon']} ${isDescriptionExpand ? styles.expanded : ''}`}
               aria-hidden
             />
-          </button>) : (
-          <p
-            className={styles.description}
-            ref={descriptionRef}
-          >
+          </button>
+        ) : (
+          <p className={styles.description} ref={descriptionReference}>
             {decodeText(data.description)}
           </p>
         )}
         <div className={styles['last-row']}>
           <strong className={styles.price}>{data.price} ₽</strong>
-          {data.isPermanent
-            ? <IconPermanent aria-label='permanent' className={styles['permanent-icon']} />
-            : data.month !== undefined && <mark className={styles.month}>{MONTHS[data.month]}</mark>}
+          {data.isPermanent ? (
+            <IconPermanent aria-label="permanent" className={styles['permanent-icon']} />
+          ) : (
+            data.month !== undefined && <mark className={styles.month}>{MONTHS[data.month]}</mark>
+          )}
         </div>
         <ul className={styles.actions}>
           <li>
-            <button type='button' aria-label='complete' onClick={() => setCompletePopupVisible(true)}>
+            <button type="button" aria-label="complete" onClick={(): void => setCompletePopupVisible(true)}>
               <IconComplete aria-hidden />
             </button>
           </li>
           <li>
-            <button type='button' aria-label='edit' onClick={() => setIsForm(true)}>
+            <button type="button" aria-label="edit" onClick={(): void => setIsForm(true)}>
               <IconEdit aria-hidden />
             </button>
           </li>
           <li>
-            <button type='button' aria-label='delete' onClick={() => setDeletePopupVisible(true)}>
+            <button type="button" aria-label="delete" onClick={(): void => setDeletePopupVisible(true)}>
               <IconDelete aria-hidden />
             </button>
           </li>
@@ -93,20 +96,20 @@ export const OrderItem: FC<OrderItemProps> = ({ data }) => {
       </div>
       <CompleteOrderPopup
         isVisible={isCompletePopupVisible}
-        onComplete={() => {
-          completeOrder(data.id)
-            .catch((reason) => console.error(`Can't complete order for a reason: ${reason}`));
+        onComplete={(): void => {
+          completeOrder(data.id).catch((error) => console.error(`Can't complete order for a reason: ${error}`))
         }}
-        onCancel={() => setCompletePopupVisible(false)}
+        onCancel={(): void => setCompletePopupVisible(false)}
       />
       <DeleteOrderPopup
         isVisible={isDeletePopupVisible}
-        onDelete={() => {
-          deleteOrder(data.id)
-            .catch((reason) => console.error(`Can't delete order for a reason: ${reason}`));
+        onDelete={(): void => {
+          deleteOrder(data.id).catch((error) => console.error(`Can't delete order for a reason: ${error}`))
         }}
-        onCancel={() => setDeletePopupVisible(false)}
+        onCancel={(): void => setDeletePopupVisible(false)}
       />
     </>
-  );
-};
+  )
+}
+
+export default memo(OrderItem)

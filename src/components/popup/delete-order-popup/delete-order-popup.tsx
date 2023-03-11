@@ -1,22 +1,29 @@
-import React, { FC } from 'react';
-import { ConfirmationPopup } from '../confirmation-popup/confirmation-popup';
+import { FC, memo } from 'react'
 
-export interface DeleteOrderPopupProps {
-  onDelete: () => void;
-  onCancel: () => void;
-  isVisible: boolean;
+import { ConfirmationPopup } from '../confirmation-popup'
+
+interface DeleteOrderPopupProperties {
+  onDelete: () => void
+  onCancel: () => void
+  isVisible: boolean
 }
 
-export const DeleteOrderPopup: FC<DeleteOrderPopupProps> = (props) => {
+const DeleteOrderPopup: FC<DeleteOrderPopupProperties> = ({ isVisible, onCancel, onDelete }) => {
   return (
     <ConfirmationPopup
-      isVisible={props.isVisible}
+      isVisible={isVisible}
       emoji="😧"
       message="Вы уверены, что хотите удалить заказ?"
       actionsList={[
-        <button className="btn btn-danger" onClick={props.onDelete} key="delete">Удалить</button>,
-        <button className="btn btn-default" onClick={props.onCancel} key="cancel">Ой, стоп!</button>
+        <button type="button" className="btn btn-danger" onClick={onDelete} key="delete">
+          Удалить
+        </button>,
+        <button type="button" className="btn btn-default" onClick={onCancel} key="cancel">
+          Ой, стоп!
+        </button>,
       ]}
     />
   )
-};
+}
+
+export default memo(DeleteOrderPopup)

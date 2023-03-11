@@ -1,16 +1,16 @@
-import React, { FC } from 'react';
-import { useAuth } from '../../contexts/auth-context';
-import { InfoBlock } from '../info-block/info-block';
+import { FC, memo } from 'react'
 
-export const UnverifiedEmailMessage: FC = () => {
-  const { user } = useAuth();
+import { useAuth } from '../../contexts/auth-context'
+import { InfoBlock } from '../info-block'
 
-  if (!user || (user.isAnonymous || user.emailVerified)) {
-    return null;
+const UnverifiedEmailMessage: FC = () => {
+  const { user } = useAuth()
+
+  if (!user || user.isAnonymous || user.emailVerified) {
+    return null
   }
 
-  return (
-    <InfoBlock text="Пожалуйста, подтвердите ваш email. Мы выслали письмо с ссылкой на вашу почту." />
-  );
-};
+  return <InfoBlock text="Пожалуйста, подтвердите ваш email. Мы выслали письмо с ссылкой на вашу почту." />
+}
 
+export default memo(UnverifiedEmailMessage)

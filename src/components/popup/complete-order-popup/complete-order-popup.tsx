@@ -1,22 +1,29 @@
-import React, { FC } from 'react';
-import { ConfirmationPopup } from '../confirmation-popup/confirmation-popup';
+import { FC, memo } from 'react'
 
-export interface CompleteOrderPopupProps {
-  onComplete: () => void;
-  onCancel: () => void;
-  isVisible: boolean;
+import { ConfirmationPopup } from '../confirmation-popup'
+
+interface CompleteOrderPopupProperties {
+  onComplete: () => void
+  onCancel: () => void
+  isVisible: boolean
 }
 
-export const CompleteOrderPopup: FC<CompleteOrderPopupProps> = (props) => {
+const CompleteOrderPopup: FC<CompleteOrderPopupProperties> = ({ onCancel, onComplete, isVisible }) => {
   return (
     <ConfirmationPopup
-      isVisible={props.isVisible}
+      isVisible={isVisible}
       emoji="🎉"
       message="Ну что же, судя по всему работа выполнена!"
       actionsList={[
-        <button className="btn btn-primary" onClick={props.onComplete} key="complete">Готово</button>,
-        <button className="btn btn-default" onClick={props.onCancel} key="cancel">Погоди!</button>
+        <button type="button" className="btn btn-primary" onClick={onComplete} key="complete">
+          Готово
+        </button>,
+        <button type="button" className="btn btn-default" onClick={onCancel} key="cancel">
+          Погоди!
+        </button>,
       ]}
     />
   )
-};
+}
+
+export default memo(CompleteOrderPopup)

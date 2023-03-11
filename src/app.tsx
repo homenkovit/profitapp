@@ -1,26 +1,29 @@
-import React, { useState } from 'react';
-import { useAuth } from './contexts/auth-context';
-import { Header } from './components/header/header';
-import { OrderList } from './components/order-list/order-list';
-import { SortBar } from './components/sort-bar/sort-bar';
-import { OrderItemForm } from './components/order-item/order-item-form';
-import { GreetingMessage } from './components/greeting-message/greeting-message';
-import { TopBarRightActions } from './components/top-bar-right-actions/top-bar-right-actions';
-import { UnverifiedEmailMessage } from './components/unverified-email-message/unverified-email-message';
-import './base.css';
-import './resources/styles/modules.scss';
-import styles from './app.module.scss';
+import { FC, useCallback, useState } from 'react'
 
-const App = () => {
-  const { user } = useAuth();
+import { useAuth } from './contexts/auth-context'
+import { Header } from './components/header'
+import { OrderList } from './components/order-list'
+import { SortBar } from './components/sort-bar'
+import { OrderItemForm } from './components/order-item'
+import { GreetingMessage } from './components/greeting-message'
+import { TopBarRightActions } from './components/top-bar-right-actions'
+import { UnverifiedEmailMessage } from './components/unverified-email-message'
+import './base.css'
+import './resources/styles/modules.scss'
+import styles from './app.module.scss'
 
-  const [isNewOrderFormVisible, setNewOrderFormVisible] = useState(false);
+const App: FC = () => {
+  const { user } = useAuth()
 
-  const createNewOrder = () => {
+  const [isNewOrderFormVisible, setNewOrderFormVisible] = useState<boolean>(false)
+
+  const createNewOrder = (): void => {
     if (!isNewOrderFormVisible) {
-      setNewOrderFormVisible(true);
+      setNewOrderFormVisible(true)
     }
-  };
+  }
+
+  const handleOrderFormClose = useCallback((): void => setNewOrderFormVisible(false), [])
 
   return (
     <div className={styles.app}>
@@ -32,11 +35,11 @@ const App = () => {
         </div>
         <UnverifiedEmailMessage />
         {user && user.isAnonymous && <GreetingMessage />}
-        {isNewOrderFormVisible && <OrderItemForm className={styles.form} onClose={() => setNewOrderFormVisible(false)} />}
+        {isNewOrderFormVisible && <OrderItemForm className={styles.form} onClose={handleOrderFormClose} />}
         <OrderList />
       </main>
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App

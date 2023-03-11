@@ -1,10 +1,12 @@
-import React, { FC } from 'react';
-import { OrderItem } from '../order-item/order-item';
-import styles from './order-list.module.scss';
-import { useOrder } from '../../contexts/order-context';
+import { FC, memo } from 'react'
 
-export const OrderList: FC = () => {
-  const { sortedOrders } = useOrder();
+import { OrderItem } from '../order-item'
+import { useOrder } from '../../contexts/order-context'
+
+import styles from './order-list.module.scss'
+
+const OrderList: FC = () => {
+  const { sortedOrders } = useOrder()
 
   return (
     <ul className={styles.list}>
@@ -14,5 +16,7 @@ export const OrderList: FC = () => {
         </li>
       ))}
     </ul>
-  );
-};
+  )
+}
+
+export default memo(OrderList)
