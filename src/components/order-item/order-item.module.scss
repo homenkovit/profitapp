@@ -68,6 +68,7 @@ $color-ic-expand: $violet-2;
   font-size: 17px;
   font-weight: 700;
   color: $color-price;
+  white-space: nowrap;
 }
 
 .month,
@@ -132,6 +133,9 @@ $color-ic-expand: $violet-2;
 }
 
 .last-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
   padding-right: 96px;
 }
 

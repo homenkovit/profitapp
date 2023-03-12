@@ -1,6 +1,6 @@
 import { FC, memo, useLayoutEffect, useState } from 'react'
 
-import { ReactComponent as IcExpand } from '../../assets/images/expand.svg'
+import { ReactComponent as IconExpand } from '../../assets/images/expand.svg'
 
 import styles from './info-block.module.scss'
 
@@ -39,7 +39,7 @@ const InfoBlock: FC<InfoBlockProperties> = ({
           onClick={handleExpandToggle}
         >
           <span className={styles.title}>{title}</span>
-          <IcExpand className={`${styles.icon} ${isExpanded ? styles.expanded : ''}`} />
+          <IconExpand className={`${styles.icon} ${isExpanded ? styles.expanded : ''}`} />
         </button>
       )}
       {!expandable && title && <p className={styles.title}>{title}</p>}

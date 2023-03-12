@@ -5,8 +5,8 @@ import { ReactComponent as IconPermanent } from '../../assets/images/permanent.s
 import { ReactComponent as IconComplete } from '../../assets/images/complete-small.svg'
 import { ReactComponent as IconEdit } from '../../assets/images/edit-small.svg'
 import { ReactComponent as IconDelete } from '../../assets/images/delete-small.svg'
-import { ReactComponent as IcExpand } from '../../assets/images/expand.svg'
-import { ReactComponent as IcOverdue } from '../../assets/images/overdue.svg'
+import { ReactComponent as IconExpand } from '../../assets/images/expand.svg'
+import { ReactComponent as IconOverdue } from '../../assets/images/overdue.svg'
 import { DeleteOrderPopup } from '../popup/delete-order-popup'
 import { useOrder, Order } from '../../contexts/order-context'
 import { CompleteOrderPopup } from '../popup/complete-order-popup'
@@ -67,10 +67,10 @@ const OrderItem: FC<OrderItemProperties> = ({ data }) => {
 
     if (data.isOverdue && data.originalMonth !== undefined) {
       return (
-        <>
+        <div className={styles.labels}>
           <mark className={`${styles.month} ${styles.overdue}`}>{MONTHS[data.originalMonth]}</mark>
           <mark className={styles['overdue-label']}>просрочен</mark>
-        </>
+        </div>
       )
     }
 
@@ -92,17 +92,17 @@ const OrderItem: FC<OrderItemProperties> = ({ data }) => {
             onClick={(): void => setIsDescriptionExpand(!isDescriptionExpand)}
           >
             <div className={`${styles.description} ${isDescriptionExpand ? styles['full-text'] : ''}`}>
-              {data.isOverdue && <IcOverdue className={styles['overdue-icon']} />}
+              {data.isOverdue && <IconOverdue className={styles['overdue-icon']} />}
               {decodeText(data.description)}
             </div>
-            <IcExpand
+            <IconExpand
               className={`${styles['expand-icon']} ${isDescriptionExpand ? styles.expanded : ''}`}
               aria-hidden
             />
           </button>
         ) : (
           <p className={styles.description} ref={descriptionReference}>
-            {data.isOverdue && <IcOverdue className={styles['overdue-icon']} />}
+            {data.isOverdue && <IconOverdue className={styles['overdue-icon']} />}
             {decodeText(data.description)}
           </p>
         )}

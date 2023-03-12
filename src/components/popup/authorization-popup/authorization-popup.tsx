@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 import { Popup } from '../popup'
-import { ReactComponent as IcLogo } from '../../../assets/images/logo.svg'
+import { ReactComponent as IconLogo } from '../../../assets/images/logo.svg'
 import { Authorization, AuthorizationType } from '../../authorization'
 
 import styles from './authorization-popup.module.scss'
@@ -16,7 +16,7 @@ const AuthorizationPopup: FC<AuthorizationPopupProperties> = ({ type, onClose })
     <Popup isVisible className={styles.popup}>
       <header className={styles.header}>
         <h1 className={styles.h1}>
-          <IcLogo className={styles.logo} />
+          <IconLogo className={styles.logo} />
           <span className={styles['app-name']}>PROFITAPP</span>
           <sub className={styles['app-version']}>1.0.0</sub>
         </h1>
