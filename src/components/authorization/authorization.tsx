@@ -1,8 +1,8 @@
 /* eslint-disable max-lines */
 import { FC, FormEvent, memo, useEffect, useState } from 'react'
 
-import { ReactComponent as IcGoogle } from '../../assets/images/google.svg'
-import { ReactComponent as IcError } from '../../assets/images/error.svg'
+import { ReactComponent as IconGoogle } from '../../assets/images/google.svg'
+import { ReactComponent as IconError } from '../../assets/images/error.svg'
 import { useAuth } from '../../contexts/auth-context'
 
 import styles from './authorization.module.scss'
@@ -121,7 +121,7 @@ const Authorization: FC<AuthorizationProperties> = ({ type, onCancel }) => {
         )}
         {error && (
           <p className={styles.error}>
-            <IcError />
+            <IconError />
             {error}
           </p>
         )}
@@ -147,7 +147,7 @@ const Authorization: FC<AuthorizationProperties> = ({ type, onCancel }) => {
       <ul className={styles['services-buttons-list']}>
         <li className={styles['services-buttons-item']}>
           <button type="button" className={styles['service-button']} onClick={onGoogleButtonClick}>
-            <IcGoogle aria-label="Google" />
+            <IconGoogle aria-label="Google" />
           </button>
         </li>
       </ul>

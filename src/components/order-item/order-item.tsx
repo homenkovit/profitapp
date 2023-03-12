@@ -5,7 +5,8 @@ import { ReactComponent as IconPermanent } from '../../assets/images/permanent.s
 import { ReactComponent as IconComplete } from '../../assets/images/complete-small.svg'
 import { ReactComponent as IconEdit } from '../../assets/images/edit-small.svg'
 import { ReactComponent as IconDelete } from '../../assets/images/delete-small.svg'
-import { ReactComponent as IcExpand } from '../../assets/images/expand.svg'
+import { ReactComponent as IconExpand } from '../../assets/images/expand.svg'
+import { ReactComponent as IconOverdue } from '../../assets/images/overdue.svg'
 import { DeleteOrderPopup } from '../popup/delete-order-popup'
 import { useOrder, Order } from '../../contexts/order-context'
 import { CompleteOrderPopup } from '../popup/complete-order-popup'
@@ -45,9 +46,44 @@ const OrderItem: FC<OrderItemProperties> = ({ data }) => {
     return <OrderItemForm data={data} onClose={(): void => setIsForm(false)} />
   }
 
+  const getCardStyles = (): string => {
+    let additionalStyles = styles.single
+
+    if (data.isPermanent) {
+      additionalStyles = styles.permanent
+    }
+
+    if (data.isOverdue) {
+      additionalStyles = styles.overdue
+    }
+
+    return `${styles.card} ${additionalStyles}`
+  }
+
+  const getCardLabel = (): JSX.Element | null => {
+    if (data.isPermanent) {
+      return <IconPermanent aria-label="permanent" className={styles['permanent-icon']} />
+    }
+
+    if (data.isOverdue && data.originalMonth !== undefined) {
+      return (
+        <div className={styles.labels}>
+          <mark className={`${styles.month} ${styles.overdue}`}>{MONTHS[data.originalMonth]}</mark>
+          <mark className={styles['overdue-label']}>просрочен</mark>
+        </div>
+      )
+    }
+
+    if (data.month !== undefined) {
+      return <mark className={styles.month}>{MONTHS[data.month]}</mark>
+    }
+
+    return null
+  }
+
   return (
     <>
-      <div className={`${styles.card} ${data.isPermanent ? styles.permanent : styles.single}`}>
+      <div className={getCardStyles()}>
         {isExpandButtonVisible ? (
           <button
             type="button"
@@ -56,25 +92,23 @@ const OrderItem: FC<OrderItemProperties> = ({ data }) => {
             onClick={(): void => setIsDescriptionExpand(!isDescriptionExpand)}
           >
             <div className={`${styles.description} ${isDescriptionExpand ? styles['full-text'] : ''}`}>
+              {data.isOverdue && <IconOverdue className={styles['overdue-icon']} />}
               {decodeText(data.description)}
             </div>
-            <IcExpand
+            <IconExpand
               className={`${styles['expand-icon']} ${isDescriptionExpand ? styles.expanded : ''}`}
               aria-hidden
             />
           </button>
         ) : (
           <p className={styles.description} ref={descriptionReference}>
+            {data.isOverdue && <IconOverdue className={styles['overdue-icon']} />}
             {decodeText(data.description)}
           </p>
         )}
         <div className={styles['last-row']}>
           <strong className={styles.price}>{data.price} ₽</strong>
-          {data.isPermanent ? (
-            <IconPermanent aria-label="permanent" className={styles['permanent-icon']} />
-          ) : (
-            data.month !== undefined && <mark className={styles.month}>{MONTHS[data.month]}</mark>
-          )}
+          {getCardLabel()}
         </div>
         <ul className={styles.actions}>
           <li>
