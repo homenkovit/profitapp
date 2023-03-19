@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useCallback } from 'react';
 import { ChartItem } from '../chart/types';
 import { useOrder } from '../../contexts/order-context';
 import { MONTHS } from '../../utils';
@@ -6,6 +6,8 @@ import { MONTHS } from '../../utils';
 interface UseChartData {
   plansAndFacts: ChartItem[];
   currentPlanAndFact: ChartItem;
+  currentMonthIndex: number,
+  definePlanColumnHeight: (planValue: number, emptyPlanHeigth: number) => string
 }
 
 const getInitialPlansAndFact = () => MONTHS.map(() => ({ plan: 0, fact: 0 }));
@@ -16,6 +18,18 @@ export const useChartData = (): UseChartData => {
   const currentYear = useMemo(() => new Date().getFullYear(), []);
   const currentMonthIndex = useMemo(() => new Date().getMonth(), []);
   const currentPlanAndFact = plansAndFacts[currentMonthIndex];
+
+	const planArray: number[] = useMemo(() => {
+		return plansAndFacts.map((item: ChartItem) => item.plan);
+	}, [plansAndFacts]);
+
+  const maxPlan: number = useMemo(() => {
+		return Math.max.apply(null, planArray);
+	}, [planArray]);
+
+  const definePlanColumnHeight = useCallback((planValue: number, emptyPlanHeigth: number): string => {
+		return planValue !== 0 ? `${planValue*100/maxPlan}%` : `${emptyPlanHeigth}%`;
+	}, [plansAndFacts]);
 
   useEffect(() => {
     const newPlansAndFacts = getInitialPlansAndFact();
@@ -56,5 +70,10 @@ export const useChartData = (): UseChartData => {
     setPlansAndFacts(newPlansAndFacts);
   }, [orders, currentYearCompletedOrders]);
 
-  return { plansAndFacts, currentPlanAndFact }; 
+  return {
+    plansAndFacts,
+    currentPlanAndFact,
+    currentMonthIndex,
+    definePlanColumnHeight,
+  }; 
 };

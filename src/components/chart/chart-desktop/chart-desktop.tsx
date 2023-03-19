@@ -1,22 +1,12 @@
-import React, { FC, useCallback, useMemo } from 'react';
+import React, { FC } from 'react';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import { MONTHS } from '../../../utils';
-import { ChartItem } from '../types';
 import styles from './chart-desktop.module.scss';
+import { useChartData } from '../../statistics/useChartData';
 
-export interface ChartDesktopProps {
-	data: ChartItem[];
-}
-
-export const ChartDesktop: FC<ChartDesktopProps> = (props) => {
-	const planArray: number[] = useMemo(() => {
-		return props.data.map((item: ChartItem) => item.plan);
-	}, [props.data]);
-
-	const maxPlan: number = useMemo(() => {
-		return Math.max.apply(null, planArray);
-	}, [planArray]);
+export const ChartDesktop: FC = () => {
+  const { plansAndFacts, definePlanColumnHeight } = useChartData();
 
 	const tooltipContent = (plan: number, fact: number, index: number) => (
 		<>
@@ -26,14 +16,10 @@ export const ChartDesktop: FC<ChartDesktopProps> = (props) => {
 		</>
 	);
 
-	const definePlanColumnHeight = useCallback((planValue: number): string => {
-		return planValue !== 0 ? `${planValue*100/maxPlan}%` : '3%';
-	}, [props.data]);
-
 	return (
 		<div className={styles.chart}>
 			<ul className={styles['chart-list']}>
-				{props.data.map((month, index) => (
+				{plansAndFacts.map((month, index) => (
 					<Tippy
 						content={tooltipContent(month.plan, month.fact, index)}
 						className={styles.tooltip}
@@ -41,7 +27,7 @@ export const ChartDesktop: FC<ChartDesktopProps> = (props) => {
 					>
 						<li
 							className={styles['column-plan']}
-							style={{height: definePlanColumnHeight(month.plan)}}
+							style={{height: definePlanColumnHeight(month.plan, 3)}}
 						>
 							<div
 								className={styles['column-fact']}
