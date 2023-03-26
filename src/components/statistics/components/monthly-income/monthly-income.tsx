@@ -1,20 +1,20 @@
-import React, { FC } from 'react';
-import { useIsMobile } from '../../../../hooks/useIsMobile';
-import { ChartDesktop } from '../../../chart/chart-desktop/chart-desktop';
-import ChartMobile from '../../../chart/chart-mobile';
-import { ChartItem } from '../../../chart/types';
-import styles from './monthly-income.module.scss';
+import { FC, memo } from 'react'
 
-interface MonthlyIncomeProps {
-  data: ChartItem[];
-}
+import { ChartMobile } from 'components/chart/chart-mobile'
 
-export const MonthlyIncome: FC<MonthlyIncomeProps> = ({ data }) => {
-  const isMobile = useIsMobile();
+import { useIsMobile } from '../../../../hooks/use-is-mobile'
+import { ChartDesktop } from '../../../chart/chart-desktop'
+
+import styles from './monthly-income.module.scss'
+
+const MonthlyIncome: FC = () => {
+  const isMobile = useIsMobile()
 
   return (
-    <section id='chart-section' className={styles['chart-section']}>
+    <section id="chart-section" className={styles['chart-section']}>
       {isMobile ? <ChartMobile /> : <ChartDesktop />}
     </section>
-  );
-};
+  )
+}
+
+export default memo(MonthlyIncome)

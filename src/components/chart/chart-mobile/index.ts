@@ -1,1 +1,1 @@
-export { default } from './chart-mobile';
+export { default as ChartMobile } from './chart-mobile'

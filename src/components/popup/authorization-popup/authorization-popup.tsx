@@ -1,20 +1,22 @@
-import React, { FC } from 'react';
-import { Popup } from '../popup';
-import { ReactComponent as IcLogo } from '../../../assets/images/logo.svg';
-import styles from './authorization-popup.module.scss';
-import { Authorization, AuthorizationType } from '../../authorization/authorization';
+import { FC } from 'react'
 
-interface AuthorizationPopupProps {
-  type: AuthorizationType;
-  onClose: () => void;
+import { Popup } from '../popup'
+import { ReactComponent as IconLogo } from '../../../assets/images/logo.svg'
+import { Authorization, AuthorizationType } from '../../authorization'
+
+import styles from './authorization-popup.module.scss'
+
+interface AuthorizationPopupProperties {
+  type: AuthorizationType
+  onClose: () => void
 }
 
-export const AuthorizationPopup: FC<AuthorizationPopupProps> = ({ type, onClose }) => {
+const AuthorizationPopup: FC<AuthorizationPopupProperties> = ({ type, onClose }) => {
   return (
     <Popup isVisible className={styles.popup}>
       <header className={styles.header}>
         <h1 className={styles.h1}>
-          <IcLogo className={styles.logo} />
+          <IconLogo className={styles.logo} />
           <span className={styles['app-name']}>PROFITAPP</span>
           <sub className={styles['app-version']}>1.0.0</sub>
         </h1>
@@ -22,5 +24,7 @@ export const AuthorizationPopup: FC<AuthorizationPopupProps> = ({ type, onClose 
       </header>
       <Authorization type={type} onCancel={onClose} />
     </Popup>
-  );
-};
+  )
+}
+
+export default AuthorizationPopup

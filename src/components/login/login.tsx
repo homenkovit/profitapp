@@ -1,21 +1,21 @@
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Tabs } from './tabs/tabs';
-import { Anonymous } from './anonymous/anonymous';
-import styles from './login.module.scss';
-import { useAuth } from '../../contexts/auth-context';
+import { FC, memo, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-export const Login = () => {
-  const { user } = useAuth();
-  const navigate = useNavigate();
+import { useAuth } from '../../contexts/auth-context'
+
+import { Tabs } from './components/tabs'
+import { Anonymous } from './components/anonymous'
+import styles from './login.module.scss'
+
+const Login: FC = () => {
+  const { user } = useAuth()
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (user) {
-      console.log(user);
-      navigate('/');
+      navigate('/')
     }
-  }, [user]);
+  }, [navigate, user])
 
   return (
     <div className={styles.container}>
@@ -24,5 +24,7 @@ export const Login = () => {
         <Anonymous />
       </div>
     </div>
-  );
-};
+  )
+}
+
+export default memo(Login)

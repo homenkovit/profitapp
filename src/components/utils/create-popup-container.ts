@@ -1,16 +1,16 @@
-import { ReactNode, ReactPortal } from 'react';
-import { createPortal } from 'react-dom';
+import { ReactNode, ReactPortal } from 'react'
+import { createPortal } from 'react-dom'
 
-const POPUP_CONTAINER_ID = 'popup-container';
+const POPUP_CONTAINER_ID = '#popup-container'
 
 export function createPopupContainer(children: ReactNode): ReactPortal {
-  let container: Element | null = document.getElementById(POPUP_CONTAINER_ID);
+  let container: Element | null = document.querySelector(POPUP_CONTAINER_ID)
 
   if (!container) {
-    container = document.createElement('div');
-    container.setAttribute('id', POPUP_CONTAINER_ID);
-    document.body.appendChild(container);
+    container = document.createElement('div')
+    container.setAttribute('id', POPUP_CONTAINER_ID)
+    document.body.append(container)
   }
 
-  return createPortal(children, container);
-};
+  return createPortal(children, container)
+}
