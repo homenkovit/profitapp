@@ -1,25 +1,18 @@
 import { FC, memo } from 'react'
 
-import { LOCAL_STORAGE_SORT_KEY, SortType, sortTypeToText, useOrder } from '../../contexts/order-context'
+import { SortOrdersName } from 'hooks/use-sorted-orders'
 
 import styles from './sort-bar.module.scss'
+import SortButton from './components/sort-button/sort-button'
 
 const SortBar: FC = () => {
-  const { sortOrders } = useOrder()
-
   return (
     <>
       <span className={styles.text}>сортировать по: </span>
       <ul className={styles.list}>
-        {Object.values(SortType).map((sortType) => (
-          <li key={sortType}>
-            <button
-              type="button"
-              onClick={(): void => sortOrders(sortType)}
-              className={localStorage.getItem(LOCAL_STORAGE_SORT_KEY) === sortType ? styles.active : ''}
-            >
-              {sortTypeToText(sortType)}
-            </button>
+        {Object.values(SortOrdersName).map((sortOrdersName) => (
+          <li key={sortOrdersName}>
+            <SortButton sortOrdersName={sortOrdersName} />
           </li>
         ))}
       </ul>

@@ -14,79 +14,23 @@ import {
   updateDoc,
   deleteField,
   serverTimestamp,
-  Timestamp,
 } from 'firebase/firestore'
 
-import { useAuth } from './auth-context'
+import { useAuth } from 'contexts/auth-context'
+import { useSortedOrders } from 'hooks/use-sorted-orders'
+import type { SortOrders } from 'hooks/use-sorted-orders'
 
-export interface Order {
-  id: string
-  description: string
-  price: number
-  isPermanent: boolean
-  year?: number
-  month?: number
-  isOverdue?: boolean
-  originalYear?: number
-  originalMonth?: number
-  isCompleted?: boolean
-  completedYear?: number
-  completedMonth?: number
-  createdAt: Timestamp | null
-  updatedAt?: Timestamp | null
-}
-
-export interface StoreOrder extends Omit<Order, 'id'> {
-  uid: string
-}
+import type { Order, StoreOrder } from './types'
 
 interface OrderStore {
   orders: Order[]
   sortedOrders: Order[]
   currentYearCompletedOrders: Order[]
-  sortOrders: (sortType: SortType) => void
+  sortOrders: (sortType: SortOrders) => void
   addOrder: (order: StoreOrder) => Promise<DocumentReference<DocumentData>>
   completeOrder: (id: string) => Promise<void>
   editOrder: (id: string, data: Partial<StoreOrder>) => Promise<void>
   deleteOrder: (id: string) => Promise<void>
-}
-
-export enum SortType {
-  DATE_DESC = 'DATE_DESC',
-  DATE_ASC = 'DATE_ASC',
-  PRICE_DESC = 'PRICE_DESC',
-  PRICE_ASC = 'PRICE_ASC',
-  PERMANENT = 'PERMANENT',
-  ONCE = 'ONCE',
-}
-
-export const LOCAL_STORAGE_SORT_KEY = 'sortType'
-const DEFAULT_SORT_TYPE = SortType.DATE_DESC
-
-export const sortTypeToText = (sortType: SortType): string => {
-  switch (sortType) {
-    case SortType.DATE_ASC: {
-      return 'дате ↑'
-    }
-    case SortType.DATE_DESC: {
-      return 'дате ↓'
-    }
-    case SortType.PRICE_ASC: {
-      return 'цене ↑'
-    }
-    case SortType.PRICE_DESC: {
-      return 'цене ↓'
-    }
-    case SortType.PERMANENT: {
-      return 'постоянные'
-    }
-    case SortType.ONCE: {
-      return 'разовые'
-    }
-    default: {
-      throw new Error(`Can't find sort type ${sortType}`)
-    }
-  }
 }
 
 const OrderContext = createContext<OrderStore | null>(null)
@@ -103,20 +47,17 @@ export const useOrder = (): OrderStore => {
 
 export const OrderProvider: FC<{ children?: React.ReactNode }> = ({ children }) => {
   const { user } = useAuth()
+
   const database = useMemo(() => getFirestore(), [])
   const ordersCollection = useMemo(() => collection(database, 'orders'), [database])
+
   const [orders, setOrders] = useState<Order[]>([])
-  const [sortedOrders, setSortedOrders] = useState<Order[]>([])
   const [currentYearCompletedOrders, setCurrentYearCompletedOrders] = useState<Order[]>([])
 
-  useEffect(() => {
-    if (!localStorage.getItem(LOCAL_STORAGE_SORT_KEY)) {
-      localStorage.setItem(LOCAL_STORAGE_SORT_KEY, DEFAULT_SORT_TYPE)
-    }
-  }, [])
+  const { sortedOrders, sortOrders } = useSortedOrders(orders)
 
   useEffect(() => {
-    if (!user) return
+    if (!user) return undefined
 
     const { uid } = user
     const ordersQuery = query(
@@ -126,7 +67,6 @@ export const OrderProvider: FC<{ children?: React.ReactNode }> = ({ children }) 
       where('completedYear', '==', new Date().getFullYear()),
     )
 
-    // eslint-disable-next-line consistent-return
     return onSnapshot(ordersQuery, (querySnapshot) => {
       setCurrentYearCompletedOrders(
         querySnapshot.docs.map((document_) => {
@@ -162,12 +102,11 @@ export const OrderProvider: FC<{ children?: React.ReactNode }> = ({ children }) 
   }, [ordersCollection, user])
 
   useEffect(() => {
-    if (!user) return
+    if (!user) return undefined
 
     const { uid } = user
     const ordersQuery = query(ordersCollection, where('uid', '==', uid), where('isCompleted', '==', false))
 
-    // eslint-disable-next-line consistent-return
     return onSnapshot(ordersQuery, (querySnapshot) => {
       setOrders(
         querySnapshot.docs.map((document_) => {
@@ -201,69 +140,6 @@ export const OrderProvider: FC<{ children?: React.ReactNode }> = ({ children }) 
       )
     })
   }, [ordersCollection, user])
-
-  const sortOrders = useCallback(
-    (sortType: SortType) => {
-      localStorage.setItem(LOCAL_STORAGE_SORT_KEY, sortType)
-      switch (sortType) {
-        case SortType.DATE_ASC: {
-          setSortedOrders([...orders].sort((previous, next) => Number(previous.createdAt) - Number(next.createdAt)))
-          break
-        }
-        case SortType.DATE_DESC: {
-          setSortedOrders([...orders].sort((previous, next) => Number(next.createdAt) - Number(previous.createdAt)))
-          break
-        }
-        case SortType.PRICE_ASC: {
-          setSortedOrders([...orders].sort((previous, next) => previous.price - next.price))
-          break
-        }
-        case SortType.PRICE_DESC: {
-          setSortedOrders([...orders].sort((previous, next) => next.price - previous.price))
-          break
-        }
-        case SortType.PERMANENT: {
-          setSortedOrders(
-            [...orders].sort((previous, next) => {
-              if (previous.isPermanent > next.isPermanent) {
-                return -1
-              }
-              if (previous.isPermanent < next.isPermanent) {
-                return 1
-              }
-              return 0
-            }),
-          )
-          break
-        }
-        case SortType.ONCE: {
-          setSortedOrders(
-            [...orders].sort((previous, next) => {
-              if (previous.isPermanent < next.isPermanent) {
-                return -1
-              }
-              if (previous.isPermanent > next.isPermanent) {
-                return 1
-              }
-              return 0
-            }),
-          )
-          break
-        }
-        default: {
-          console.error(`Sort type ${sortType} not implemented`)
-        }
-      }
-    },
-    [orders],
-  )
-
-  useEffect(() => {
-    const sortType = localStorage.getItem(LOCAL_STORAGE_SORT_KEY)
-    if (sortType) {
-      sortOrders(sortType as SortType)
-    }
-  }, [orders, sortOrders])
 
   const addOrder = useCallback(
     (order: StoreOrder) => addDoc(ordersCollection, { ...order, createdAt: serverTimestamp() }),
@@ -303,17 +179,15 @@ export const OrderProvider: FC<{ children?: React.ReactNode }> = ({ children }) 
 
     const overdueOrders = orders.filter(
       (order) =>
-        !order.isPermanent &&
-        !order.isOverdue &&
-        ((order.month && order.month < currentMonth) || (order.year && order.year < currentYear)),
+        !order.isPermanent && ((order.month && order.month < currentMonth) || (order.year && order.year < currentYear)),
     )
 
     if (overdueOrders.length > 0) {
       overdueOrders.forEach((order) => {
         editOrder(order.id, {
           isOverdue: true,
-          originalYear: order.year,
-          originalMonth: order.month,
+          originalYear: order.originalYear ?? order.year,
+          originalMonth: order.originalMonth ?? order.month,
           year: currentYear,
           month: currentMonth,
         })

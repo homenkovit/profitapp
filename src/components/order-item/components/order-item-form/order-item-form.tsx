@@ -3,10 +3,12 @@
 import { FC, FormEvent, useState, useMemo, useRef, useEffect, memo } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
 
-import { MONTHS } from '../../../../utils'
-import { useAuth } from '../../../../contexts/auth-context'
-import { useOrder, Order, StoreOrder } from '../../../../contexts/order-context'
-import { ReactComponent as IconErrorSmall } from '../../../../assets/images/error-small.svg'
+import { ReactComponent as IconErrorSmall } from 'assets/images/error-small.svg'
+
+import { MONTHS } from 'utils'
+import { useAuth } from 'contexts/auth-context'
+import { useOrder, StoreOrder } from 'contexts/order-context'
+import type { Order } from 'contexts/order-context'
 
 import { encodeText, decodeText, Field } from './order-item-form-utils'
 import styles from './order-item-form.module.scss'
