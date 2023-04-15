@@ -12,11 +12,28 @@ interface UseSortedOrdersReturn {
 }
 
 export const useSortedOrders = (orders: Order[]): UseSortedOrdersReturn => {
-  const [sortedOrders, setSortedOrders] = useState<Order[]>([])
+  const [sortedOrders, setSortedOrders] = useState<Order[]>(orders)
 
   useEffect(() => {
-    if (!localStorage.getItem(LOCAL_STORAGE_SORT_KEY)) {
+    const sortTypeFromLocalStorage = localStorage.getItem(LOCAL_STORAGE_SORT_KEY)
+
+    const setDefaultSortType = (): void => {
       localStorage.setItem(LOCAL_STORAGE_SORT_KEY, DEFAULT_SORT_TYPE)
+    }
+
+    if (!sortTypeFromLocalStorage) {
+      setDefaultSortType()
+      return
+    }
+
+    try {
+      const sortType = JSON.parse(sortTypeFromLocalStorage) as SortOrders
+      if (!sortType.name) {
+        setDefaultSortType()
+      }
+    } catch (error) {
+      console.error(`Can't parse sort type ${sortTypeFromLocalStorage} from local storage: ${error}`)
+      setDefaultSortType()
     }
   }, [])
 
@@ -93,9 +110,13 @@ export const useSortedOrders = (orders: Order[]): UseSortedOrdersReturn => {
 
     if (!sortTypeFromLocalStorage) return
 
-    const sortType = JSON.parse(sortTypeFromLocalStorage) as SortOrders
-    if ('name' in sortType) {
-      sortOrders(sortType)
+    try {
+      const sortType = JSON.parse(sortTypeFromLocalStorage) as SortOrders
+      if ('name' in sortType) {
+        sortOrders(sortType)
+      }
+    } catch (error) {
+      console.error(`Can't parse sort type ${sortTypeFromLocalStorage} from local storage: ${error}`)
     }
   }, [orders, sortOrders])
 
