@@ -1,22 +1,33 @@
 import { FC, memo } from 'react'
 
+import { ChartMobile } from 'components/chart/chart-mobile'
+import { ChartItem } from 'components/chart/types'
+
 import { useIsMobile } from '../../../../hooks/use-is-mobile'
 import { ChartDesktop } from '../../../chart/chart-desktop'
-import { ChartMobile } from '../../../chart/chart-mobile/chart-mobile'
-import { ChartItem } from '../../../chart/types'
 
 import styles from './monthly-income.module.scss'
 
 interface MonthlyIncomeProperties {
-  data: ChartItem[]
+  plansAndFacts: ChartItem[]
+  currentMonthIndex: number
+  definePlanColumnHeight: (planValue: number) => string
 }
 
-const MonthlyIncome: FC<MonthlyIncomeProperties> = ({ data }) => {
+const MonthlyIncome: FC<MonthlyIncomeProperties> = ({ plansAndFacts, currentMonthIndex, definePlanColumnHeight }) => {
   const isMobile = useIsMobile()
 
   return (
     <section id="chart-section" className={styles['chart-section']}>
-      {isMobile ? <ChartMobile data={data} /> : <ChartDesktop data={data} />}
+      {isMobile ? (
+        <ChartMobile
+          plansAndFacts={plansAndFacts}
+          currentMonthIndex={currentMonthIndex}
+          definePlanColumnHeight={definePlanColumnHeight}
+        />
+      ) : (
+        <ChartDesktop plansAndFacts={plansAndFacts} definePlanColumnHeight={definePlanColumnHeight} />
+      )}
     </section>
   )
 }
