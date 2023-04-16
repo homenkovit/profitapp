@@ -16,7 +16,7 @@ enum StatisticsTabs {
 
 const Statistics: FC = () => {
   const [currentTab, setCurrentTab] = useState<StatisticsTabs>(StatisticsTabs.CURRENT_INCOME)
-  const { currentPlanAndFact } = useChartData()
+  const { plansAndFacts, currentPlanAndFact, currentMonthIndex, definePlanColumnHeight } = useChartData()
   const isMobile = useIsMobile()
 
   const onTabChange = useCallback((event: ChangeEvent<HTMLDivElement>) => {
@@ -30,7 +30,13 @@ const Statistics: FC = () => {
         return <CurrentIncome data={currentPlanAndFact} />
       }
       case StatisticsTabs.MONTHLY_INCOME: {
-        return <MonthlyIncome />
+        return (
+          <MonthlyIncome
+            plansAndFacts={plansAndFacts}
+            currentMonthIndex={currentMonthIndex}
+            definePlanColumnHeight={definePlanColumnHeight}
+          />
+        )
       }
       default: {
         return <CurrentIncome data={currentPlanAndFact} />
@@ -68,7 +74,11 @@ const Statistics: FC = () => {
       ) : (
         <>
           <CurrentIncome data={currentPlanAndFact} />
-          <MonthlyIncome />
+          <MonthlyIncome
+            plansAndFacts={plansAndFacts}
+            currentMonthIndex={currentMonthIndex}
+            definePlanColumnHeight={definePlanColumnHeight}
+          />
         </>
       )}
     </div>

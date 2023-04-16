@@ -1,7 +1,6 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useState, memo } from 'react'
 
 import { MONTHS } from '../../../utils'
-import { useChartData } from '../../statistics/use-chart-data'
 import { ChartItem } from '../types'
 
 import styles from './chart-mobile.module.scss'
@@ -12,9 +11,13 @@ interface MonthInfo {
   planFact: ChartItem
 }
 
-const ChartMobile: FC = () => {
-  const { plansAndFacts, currentMonthIndex, definePlanColumnHeight } = useChartData()
+interface ChartMobileProperties {
+  plansAndFacts: ChartItem[]
+  currentMonthIndex: number
+  definePlanColumnHeight: (planValue: number) => string
+}
 
+const ChartMobile: FC<ChartMobileProperties> = ({ plansAndFacts, currentMonthIndex, definePlanColumnHeight }) => {
   const [monthInfo, setMonthInfo] = useState<MonthInfo>({
     index: currentMonthIndex,
     name: MONTHS[currentMonthIndex],
@@ -29,7 +32,7 @@ const ChartMobile: FC = () => {
     })
   }, [currentMonthIndex, plansAndFacts])
 
-  const onClick = (index: number): void => {
+  const onChartColumnClick = (index: number): void => {
     setMonthInfo({
       index,
       name: MONTHS[index],
@@ -41,43 +44,51 @@ const ChartMobile: FC = () => {
     <>
       <div className={styles['total-info']}>
         <div className={styles.fact}>
-          <span className={styles['fact-value']}>{monthInfo.planFact.fact.toLocaleString()} ₽</span>
+          <span className={styles['fact-value']}>
+            {monthInfo.planFact.fact.toLocaleString('ru-RU', {
+              style: 'currency',
+              currency: 'RUB',
+              maximumFractionDigits: 0,
+            })}
+          </span>
           <div className={styles.line} />
         </div>
         <div className={styles.month}>{monthInfo.name}</div>
         <div className={styles.plan}>
           <div className={styles.line} />
-          <span className={styles['plan-value']}>{monthInfo.planFact.plan.toLocaleString()} ₽</span>
+          <span className={styles['plan-value']}>
+            {monthInfo.planFact.plan.toLocaleString('ru-RU', {
+              style: 'currency',
+              currency: 'RUB',
+              maximumFractionDigits: 0,
+            })}
+          </span>
         </div>
       </div>
       <div className={styles.chart}>
         <ul className={styles['chart-list']}>
           {plansAndFacts.map((month, index) => (
-            // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
-            <li
-              className={styles['chart-list-item']}
-              key={MONTHS[index]}
-              onClick={(): void => {
-                onClick(index)
-              }}
-            >
-              <div
-                className={`
-                    ${styles['column-plan']}
+            <li className={styles['chart-list-item']} key={MONTHS[index]}>
+              <button
+                type="button"
+                className={styles['chart-list-item-button']}
+                onClick={(): void => onChartColumnClick(index)}
+              >
+                <div
+                  className={`${styles['column-plan']} ${monthInfo.index === index ? styles.active : ''}`}
+                  style={{ height: definePlanColumnHeight(month.plan) }}
+                >
+                  <div className={styles['column-fact']} style={{ height: `${(month.fact * 100) / month.plan}%` }} />
+                </div>
+                <span
+                  className={`
+                    ${styles['month-number']} 
                     ${monthInfo.index === index ? styles.active : ''}
                   `}
-                style={{ height: definePlanColumnHeight(month.plan, 5) }}
-              >
-                <div className={styles['column-fact']} style={{ height: `${(month.fact * 100) / month.plan}%` }} />
-              </div>
-              <span
-                className={`
-                  ${styles['month-number']} 
-                  ${monthInfo.index === index ? styles.active : ''}
-                `}
-              >
-                {index + 1}
-              </span>
+                >
+                  {index + 1}
+                </span>
+              </button>
             </li>
           ))}
         </ul>
@@ -86,4 +97,4 @@ const ChartMobile: FC = () => {
   )
 }
 
-export default ChartMobile
+export default memo(ChartMobile)

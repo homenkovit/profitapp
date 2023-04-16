@@ -8,7 +8,7 @@ interface UseChartData {
   plansAndFacts: ChartItem[]
   currentPlanAndFact: ChartItem
   currentMonthIndex: number
-  definePlanColumnHeight: (planValue: number, emptyPlanHeigth: number) => string
+  definePlanColumnHeight: (planValue: number) => string
 }
 
 const getInitialPlansAndFact = (): Array<ChartItem> => MONTHS.map(() => ({ plan: 0, fact: 0 }))
@@ -29,8 +29,8 @@ export const useChartData = (): UseChartData => {
   }, [planArray])
 
   const definePlanColumnHeight = useCallback(
-    (planValue: number, emptyPlanHeigth: number): string => {
-      return planValue === 0 ? `${emptyPlanHeigth}%` : `${(planValue * 100) / maxPlan}%`
+    (planValue: number): string => {
+      return planValue === 0 ? 'initial' : `${(planValue * 100) / maxPlan}%`
     },
     [maxPlan],
   )
