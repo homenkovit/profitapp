@@ -88,10 +88,10 @@ export const useSortedOrders = (orders: Order[]): UseSortedOrdersReturn => {
       if (sortType.name === SortOrdersName.OVERDUE) {
         setSortedOrders(
           [...orders].sort((previous, next) => {
-            if (Boolean(previous.isOverdue) < Boolean(next.isOverdue)) {
+            if (Boolean(previous.isOverdue) > Boolean(next.isOverdue)) {
               return -1
             }
-            if (Boolean(previous.isOverdue) > Boolean(next.isOverdue)) {
+            if (Boolean(previous.isOverdue) < Boolean(next.isOverdue)) {
               return 1
             }
             return 0
