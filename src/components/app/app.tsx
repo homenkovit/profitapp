@@ -9,9 +9,6 @@ import { GreetingMessage } from 'components/greeting-message'
 import { UnverifiedEmailMessage } from 'components/unverified-email-message'
 import { TopBar } from 'components/top-bar'
 
-import 'styles/modules.scss'
-import 'styles/base.css'
-
 import styles from './app.module.scss'
 
 const App: FC = () => {

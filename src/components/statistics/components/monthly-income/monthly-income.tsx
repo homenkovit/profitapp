@@ -1,10 +1,8 @@
 import { FC, memo } from 'react'
 
-import { ChartMobile } from 'components/chart/chart-mobile'
-import { ChartItem } from 'components/chart/types'
-
-import { useIsMobile } from '../../../../hooks/use-is-mobile'
-import { ChartDesktop } from '../../../chart/chart-desktop'
+import { useIsMobile } from 'hooks/use-is-mobile'
+import { ChartDesktop, ChartMobile } from 'components/chart'
+import type { ChartItem } from 'components/chart'
 
 import styles from './monthly-income.module.scss'
 

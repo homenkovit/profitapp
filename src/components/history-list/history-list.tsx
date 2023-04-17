@@ -26,7 +26,7 @@ const HistoryList: FC = () => {
   return (
     <>
       <TopBarPortal>
-        <NavLink to="/" replace className={styles.link}>
+        <NavLink to="/" className={styles.link}>
           ← обратно к заказчикам
         </NavLink>
       </TopBarPortal>
