@@ -109,7 +109,13 @@ const OrderItem: FC<OrderItemProperties> = ({ data }) => {
           </p>
         )}
         <div className={styles['last-row']}>
-          <strong className={styles.price}>{data.price} ₽</strong>
+          <strong className={styles.price}>
+            {data.price.toLocaleString('ru-RU', {
+              style: 'currency',
+              currency: 'RUB',
+              maximumFractionDigits: 0,
+            })}
+          </strong>
           {getCardLabel()}
         </div>
         <ul className={styles.actions}>

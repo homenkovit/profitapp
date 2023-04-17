@@ -19,6 +19,7 @@ $label: $gray-1;
 .column-plan {
 	display: flex;
 	width: 5%;
+	min-height: 3%;
 	background-color: $column-plan;
 	border-radius: 10px;
 }
