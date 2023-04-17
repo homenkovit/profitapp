@@ -3,15 +3,16 @@ import { FC, memo } from 'react'
 import { ConfirmationPopup } from '../confirmation-popup'
 
 interface CompleteOrderPopupProperties {
+  isVisible: boolean
   onComplete: () => void
   onCancel: () => void
-  isVisible: boolean
 }
 
 const CompleteOrderPopup: FC<CompleteOrderPopupProperties> = ({ onCancel, onComplete, isVisible }) => {
   return (
     <ConfirmationPopup
       isVisible={isVisible}
+      onClose={onCancel}
       emoji="🎉"
       message="Ну что же, судя по всему работа выполнена!"
       actionsList={[

@@ -3,7 +3,8 @@ import Tippy from '@tippyjs/react'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'tippy.js/dist/tippy.css'
 
-import { MONTHS } from '../../../utils'
+import { MONTHS } from 'global/constants'
+
 import { ChartItem } from '../types'
 
 import styles from './chart-desktop.module.scss'

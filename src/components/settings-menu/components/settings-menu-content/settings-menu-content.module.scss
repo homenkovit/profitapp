@@ -1,5 +1,6 @@
-@import '../../../../resources/styles/pallete.scss';
+@import '../../../../styles/pallete.scss';
 
+$color-text: $black-1;
 $color-icon: $gray-2;
 $color-border: $gray-5;
 $color-item-hover-bg: $violet-2;
@@ -15,7 +16,8 @@ $color-text-hover: $white-1;
   &:not(:last-child) {
     border-bottom: 1px solid $color-border;
   }
-  &:hover .menu-item-button {
+  &:hover .menu-item-button,
+  .menu-item-button:global(.active) {
     background-color: $color-item-hover-bg;
     color: $color-text-hover;
     .icon {
@@ -30,6 +32,8 @@ $color-text-hover: $white-1;
   width: 100%;
   padding: 8px 16px;
   font-size: 14px;
+  color: $color-text;
+  text-decoration: none;
   transition: background-color 0.1s ease, color 0.1s ease;
 }
 

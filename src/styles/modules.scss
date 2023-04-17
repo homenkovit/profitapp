@@ -1,10 +1,19 @@
-@import '../../resources/styles/pallete.scss';
+@import './pallete.scss';
 
 $color-btn-default-bg: $white-1;
 $color-btn-on-colored-bg-text: $white-1;
 $color-btn-primary-bg: $orange-1;
 $color-btn-danger-bg: $red-1;
 $color-btn-border: $gray-5;
+
+.visually-hidden {
+  overflow: hidden;
+  position: absolute;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+}
 
 .btn {
   height: 30px;

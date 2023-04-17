@@ -1,10 +1,10 @@
 import { ReactNode, ReactPortal } from 'react'
 import { createPortal } from 'react-dom'
 
-const POPUP_CONTAINER_ID = '#popup-container'
+const POPUP_CONTAINER_ID = 'popup-container'
 
 export function createPopupContainer(children: ReactNode): ReactPortal {
-  let container: Element | null = document.querySelector(POPUP_CONTAINER_ID)
+  let container: Element | null = document.querySelector(`#${POPUP_CONTAINER_ID}`)
 
   if (!container) {
     container = document.createElement('div')

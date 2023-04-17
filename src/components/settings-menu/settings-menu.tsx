@@ -2,8 +2,9 @@ import { FC, memo, useRef } from 'react'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Instance } from 'tippy.js'
 
-import { Popover } from '../popover'
-import { ReactComponent as IconSettings } from '../../assets/images/settings.svg'
+import { ReactComponent as IconSettings } from 'assets/images/settings.svg'
+
+import { Popover } from 'components/popover'
 
 import { SettingsMenuContent } from './components/settings-menu-content'
 import styles from './settings-menu.module.scss'
@@ -17,13 +18,12 @@ export const SettingsMenu: FC<SettingsMenuProperties> = ({ className }) => {
 
   const onHistoryButtonClick = (): void => {
     popoverReference.current?.hide()
-    /* TODO: Add history button click handler */
   }
 
-  const onDarkModeButtonClick = (): void => {
-    popoverReference.current?.hide()
-    /* TODO: Add theme mode button click handler */
-  }
+  // const onDarkModeButtonClick = (): void => {
+  //   popoverReference.current?.hide()
+  //   /* TODO: Add theme mode button click handler */
+  // }
 
   return (
     <Popover
@@ -31,7 +31,7 @@ export const SettingsMenu: FC<SettingsMenuProperties> = ({ className }) => {
       onMount={(instance): void => {
         popoverReference.current = instance
       }}
-      content={<SettingsMenuContent onHistoryClick={onHistoryButtonClick} onDarkModeClick={onDarkModeButtonClick} />}
+      content={<SettingsMenuContent onHistoryClick={onHistoryButtonClick} />}
     >
       <button
         type="button"

@@ -3,15 +3,16 @@ import { FC, memo } from 'react'
 import { ConfirmationPopup } from '../confirmation-popup'
 
 interface DeleteOrderPopupProperties {
+  isVisible: boolean
   onDelete: () => void
   onCancel: () => void
-  isVisible: boolean
 }
 
 const DeleteOrderPopup: FC<DeleteOrderPopupProperties> = ({ isVisible, onCancel, onDelete }) => {
   return (
     <ConfirmationPopup
       isVisible={isVisible}
+      onClose={onCancel}
       emoji="😧"
       message="Вы уверены, что хотите удалить заказ?"
       actionsList={[

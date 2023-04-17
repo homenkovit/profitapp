@@ -1,0 +1,62 @@
+@import '../../styles/pallete.scss';
+
+$color-link-text: $violet-2;
+$color-calendar-icon: $gray-2;
+
+.link {
+  font-size: 14px;
+  color: $color-link-text;
+  &:not(:hover) {
+    text-decoration: none;
+  }
+}
+
+.head {
+  margin: 0 0 20px;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.group + .group {
+  margin-top: 20px;
+}
+
+.date {
+  z-index: 1;
+  position: sticky;
+  top: 38px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  margin: 0 -16px;
+  background-image: linear-gradient(to bottom, white, 95%, rgba(255, 255, 255, 0.5));
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.calendar {
+  fill: $color-calendar-icon;
+}
+
+.list {
+  flex-grow: 1;
+  padding-bottom: 16px;
+}
+
+@media screen and (max-width: 480px) {
+  .date {
+    top: 166px;
+    background-image: linear-gradient(to bottom, #fafaff, 95%, rgba(255, 255, 255, 0.5));
+  }
+
+  .list > li:not(:last-child) {
+    margin-bottom: 16px;
+  }
+}
+
+@media screen and (min-width: 481px) {
+  .list > li:not(:last-child) {
+    margin-bottom: 20px;
+  }
+}

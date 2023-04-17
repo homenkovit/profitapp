@@ -1,0 +1,52 @@
+@import '../../../../styles/pallete.scss';
+
+$color-month-text: $white-1;
+$color-month-bg: $blue-1;
+$color-month-bg-completed: $gray-2;
+$color-month-overdue-bg: $red-1;
+$color-overdue-label-border: $red-1;
+$color-overdue-label-text: $red-1;
+
+.permanent-icon,
+.month,
+.overdue-label {
+  vertical-align: middle;
+}
+
+.month,
+.overdue-label {
+  padding: 0 4px 1px 4px;
+  border-radius: 7px;
+  font-size: 10px;
+  text-transform: lowercase;
+}
+
+.permanent-icon.completed {
+  filter: grayscale(1);
+}
+
+.month {
+  background-color: $color-month-bg;
+  color: $color-month-text;
+
+  &.completed {
+    background-color: $color-month-bg-completed;
+  }
+}
+
+.month.overdue {
+  background-color: $color-month-overdue-bg;
+}
+
+.overdue-label {
+  margin-left: 8px;
+  background-color: transparent;
+  border: 1px solid $color-overdue-label-border;
+  color: $color-overdue-label-text;
+}
+
+@media screen and (min-width: 481px) {
+  .month {
+    font-size: 11px;
+  }
+}

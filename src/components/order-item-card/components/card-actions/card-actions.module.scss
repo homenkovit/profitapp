@@ -1,0 +1,28 @@
+@import '../../../../styles/pallete.scss';
+
+$color-button-bg: $orange-1;
+$color-action-icon-fill: $white-1;
+
+.actions {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: inline-flex;
+  border-radius: 6px 0px;
+  background-color: $color-button-bg;
+  fill: $color-action-icon-fill;
+}
+
+.actions button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 21px;
+}
+
+@media screen and (min-width: 481px) {
+  .actions {
+    border-radius: 9px 0;
+  }
+}

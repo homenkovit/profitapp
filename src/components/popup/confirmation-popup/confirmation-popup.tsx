@@ -9,10 +9,11 @@ interface ConfirmationPopupProperties {
   actionsList: ReactNode[]
   emoji: string
   isVisible: boolean
+  onClose: () => void
 }
 
-const ConfirmationPopup: FC<ConfirmationPopupProperties> = ({ message, actionsList, emoji, isVisible }) => (
-  <Popup isVisible={isVisible}>
+const ConfirmationPopup: FC<ConfirmationPopupProperties> = ({ message, actionsList, emoji, isVisible, onClose }) => (
+  <Popup isVisible={isVisible} onClose={onClose}>
     <div className={styles.body}>
       <div className={styles.icon}>{emoji}</div>
       <div className={styles.message}>{message}</div>

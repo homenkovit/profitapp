@@ -1,8 +1,3 @@
-export enum Field {
-  DESCRIPTION = 'description',
-  PRICE = 'price',
-}
-
 const htmlEscapes: Record<string, string> = {
   '&': '&amp;',
   '<': '&lt;',

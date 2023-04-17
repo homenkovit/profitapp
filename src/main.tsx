@@ -6,7 +6,9 @@ import { createBrowserRouter, Navigate, RouterProvider, useLocation } from 'reac
 import { AuthProvider, useAuth } from './contexts/auth-context'
 import { OrderProvider } from './contexts/order-context'
 import { Login } from './components/login'
-import App from './app'
+import { OrderList } from './components/order-list'
+import { HistoryList } from './components/history-list'
+import { App } from './components/app'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBuJvNVlN8mZQhI3MLlP7bbw0erP7LXUIY',
@@ -44,6 +46,20 @@ const router = createBrowserRouter([
         <App />
       </RequireAuth>
     ),
+    children: [
+      {
+        path: '',
+        element: <OrderList />,
+      },
+      {
+        path: 'history',
+        element: <HistoryList />,
+      },
+      {
+        path: '*',
+        element: <Navigate to="/" replace />,
+      },
+    ],
   },
   {
     path: '/login',
