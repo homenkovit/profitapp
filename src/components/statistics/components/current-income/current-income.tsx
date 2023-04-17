@@ -18,10 +18,18 @@ const CurrentIncome: FC<CurrentIncomeProperties> = ({ data }) => {
         доход в текущем месяце
       </p>
       <p className={styles.plan}>
-        {data.plan} <span className={styles.currency}>₽</span>
+        {data.plan.toLocaleString('ru-RU', {
+          style: 'currency',
+          currency: 'RUB',
+          maximumFractionDigits: 0,
+        })}
       </p>
       <p className={styles.fact}>
-        {data.fact} <span className={styles.currency}>₽</span>
+        {data.fact.toLocaleString('ru-RU', {
+          style: 'currency',
+          currency: 'RUB',
+          maximumFractionDigits: 0,
+        })}
       </p>
     </section>
   )

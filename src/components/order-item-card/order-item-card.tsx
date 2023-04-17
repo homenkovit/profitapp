@@ -43,7 +43,13 @@ const OrderItemCard: FC<OrderItemCardProperties> = ({ data, onClickEdit }) => {
         </p>
       )}
       <div className={styles['last-row']}>
-        <strong className={styles.price}>{data.price} ₽</strong>
+        <strong className={styles.price}>
+          {data.price.toLocaleString('ru-RU', {
+            style: 'currency',
+            currency: 'RUB',
+            maximumFractionDigits: 0,
+          })}
+        </strong>
         <CardLabel data={data} />
       </div>
       {!data.isCompleted && <CardActions orderId={data.id} onClickEdit={onClickEdit} />}

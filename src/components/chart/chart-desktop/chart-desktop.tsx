@@ -1,5 +1,6 @@
-import { FC, memo, useCallback, useMemo } from 'react'
+import { FC, memo } from 'react'
 import Tippy from '@tippyjs/react'
+
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'tippy.js/dist/tippy.css'
 
@@ -10,41 +11,37 @@ import { ChartItem } from '../types'
 import styles from './chart-desktop.module.scss'
 
 interface ChartDesktopProperties {
-  data: ChartItem[]
+  plansAndFacts: ChartItem[]
+  definePlanColumnHeight: (planValue: number) => string
 }
 
-const ChartDesktop: FC<ChartDesktopProperties> = ({ data }) => {
-  const planArray: number[] = useMemo(() => {
-    return data.map((item: ChartItem) => item.plan)
-  }, [data])
-
-  const maxPlan: number = useMemo(() => {
-    return Math.max.apply(null, planArray)
-  }, [planArray])
-
+const ChartDesktop: FC<ChartDesktopProperties> = ({ plansAndFacts, definePlanColumnHeight }) => {
   const tooltipContent = (plan: number, fact: number, index: number): JSX.Element => (
     <>
       <span className={styles.month}>{MONTHS[index]}</span>
       <div>
-        <span className={styles.label}>План:</span> {plan.toLocaleString()} ₽
+        <span className={styles.label}>План: </span>
+        {plan.toLocaleString('ru-RU', {
+          style: 'currency',
+          currency: 'RUB',
+          maximumFractionDigits: 0,
+        })}
       </div>
       <div>
-        <span className={styles.label}>Факт:</span> {fact.toLocaleString()} ₽
+        <span className={styles.label}>Факт: </span>
+        {fact.toLocaleString('ru-RU', {
+          style: 'currency',
+          currency: 'RUB',
+          maximumFractionDigits: 0,
+        })}
       </div>
     </>
-  )
-
-  const definePlanColumnHeight = useCallback(
-    (planValue: number): string => {
-      return planValue === 0 ? '3%' : `${(planValue * 100) / maxPlan}%`
-    },
-    [maxPlan],
   )
 
   return (
     <div className={styles.chart}>
       <ul className={styles['chart-list']}>
-        {data.map((month, index) => (
+        {plansAndFacts.map((month, index) => (
           <Tippy
             content={tooltipContent(month.plan, month.fact, index)}
             className={styles.tooltip}
