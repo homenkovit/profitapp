@@ -2,7 +2,7 @@ import { FC, memo } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import { ReactComponent as IconClock } from 'assets/images/clock.svg'
-import { ReactComponent as IconMoon } from 'assets/images/moon.svg'
+// import { ReactComponent as IconMoon } from 'assets/images/moon.svg'
 
 import styles from './settings-menu-content.module.scss'
 
