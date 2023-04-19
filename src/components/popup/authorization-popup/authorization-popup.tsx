@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { Popup } from '../popup'
 import { ReactComponent as IconLogo } from '../../../assets/images/logo.svg'
@@ -13,7 +13,7 @@ interface AuthorizationPopupProperties {
 
 const AuthorizationPopup: FC<AuthorizationPopupProperties> = ({ type, onClose }) => {
   return (
-    <Popup isVisible className={styles.popup}>
+    <Popup isVisible className={styles.popup} onClose={onClose}>
       <header className={styles.header}>
         <h1 className={styles.h1}>
           <IconLogo className={styles.logo} />
@@ -27,4 +27,4 @@ const AuthorizationPopup: FC<AuthorizationPopupProperties> = ({ type, onClose })
   )
 }
 
-export default AuthorizationPopup
+export default memo(AuthorizationPopup)

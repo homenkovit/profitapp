@@ -1,8 +1,9 @@
 import { FC, memo } from 'react'
 
-import { useAuth } from '../../contexts/auth-context'
-import { ReactComponent as IconLogo } from '../../assets/images/logo.svg'
-import { Statistics } from '../statistics'
+import { ReactComponent as IconLogo } from 'assets/images/logo.svg'
+
+import { useAuth } from 'contexts/auth-context'
+import { Statistics } from 'components/statistics'
 
 import styles from './header.module.scss'
 
@@ -21,14 +22,14 @@ const Header: FC<HeaderProperties> = ({ createNewOrder }) => {
         <p className={styles.greeting}>
           Привет
           {user.isAnonymous || !user.displayName ? (
-            <>
-              .<br />
-            </>
+            '.'
           ) : (
             <>
-              , <span>{user.displayName}</span>.
+              ,{user.displayName.includes(' ') ? <br /> : ' '}
+              <span>{user.displayName}</span>.
             </>
-          )}{' '}
+          )}
+          <br />
           Хорошего тебе дня!
         </p>
       )}

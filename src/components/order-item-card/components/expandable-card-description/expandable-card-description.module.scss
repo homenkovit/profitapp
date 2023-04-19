@@ -1,0 +1,40 @@
+@import '../../../../styles/pallete.scss';
+
+$color-ic-expand: $violet-2;
+
+.expand-button {
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  max-width: 100%;
+  text-align: left;
+}
+
+.expand-icon {
+  flex-shrink: 0;
+  margin-left: 12px;
+  fill: $color-ic-expand;
+  transition: transform 150ms ease-in;
+
+  &.expanded {
+    transform: rotate(180deg);
+  }
+}
+
+.full-text {
+  white-space: normal;
+  text-overflow: inherit;
+  word-break: break-all;
+}
+
+@media screen and (min-width: 481px) {
+  .expand-icon {
+    margin-top: 6px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .expand-icon {
+    margin-top: 4px;
+  }
+}

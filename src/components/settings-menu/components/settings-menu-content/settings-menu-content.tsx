@@ -1,30 +1,32 @@
 import { FC, memo } from 'react'
+import { NavLink } from 'react-router-dom'
 
-import { ReactComponent as IconClock } from '../../../../assets/images/clock.svg'
-import { ReactComponent as IconMoon } from '../../../../assets/images/moon.svg'
+import { ReactComponent as IconClock } from 'assets/images/clock.svg'
+// import { ReactComponent as IconMoon } from 'assets/images/moon.svg'
 
 import styles from './settings-menu-content.module.scss'
 
 interface SettingsMenuContentProperties {
   onHistoryClick: () => void
-  onDarkModeClick: () => void
+  // onDarkModeClick: () => void
 }
 
-const SettingsMenuContent: FC<SettingsMenuContentProperties> = ({ onHistoryClick, onDarkModeClick }) => {
+const SettingsMenuContent: FC<SettingsMenuContentProperties> = ({ onHistoryClick }) => {
   return (
     <ul role="menu" className={styles['menu-list']}>
       <li role="menuitem" className={styles['menu-item']}>
-        <button type="button" className={styles['menu-item-button']} onClick={onHistoryClick}>
+        <NavLink to="/history" className={styles['menu-item-button']} onClick={onHistoryClick}>
           <IconClock className={styles.icon} />
           История заказов
-        </button>
+        </NavLink>
       </li>
-      <li role="menuitem" className={styles['menu-item']}>
+      {/* TODO: Add theme change */}
+      {/* <li role="menuitem" className={styles['menu-item']}>
         <button type="button" className={styles['menu-item-button']} onClick={onDarkModeClick}>
           <IconMoon className={styles.icon} />
           Темная тема
         </button>
-      </li>
+      </li> */}
     </ul>
   )
 }

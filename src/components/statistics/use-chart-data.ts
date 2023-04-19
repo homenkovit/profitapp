@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState, useCallback } from 'react'
 
+import { MONTHS } from 'global/constants'
 import { useOrder } from 'contexts/order-context'
 import { ChartItem } from 'components/chart/types'
-import { MONTHS } from 'utils'
 
 interface UseChartData {
   plansAndFacts: ChartItem[]

@@ -1,6 +1,8 @@
+/* eslint-disable max-lines */
 import { FC, useEffect, useState, memo } from 'react'
 
-import { MONTHS } from '../../../utils'
+import { MONTHS } from 'global/constants'
+
 import { ChartItem } from '../types'
 
 import styles from './chart-mobile.module.scss'

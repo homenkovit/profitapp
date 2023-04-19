@@ -25,6 +25,7 @@ import type { Order, StoreOrder } from './types'
 interface OrderStore {
   orders: Order[]
   sortedOrders: Order[]
+  completedOrders: Order[]
   currentYearCompletedOrders: Order[]
   sortOrders: (sortType: SortOrders) => void
   addOrder: (order: StoreOrder) => Promise<DocumentReference<DocumentData>>
@@ -52,6 +53,7 @@ export const OrderProvider: FC<{ children?: React.ReactNode }> = ({ children }) 
   const ordersCollection = useMemo(() => collection(database, 'orders'), [database])
 
   const [orders, setOrders] = useState<Order[]>([])
+  const [completedOrders, setCompletedOrders] = useState<Order[]>([])
   const [currentYearCompletedOrders, setCurrentYearCompletedOrders] = useState<Order[]>([])
 
   const { sortedOrders, sortOrders } = useSortedOrders(orders)
@@ -60,15 +62,10 @@ export const OrderProvider: FC<{ children?: React.ReactNode }> = ({ children }) 
     if (!user) return undefined
 
     const { uid } = user
-    const ordersQuery = query(
-      ordersCollection,
-      where('uid', '==', uid),
-      where('isCompleted', '==', true),
-      where('completedYear', '==', new Date().getFullYear()),
-    )
+    const ordersQuery = query(ordersCollection, where('uid', '==', uid), where('isCompleted', '==', true))
 
     return onSnapshot(ordersQuery, (querySnapshot) => {
-      setCurrentYearCompletedOrders(
+      setCompletedOrders(
         querySnapshot.docs.map((document_) => {
           const {
             description,
@@ -100,6 +97,12 @@ export const OrderProvider: FC<{ children?: React.ReactNode }> = ({ children }) 
       )
     })
   }, [ordersCollection, user])
+
+  useEffect(() => {
+    setCurrentYearCompletedOrders(
+      completedOrders.filter(({ completedYear }) => completedYear === new Date().getFullYear()),
+    )
+  }, [completedOrders])
 
   useEffect(() => {
     if (!user) return undefined
@@ -159,16 +162,25 @@ export const OrderProvider: FC<{ children?: React.ReactNode }> = ({ children }) 
 
   const editOrder = useCallback(
     (id: string, data: Partial<StoreOrder>) => {
-      let permanentOptions
-      if (data.isPermanent) {
-        permanentOptions = {
-          year: deleteField(),
-          month: deleteField(),
+      let additionalOptions
+      const currentOrder = orders.find((order) => order.id === id)
+
+      if (
+        currentOrder?.isOverdue &&
+        currentOrder.year &&
+        currentOrder.month &&
+        ((data.year && data.year > currentOrder.year) || (data.month && data.month > currentOrder.month))
+      ) {
+        additionalOptions = {
+          isOverdue: deleteField(),
+          originalYear: deleteField(),
+          originalMonth: deleteField(),
         }
       }
-      return updateDoc(doc(ordersCollection, id), { ...data, ...permanentOptions, updatedAt: serverTimestamp() })
+
+      return updateDoc(doc(ordersCollection, id), { ...data, ...additionalOptions, updatedAt: serverTimestamp() })
     },
-    [ordersCollection],
+    [orders, ordersCollection],
   )
 
   const deleteOrder = useCallback((id: string) => deleteDoc(doc(ordersCollection, id)), [ordersCollection])
@@ -199,6 +211,7 @@ export const OrderProvider: FC<{ children?: React.ReactNode }> = ({ children }) 
     () => ({
       orders,
       sortedOrders,
+      completedOrders,
       currentYearCompletedOrders,
       sortOrders,
       addOrder,
@@ -206,7 +219,17 @@ export const OrderProvider: FC<{ children?: React.ReactNode }> = ({ children }) 
       editOrder,
       deleteOrder,
     }),
-    [addOrder, completeOrder, currentYearCompletedOrders, deleteOrder, editOrder, orders, sortOrders, sortedOrders],
+    [
+      addOrder,
+      completeOrder,
+      completedOrders,
+      currentYearCompletedOrders,
+      deleteOrder,
+      editOrder,
+      orders,
+      sortOrders,
+      sortedOrders,
+    ],
   )
 
   return <OrderContext.Provider value={value}>{children}</OrderContext.Provider>

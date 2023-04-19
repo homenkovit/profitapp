@@ -1,0 +1,25 @@
+@import '../../../styles/pallete.scss';
+
+$color-spinner-fill: $violet-2;
+
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 384px;
+}
+
+.spinner {
+  width: 128px;
+  height: 128px;
+  fill: $color-spinner-fill;
+  transform-origin: center;
+  animation: spinner .75s infinite linear
+}
+
+@keyframes spinner {
+  100% {
+    transform: rotate(360deg)
+  }
+}

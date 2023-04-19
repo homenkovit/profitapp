@@ -1,0 +1,39 @@
+@import './pallete.scss';
+
+$color-btn-default-bg: $white-1;
+$color-btn-on-colored-bg-text: $white-1;
+$color-btn-primary-bg: $orange-1;
+$color-btn-danger-bg: $red-1;
+$color-btn-border: $gray-5;
+
+.visually-hidden {
+  overflow: hidden;
+  position: absolute;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+}
+
+.btn {
+  height: 30px;
+  padding: 0 12px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-default {
+  background-color: $color-btn-default-bg;
+  border: 1px solid $color-btn-border;
+}
+
+.btn-primary {
+  color: $color-btn-on-colored-bg-text;
+  background-color: $color-btn-primary-bg;
+}
+
+.btn-danger {
+  color: $color-btn-on-colored-bg-text;
+  background-color: $color-btn-danger-bg;
+}

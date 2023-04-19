@@ -45,7 +45,11 @@ const Statistics: FC = () => {
   }
 
   return (
-    <div className={`${styles.statistics} ${styles['first-tab-selected']}`}>
+    <div
+      className={`${styles.statistics} ${
+        currentTab === StatisticsTabs.CURRENT_INCOME ? styles['first-tab-selected'] : ''
+      }`}
+    >
       <div className={styles.tabs} onChange={onTabChange}>
         <label htmlFor="current-income" className={currentTab === StatisticsTabs.CURRENT_INCOME ? styles.active : ''}>
           <IconPriceTab />
