@@ -1,7 +1,8 @@
 import { FC, memo } from 'react'
 
+import { useOrder } from 'contexts/order-context'
+
 import { OrderItem } from '../order-item'
-import { useOrder } from '../../contexts/order-context'
 
 import styles from './order-list.module.scss'
 

@@ -1,20 +1,22 @@
 /* eslint-disable max-lines */
 import { FC, useState, useRef, useLayoutEffect, memo } from 'react'
 
-import { ReactComponent as IconPermanent } from '../../assets/images/permanent.svg'
-import { ReactComponent as IconComplete } from '../../assets/images/complete-small.svg'
-import { ReactComponent as IconEdit } from '../../assets/images/edit-small.svg'
-import { ReactComponent as IconDelete } from '../../assets/images/delete-small.svg'
-import { ReactComponent as IconExpand } from '../../assets/images/expand.svg'
-import { ReactComponent as IconOverdue } from '../../assets/images/overdue.svg'
-import { DeleteOrderPopup } from '../popup/delete-order-popup'
-import { useOrder, Order } from '../../contexts/order-context'
-import { CompleteOrderPopup } from '../popup/complete-order-popup'
-import { MONTHS } from '../../utils'
+import { ReactComponent as IconPermanent } from 'assets/images/permanent.svg'
+import { ReactComponent as IconComplete } from 'assets/images/complete-small.svg'
+import { ReactComponent as IconEdit } from 'assets/images/edit-small.svg'
+import { ReactComponent as IconDelete } from 'assets/images/delete-small.svg'
+import { ReactComponent as IconExpand } from 'assets/images/expand.svg'
+import { ReactComponent as IconOverdue } from 'assets/images/overdue.svg'
 
-import styles from './order-item.module.scss'
+import { MONTHS } from 'utils'
+import { DeleteOrderPopup } from 'components/popup/delete-order-popup'
+import { CompleteOrderPopup } from 'components/popup/complete-order-popup'
+import { useOrder } from 'contexts/order-context'
+import type { Order } from 'contexts/order-context'
+
 import { OrderItemForm } from './components/order-item-form'
 import { decodeText } from './components/order-item-form/order-item-form-utils'
+import styles from './order-item.module.scss'
 
 interface OrderItemProperties {
   data: Order

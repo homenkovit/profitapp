@@ -1,10 +1,5 @@
 @import '../../resources/styles/pallete.scss';
 
-$color-button-active: $violet-2;
-$color-button-active-text: $white-1;
-$color-button-border: $violet-2;
-$color-button-text: $violet-2;
-$color-button-text-active: $white-1;
 $color-text: $gray-2;
 
 .list {
@@ -17,23 +12,6 @@ $color-text: $gray-2;
   display: flex;
 }
 
-.list button {
-  vertical-align: top;
-  height: 14px;
-  padding: 0 6px;
-  border-radius: 9px;
-  font-size: 10px;
-  line-height: 12px;
-  font-weight: 500;
-  text-align: center;
-  color: $color-button-text;
-}
-
-.list button.active {
-  background-color: $color-button-active;
-  color: $color-button-text-active;
-}
-
 @media screen and (max-width: 480px) {
   .text {
     position: absolute;
@@ -42,9 +20,6 @@ $color-text: $gray-2;
     height: 1px;
     margin: -1px;
   }
-  .list button {
-    border: 1px solid $color-button-border;
-  }
 }
 
 @media screen and (min-width: 481px) {
@@ -52,11 +27,5 @@ $color-text: $gray-2;
     margin-right: 12px;
     font-size: 12px;
     color: $color-text;
-  }
-
-  .list button {
-    height: 16px;
-    font-size: 12px;
-    line-height: 14px;
   }
 }

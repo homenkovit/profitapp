@@ -5,8 +5,8 @@ import { createBrowserRouter, Navigate, RouterProvider, useLocation } from 'reac
 
 import { AuthProvider, useAuth } from './contexts/auth-context'
 import { OrderProvider } from './contexts/order-context'
-import App from './app'
 import { Login } from './components/login'
+import App from './app'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBuJvNVlN8mZQhI3MLlP7bbw0erP7LXUIY',
