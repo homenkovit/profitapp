@@ -59,6 +59,14 @@ export const OrderProvider: FC<{ children?: React.ReactNode }> = ({ children }) 
   const { sortedOrders, sortOrders } = useSortedOrders(orders)
 
   useEffect(() => {
+    if (!user) {
+      setOrders([])
+      setCompletedOrders([])
+      setCurrentYearCompletedOrders([])
+    }
+  }, [user])
+
+  useEffect(() => {
     if (!user) return undefined
 
     const { uid } = user
