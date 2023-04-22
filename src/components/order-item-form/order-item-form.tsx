@@ -50,7 +50,7 @@ const OrderItemForm: FC<OrderItemFormProperties> = ({ data, onClose, className }
     if (field) {
       const validationFieldsObject = new Set(validationFields)
 
-      if (field.value === '') {
+      if (field.value === '' || (field.name === 'price' && (Number.isNaN(field.value) || Number(field.value) <= 0))) {
         validationFieldsObject.add(field.name)
       } else {
         validationFieldsObject.delete(field.name)
@@ -195,7 +195,7 @@ const OrderItemForm: FC<OrderItemFormProperties> = ({ data, onClose, className }
             name={Field.PRICE}
             defaultValue={price}
             placeholder="Введите стоимость заказа (руб.)"
-            min={0}
+            min={1}
             ref={fieldPrice}
             onChange={(event): void => setPrice(Number(event.target.value))}
             onBlur={(): void => validateField(fieldPrice.current)}
