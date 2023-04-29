@@ -41,19 +41,16 @@ button {
 }
 
 @media screen and (max-width: 480px) {
-  body {
-    background-color: #fafaff;
-  }
-
   main {
     padding-bottom: 65px;
   }
 }
 
-@media screen and (min-width: 721px) {
+@media screen and (min-width: 481px) {
   main {
     flex-grow: 1;
     max-width: 598px;
     min-height: 100vh;
+    overflow: hidden;
   }
 }

@@ -1,23 +1,17 @@
 @media screen and (min-width: 481px) {
+  .app {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
   .form {
     margin-bottom: 20px;
   }
 }
 
 @media screen and (max-width: 480px) {
-  .app {
-    background-color: #fafaff;
-  }
-
   .form {
     margin-bottom: 16px;
-  }
-}
-
-@media screen and (min-width: 721px) {
-  .app {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
   }
 }

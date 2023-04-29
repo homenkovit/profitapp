@@ -1,7 +1,5 @@
 import { FC, memo } from 'react'
 
-import { ReactComponent as IconPermanent } from 'assets/images/permanent.svg'
-
 import { MONTHS } from 'global/constants'
 import type { Order } from 'contexts/order-context'
 
@@ -17,12 +15,7 @@ const getClassNamesWithCompleted = (classNames: string, isCompleted: boolean): s
 
 const CardLabel: FC<CardLabelProperties> = ({ data }) => {
   if (data.isPermanent) {
-    return (
-      <IconPermanent
-        aria-label="permanent"
-        className={getClassNamesWithCompleted(styles['permanent-icon'], Boolean(data.isCompleted))}
-      />
-    )
+    return <mark className={getClassNamesWithCompleted(styles.permanent, Boolean(data.isCompleted))}>ежемесячно</mark>
   }
 
   if (data.isOverdue && data.originalMonth !== undefined) {

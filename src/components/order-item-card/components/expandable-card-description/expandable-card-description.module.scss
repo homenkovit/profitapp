@@ -3,11 +3,35 @@
 $color-ic-expand: $violet-2;
 
 .expand-button {
-  overflow: hidden;
+  position: relative;
   display: flex;
   align-items: flex-start;
   max-width: 100%;
   text-align: left;
+  z-index: 0;
+
+  transition: all .3s ease;
+
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: -3px;
+    left: -7px;
+    z-index: -1;
+    width: calc(100% + 14px);
+    height: 100%;
+    opacity: 0;
+    background-color: rgb($violet-3, 36%);
+    border-radius: 9px;
+    transition: all .3s ease;
+  }
+
+  &:hover {
+    &::after {
+      opacity: 1;
+    }
+  }
 }
 
 .expand-icon {
@@ -25,6 +49,7 @@ $color-ic-expand: $violet-2;
   white-space: normal;
   text-overflow: inherit;
   word-break: break-all;
+  transition: all 0.2s ease-out;
 }
 
 @media screen and (min-width: 481px) {
@@ -36,5 +61,11 @@ $color-ic-expand: $violet-2;
 @media screen and (max-width: 480px) {
   .expand-icon {
     margin-top: 4px;
+  }
+
+  .expand-button {
+    &::after {
+      top: -2px;
+    }
   }
 }

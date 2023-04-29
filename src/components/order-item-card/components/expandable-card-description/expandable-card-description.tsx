@@ -1,13 +1,17 @@
-import { FC, memo, useState } from 'react'
+import { FC, memo, useEffect, useRef, useState } from 'react'
 
 import { ReactComponent as IconExpand } from 'assets/images/expand.svg'
 import { ReactComponent as IconOverdue } from 'assets/images/overdue.svg'
 
 import { decodeText } from 'global/helpers'
+import { useIsMobile } from 'hooks/use-is-mobile'
 
 import cardStyles from '../../order-item-card.module.scss'
 
 import styles from './expandable-card-description.module.scss'
+
+const collapsedDescHeight = '20px'
+const collapsedDescHeightMobile = '16px'
 
 interface ExpandableCardDescriptionProperties {
   description: string
@@ -16,6 +20,18 @@ interface ExpandableCardDescriptionProperties {
 
 const ExpandableCardDescription: FC<ExpandableCardDescriptionProperties> = ({ description, isOrderOverdue }) => {
   const [isDescriptionExpand, setIsDescriptionExpand] = useState<boolean>(false)
+  const descriptionReference = useRef<HTMLDivElement | null>(null)
+  const isMobile = useIsMobile()
+
+  useEffect(() => {
+    const { current } = descriptionReference
+
+    if (current) {
+      current.style.height = isDescriptionExpand
+        ? `${current.scrollHeight}px`
+        : `${isMobile ? collapsedDescHeightMobile : collapsedDescHeight}`
+    }
+  }, [isDescriptionExpand, isMobile])
 
   return (
     <button
@@ -24,7 +40,10 @@ const ExpandableCardDescription: FC<ExpandableCardDescriptionProperties> = ({ de
       className={styles['expand-button']}
       onClick={(): void => setIsDescriptionExpand(!isDescriptionExpand)}
     >
-      <div className={`${cardStyles.description} ${isDescriptionExpand ? styles['full-text'] : ''}`}>
+      <div
+        ref={descriptionReference}
+        className={`${cardStyles.description} ${isDescriptionExpand ? styles['full-text'] : ''}`}
+      >
         {isOrderOverdue && <IconOverdue className={cardStyles['overdue-icon']} />}
         {decodeText(description)}
       </div>

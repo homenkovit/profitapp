@@ -80,6 +80,10 @@ textarea.field {
   background: url(../../assets/images/expand-small-grey.svg) right no-repeat;
 }
 
+.order-type-wrapper {
+  display: flex;
+}
+
 .radio + label {
   padding: 3px 8px;
   border-radius: 10px;
@@ -99,24 +103,8 @@ textarea.field {
   outline-offset: 1px;
 }
 
-.submit,
-.reset {
-  vertical-align: middle;
-  height: 30px;
-  line-height: 30px;
-  padding: 0 11px;
-  border-radius: 3px;
-}
-
 .submit {
   margin-right: 8px;
-  background-color: #f79256;
-  color: #ffffff;
-}
-
-.reset {
-  background-color: #f8f8fd;
-  color: #1e2749;
 }
 
 .month {
@@ -153,23 +141,12 @@ textarea.field {
     line-height: 20px;
   }
 
-  .submit,
-  .reset {
-    font-size: 14px;
-    border-radius: 4px;
-  }
-
-  .reset {
-    border: 1px solid #d6d6d6;
-    background-color: #ffffff;
-  }
-
   .label {
     display: block;
   }
 
   .label-radio {
-    margin-bottom: 12px;
+    margin-bottom: 9px;
   }
 
   .message {
@@ -184,10 +161,9 @@ textarea.field {
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 720px) {
   .form {
     background-color: #ffffff;
-    font-size: 12px;
   }
 
   .description,
@@ -199,10 +175,6 @@ textarea.field {
   .month-year-wrapper,
   .validate-error {
     margin-bottom: 20px;
-  }
-
-  .field {
-    background-color: #f9f9fe;
   }
 
   textarea.field {
@@ -231,36 +203,38 @@ textarea.field {
     margin-right: 12px;
     margin-bottom: 0;
   }
-
-  .submit,
-  .reset {
-    text-transform: uppercase;
-    font-size: 12px;
-  }
-
-  .select {
-    font-size: 12px;
-  }
 }
 
 @media screen and (min-width: 721px) {
-  .form {
+  .form-content {
     display: grid;
     grid-template-columns: 132px;
     grid-column-gap: 24px;
     grid-row-gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .form-footer {
+    display: flex;
+    align-items: center;
   }
 
   .description {
     grid-column: 1 / 4;
   }
 
-  .validate-error {
-    grid-column: 1 / 3;
+  .buttons {
+    display: flex;
+    margin-left: auto;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .form, .select {
+    font-size: 12px;
   }
 
   .buttons {
-    grid-column: 3 / 4;
-    grid-row: 3 / 4;
+    flex-direction: column;
   }
 }

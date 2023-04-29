@@ -167,118 +167,124 @@ const OrderItemForm: FC<OrderItemFormProperties> = ({ data, onClose, className }
   return (
     <>
       <form ref={formReference} className={`${styles.form} ${className}`} onSubmit={onSubmit}>
-        <fieldset className={`${styles.fieldset} ${styles.description}`}>
-          <label className={styles.label} htmlFor={Field.DESCRIPTION}>
-            Описание заказа
-          </label>
-          <TextareaAutosize
-            className={`${styles.field} ${validationFields.has(Field.DESCRIPTION) ? styles.invalid : ''}`}
-            name={Field.DESCRIPTION}
-            id={Field.DESCRIPTION}
-            value={description}
-            ref={fieldDescription}
-            placeholder="Введите описание заказа"
-            onChange={(event): void => setDescription(event.target.value)}
-            onBlur={(): void => validateField(fieldDescription.current)}
-            maxRows={6}
-            autoFocus
-          />
-        </fieldset>
-        <fieldset className={`${styles.fieldset} ${styles.price}`}>
-          <label className={styles.label} htmlFor={Field.PRICE}>
-            Стоимость заказа (руб.)
-          </label>
-          <input
-            className={`${styles.field} ${validationFields.has(Field.PRICE) ? styles.invalid : ''}`}
-            type="number"
-            id={Field.PRICE}
-            name={Field.PRICE}
-            defaultValue={price}
-            placeholder="Введите стоимость заказа (руб.)"
-            min={1}
-            ref={fieldPrice}
-            onChange={(event): void => setPrice(Number(event.target.value))}
-            onBlur={(): void => validateField(fieldPrice.current)}
-          />
-        </fieldset>
-        {!data && (
-          <fieldset className={`${styles.fieldset} ${styles.type}`}>
-            <p className={styles['label-radio']}>Тип заказа</p>
-            <input
-              className={`${styles.radio} visually-hidden`}
-              type="radio"
-              id="single"
-              name="type"
-              value="single"
-              checked={!isPermanent}
-              onChange={(): void => setIsPermanent(!isPermanent)}
+        <div className={styles['form-content']}>
+          <fieldset className={`${styles.fieldset} ${styles.description}`}>
+            <label className={styles.label} htmlFor={Field.DESCRIPTION}>
+              Описание заказа
+            </label>
+            <TextareaAutosize
+              className={`${styles.field} ${validationFields.has(Field.DESCRIPTION) ? styles.invalid : ''}`}
+              name={Field.DESCRIPTION}
+              id={Field.DESCRIPTION}
+              value={description}
+              ref={fieldDescription}
+              placeholder="Введите описание заказа"
+              onChange={(event): void => setDescription(event.target.value)}
+              onBlur={(): void => validateField(fieldDescription.current)}
+              maxRows={6}
+              autoFocus
             />
-            <label htmlFor="single">разовый</label>
-            <input
-              className={`${styles.radio} visually-hidden`}
-              type="radio"
-              id="permanent"
-              name="type"
-              value="permanent"
-              checked={isPermanent}
-              onChange={(): void => setIsPermanent(!isPermanent)}
-            />
-            <label htmlFor="permanent">постоянный</label>
           </fieldset>
-        )}
-        {!isPermanent && (
-          <div className={styles['month-year-wrapper']}>
-            <fieldset className={`${styles.fieldset} ${styles.month}`}>
-              <label className={styles['label-select']} htmlFor="month">
-                Месяц оплаты
-              </label>
-              <select
-                className={styles.select}
-                name="month"
-                id="month"
-                value={month}
-                onChange={(event): void => setMonth(Number(event.target.value))}
-              >
-                {MONTHS.map((monthString, monthIndex) => (
-                  <option key={monthString} value={monthIndex}>
-                    {monthString}
-                  </option>
-                ))}
-              </select>
+          <fieldset className={`${styles.fieldset} ${styles.price}`}>
+            <label className={styles.label} htmlFor={Field.PRICE}>
+              Стоимость заказа (руб.)
+            </label>
+            <input
+              className={`${styles.field} ${validationFields.has(Field.PRICE) ? styles.invalid : ''}`}
+              type="number"
+              id={Field.PRICE}
+              name={Field.PRICE}
+              defaultValue={price}
+              placeholder="Введите стоимость заказа (руб.)"
+              min={1}
+              ref={fieldPrice}
+              onChange={(event): void => setPrice(Number(event.target.value))}
+              onBlur={(): void => validateField(fieldPrice.current)}
+            />
+          </fieldset>
+          {!data && (
+            <fieldset className={`${styles.fieldset} ${styles.type}`}>
+              <p className={styles['label-radio']}>Тип заказа</p>
+              <div className={styles['order-type-wrapper']}>
+                <input
+                  className={`${styles.radio} visually-hidden`}
+                  type="radio"
+                  id="single"
+                  name="type"
+                  value="single"
+                  checked={!isPermanent}
+                  onChange={(): void => setIsPermanent(!isPermanent)}
+                />
+                <label htmlFor="single">разовый</label>
+                <input
+                  className={`${styles.radio} visually-hidden`}
+                  type="radio"
+                  id="permanent"
+                  name="type"
+                  value="permanent"
+                  checked={isPermanent}
+                  onChange={(): void => setIsPermanent(!isPermanent)}
+                />
+                <label htmlFor="permanent">постоянный</label>
+              </div>
             </fieldset>
-            <fieldset className={`${styles.fieldset} ${styles.year}`}>
-              <label className={styles['label-select']} htmlFor="year">
-                Год
-              </label>
-              <select
-                className={styles.select}
-                name="year"
-                id="year"
-                value={year}
-                onChange={(event): void => setYear(Number(event.target.value))}
-              >
-                {yearsList.map((yearFromList) => (
-                  <option key={yearFromList} value={yearFromList}>
-                    {yearFromList}
-                  </option>
-                ))}
-              </select>
-            </fieldset>
+          )}
+          {!isPermanent && (
+            <div className={styles['month-year-wrapper']}>
+              <fieldset className={`${styles.fieldset} ${styles.month}`}>
+                <label className={styles['label-select']} htmlFor="month">
+                  Месяц оплаты
+                </label>
+                <select
+                  className={styles.select}
+                  name="month"
+                  id="month"
+                  value={month}
+                  onChange={(event): void => setMonth(Number(event.target.value))}
+                >
+                  {MONTHS.map((monthString, monthIndex) => (
+                    <option key={monthString} value={monthIndex}>
+                      {monthString}
+                    </option>
+                  ))}
+                </select>
+              </fieldset>
+              <fieldset className={`${styles.fieldset} ${styles.year}`}>
+                <label className={styles['label-select']} htmlFor="year">
+                  Год
+                </label>
+                <select
+                  className={styles.select}
+                  name="year"
+                  id="year"
+                  value={year}
+                  onChange={(event): void => setYear(Number(event.target.value))}
+                >
+                  {yearsList.map((yearFromList) => (
+                    <option key={yearFromList} value={yearFromList}>
+                      {yearFromList}
+                    </option>
+                  ))}
+                </select>
+              </fieldset>
+            </div>
+          )}
+        </div>
+        <div className={styles['form-footer']}>
+          {errorMessage && (
+            <div className={styles['validate-error']}>
+              <IconErrorSmall className={styles['error-icon']} />
+              <p className={styles.message}>{errorMessage}</p>
+            </div>
+          )}
+          <div className={styles.buttons}>
+            <button className={`btn btn-primary ${styles.submit}`} type="submit">
+              {data ? 'Изменить' : 'Добавить'}
+            </button>
+            <button className="btn btn-default" type="reset" onClick={onClose}>
+              Отменить
+            </button>
           </div>
-        )}
-        {errorMessage && (
-          <div className={styles['validate-error']}>
-            <IconErrorSmall className={styles['error-icon']} />
-            <p className={styles.message}>{errorMessage}</p>
-          </div>
-        )}
-        <div className={styles.buttons}>
-          <button className={`${styles.submit}`} type="submit">
-            {data ? 'Изменить' : 'Добавить'}
-          </button>
-          <button className={styles.reset} type="reset" onClick={onClose}>
-            Отменить
-          </button>
         </div>
       </form>
       <CloseConfirmationPopup

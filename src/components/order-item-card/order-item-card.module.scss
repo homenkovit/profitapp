@@ -8,6 +8,8 @@ $color-card-border-single-completed: $gray-2;
 $color-card-border-overdue: $red-1;
 $color-text: $blue-1;
 $color-price: $blue-2;
+$line-height-description: 20px;
+$line-height-description-mobile: 16px;
 
 .card {
   position: relative;
@@ -42,7 +44,7 @@ $color-price: $blue-2;
 
 .overdue-icon {
   margin-right: 8px;
-  vertical-align: text-top;
+  vertical-align: text-bottom;
 }
 
 .description {
@@ -50,6 +52,7 @@ $color-price: $blue-2;
   color: $color-text;
   white-space: nowrap;
   text-overflow: ellipsis;
+  transition: all 0.2s ease-out;
 }
 
 .price {
@@ -78,7 +81,7 @@ $color-price: $blue-2;
   .description {
     margin-bottom: 6px;
     font-size: 14px;
-    line-height: 20px;
+    line-height: $line-height-description;
   }
 
   .price {
@@ -94,7 +97,8 @@ $color-price: $blue-2;
   .description {
     margin-bottom: 3px;
     font-size: 12px;
-    line-height: 16px;
+    line-height: $line-height-description-mobile;
+    height: $line-height-description-mobile;
   }
 
   .expand-icon {
