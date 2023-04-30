@@ -11,11 +11,11 @@ $color-spinner-fill: $violet-2;
 }
 
 .spinner {
-  width: 128px;
-  height: 128px;
+  width: 50px;
+  height: 50px;
   fill: $color-spinner-fill;
   transform-origin: center;
-  animation: spinner .75s infinite linear
+  animation: spinner 1s infinite linear
 }
 
 @keyframes spinner {
