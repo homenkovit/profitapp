@@ -235,37 +235,41 @@ const OrderItemForm: FC<OrderItemFormProperties> = ({ data, onClose, className }
                 <label className={styles['label-select']} htmlFor="month">
                   Месяц оплаты
                 </label>
-                <select
-                  className={styles.select}
-                  name="month"
-                  id="month"
-                  value={month}
-                  onChange={(event): void => setMonth(Number(event.target.value))}
-                >
-                  {MONTHS.map((monthString, monthIndex) => (
-                    <option key={monthString} value={monthIndex}>
-                      {monthString}
-                    </option>
-                  ))}
-                </select>
+                <div className={styles['select-wrapper']}>
+                  <select
+                    className={styles.select}
+                    name="month"
+                    id="month"
+                    value={month}
+                    onChange={(event): void => setMonth(Number(event.target.value))}
+                  >
+                    {MONTHS.map((monthString, monthIndex) => (
+                      <option key={monthString} value={monthIndex}>
+                        {monthString}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </fieldset>
               <fieldset className={`${styles.fieldset} ${styles.year}`}>
                 <label className={styles['label-select']} htmlFor="year">
                   Год
                 </label>
-                <select
-                  className={styles.select}
-                  name="year"
-                  id="year"
-                  value={year}
-                  onChange={(event): void => setYear(Number(event.target.value))}
-                >
-                  {yearsList.map((yearFromList) => (
-                    <option key={yearFromList} value={yearFromList}>
-                      {yearFromList}
-                    </option>
-                  ))}
-                </select>
+                <div className={styles['select-wrapper']}>
+                  <select
+                    className={styles.select}
+                    name="year"
+                    id="year"
+                    value={year}
+                    onChange={(event): void => setYear(Number(event.target.value))}
+                  >
+                    {yearsList.map((yearFromList) => (
+                      <option key={yearFromList} value={yearFromList}>
+                        {yearFromList}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </fieldset>
             </div>
           )}
