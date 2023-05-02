@@ -22,7 +22,7 @@ $color-ic-expand: $violet-2;
     width: calc(100% + 14px);
     height: 100%;
     opacity: 0;
-    background-color: rgb($violet-3, 36%);
+    background-color: rgba($violet-3, 36%);
     border-radius: 9px;
     transition: all .3s ease;
   }
