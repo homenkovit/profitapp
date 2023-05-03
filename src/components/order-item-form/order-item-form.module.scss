@@ -81,7 +81,9 @@ textarea.field {
   border-radius: 4px;
   appearance: none;
   -moz-appearance: none;
-  background: url(../../assets/images/expand-small-grey.svg) right 6px center no-repeat;
+  background-image: url(../../assets/images/expand-small-grey.svg);
+  background-position: right 6px center;
+  background-repeat: no-repeat;
   transition: all 0.3s ease;
 
   &:hover {

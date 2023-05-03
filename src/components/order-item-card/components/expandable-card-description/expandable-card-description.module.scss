@@ -25,6 +25,10 @@ $color-ic-expand: $violet-2;
     background-color: rgba($violet-3, 36%);
     border-radius: 9px;
     transition: all .3s ease;
+
+    [class*=completed] & {
+      background-color: $gray-6;
+    }
   }
 
   &:hover {
