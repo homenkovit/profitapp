@@ -1,4 +1,4 @@
-import { FC, memo, useEffect, useRef, useState } from 'react'
+import { FC, memo, useLayoutEffect, useRef, useState } from 'react'
 
 import { ReactComponent as IconExpand } from 'assets/images/expand.svg'
 import { ReactComponent as IconOverdue } from 'assets/images/overdue.svg'
@@ -23,7 +23,7 @@ const ExpandableCardDescription: FC<ExpandableCardDescriptionProperties> = ({ de
   const descriptionReference = useRef<HTMLDivElement | null>(null)
   const isMobile = useIsMobile()
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const { current } = descriptionReference
 
     if (current) {
