@@ -38,7 +38,7 @@ export const SettingsMenu: FC<SettingsMenuProperties> = ({ className }) => {
         aria-label="open settings menu"
         aria-haspopup="true"
         aria-expanded
-        className={`${styles['settings-button']} ${className ?? ''}`}
+        className={`menu-btn ${styles['settings-button']} ${className ?? ''}`}
       >
         <IconSettings aria-hidden />
       </button>

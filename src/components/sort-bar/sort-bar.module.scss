@@ -29,3 +29,9 @@ $color-text: $gray-2;
     color: $color-text;
   }
 }
+
+@media screen and (min-width: 481px) and (max-width: 720px) {
+  .text {
+    margin-bottom: 8px;
+  }
+}

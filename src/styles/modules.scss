@@ -1,10 +1,14 @@
 @import './pallete.scss';
 
 $color-btn-default-bg: $white-1;
+$color-btn-default-bg-hover: $gray-6;
 $color-btn-on-colored-bg-text: $white-1;
 $color-btn-primary-bg: $orange-1;
+$color-btn-primary-bg-hover: $orange-2;
 $color-btn-danger-bg: $red-1;
+$color-btn-danger-bg-hover: $red-2;
 $color-btn-border: $gray-5;
+$color-icon: $violet-2;
 
 .visually-hidden {
   overflow: hidden;
@@ -21,19 +25,43 @@ $color-btn-border: $gray-5;
   font-size: 14px;
   border-radius: 4px;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .btn-default {
   background-color: $color-btn-default-bg;
   border: 1px solid $color-btn-border;
+
+  &:hover {
+    background-color: $color-btn-default-bg-hover;
+  }
 }
 
 .btn-primary {
   color: $color-btn-on-colored-bg-text;
   background-color: $color-btn-primary-bg;
+
+  &:hover {
+    background-color: $color-btn-primary-bg-hover;
+  }
 }
 
 .btn-danger {
   color: $color-btn-on-colored-bg-text;
   background-color: $color-btn-danger-bg;
+
+  &:hover {
+    background-color: $color-btn-danger-bg-hover;
+  }
+}
+
+.menu-btn {
+  padding: 8px;
+  border-radius: 4px;
+  fill: $color-icon;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: $violet-1;
+  }
 }

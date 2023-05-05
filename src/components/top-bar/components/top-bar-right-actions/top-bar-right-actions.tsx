@@ -14,7 +14,7 @@ const TopBarRightActions: FC = () => {
     <div className={styles['top-bar-right-actions']}>
       <SettingsMenu />
       {user && !user.isAnonymous && (
-        <button type="button" aria-label="logout" className={styles.logout} onClick={signOut}>
+        <button type="button" aria-label="logout" className={`menu-btn ${styles.logout}`} onClick={signOut}>
           <IconLogout aria-hidden />
         </button>
       )}
