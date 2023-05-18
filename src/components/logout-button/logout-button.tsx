@@ -38,7 +38,12 @@ const LogoutButton: FC = () => {
 
   return (
     <>
-      <button type="button" aria-label="logout" className={styles.logout} onClick={handleLogoutButtonClick}>
+      <button
+        type="button"
+        aria-label="logout"
+        className={`menu-btn ${styles.logout}`}
+        onClick={handleLogoutButtonClick}
+      >
         <IconLogout aria-hidden />
       </button>
 

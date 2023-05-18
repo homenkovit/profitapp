@@ -1,7 +1,16 @@
+@import '../../styles/pallete.scss';
+
 .add-new-order-button {
-  background-color: #f79256;
   color: #ffffff;
   text-align: center;
+  background-size: 300% 100%;
+  background-image: linear-gradient(to right, $orange-1, $orange-1, $orange-1, $red-1);
+  transition: all .4s ease-in-out;
+
+  &:hover {
+    background-position: 100% 0;
+    transition: all .4s ease;
+  }
 }
 
 @media screen and (max-width: 480px) {
