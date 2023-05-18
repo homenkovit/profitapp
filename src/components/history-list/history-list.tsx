@@ -15,13 +15,27 @@ const HistoryList: FC = () => {
   const { completedOrders } = useOrder()
 
   const completedOrdersSortedByDate = useMemo(() => {
-    return completedOrders.reduce((accumulator, order) => {
+    return [...completedOrders].sort((previous, next) => {
+      const yearsDiff = Number(next.completedYear) - Number(previous.completedYear)
+      const monthsDiff = Number(next.completedMonth) - Number(previous.completedMonth)
+
+      if (yearsDiff > 0) return 1
+      if (yearsDiff < 0) return -1
+
+      return monthsDiff
+    })
+  }, [completedOrders])
+
+  const groupedOrders = useMemo(() => {
+    return completedOrdersSortedByDate.reduce((accumulator, order) => {
       const key = `${MONTHS[order.completedMonth!]}, ${order.completedYear}`
       const ordersByYear = accumulator[key] ?? []
+
       ordersByYear.push(order)
+
       return { ...accumulator, [key]: ordersByYear }
     }, {} as Record<string, Order[]>)
-  }, [completedOrders])
+  }, [completedOrdersSortedByDate])
 
   return (
     <>
@@ -31,7 +45,7 @@ const HistoryList: FC = () => {
         </NavLink>
       </TopBarPortal>
       <h1 className={styles.head}>История заказов</h1>
-      {Object.entries(completedOrdersSortedByDate).map(([date, orders]) => (
+      {Object.entries(groupedOrders).map(([date, orders]) => (
         <div key={date} className={styles.group}>
           <h2 className={styles.date}>
             <IconCalendar className={styles.calendar} aria-hidden />
