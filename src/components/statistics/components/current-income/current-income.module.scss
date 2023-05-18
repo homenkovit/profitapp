@@ -1,6 +1,7 @@
 @import '../../../../styles/pallete.scss';
 
 $color-icon: $gray-2;
+$font-size-fact-mobile: 36px;
 
 .info-icon {
   height: 12px;
@@ -68,7 +69,8 @@ $color-icon: $gray-2;
   }
 
   .fact {
-    font-size: 36px;
+    height: $font-size-fact-mobile;
+    font-size: $font-size-fact-mobile;
     margin-right: 6px;
   }
 

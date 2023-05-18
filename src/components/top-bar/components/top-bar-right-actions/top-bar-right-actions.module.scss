@@ -2,15 +2,18 @@
   display: flex;
   align-items: center;
   margin-left: auto;
-  & > :not(:last-child) {
-    margin-right: 14px
+}
+
+@media screen and (min-width: 481px) and (max-width: 720px) {
+  .top-bar-right-actions {
+    align-self: flex-start;
   }
 }
 
 @media screen and (max-width: 480px) {
   .top-bar-right-actions {
     position: fixed;
-    top: 20px;
-    right: 16px;
+    top: 16px;
+    right: 8px;
   }
 }

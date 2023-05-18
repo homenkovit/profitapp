@@ -8,6 +8,7 @@ $color-action-icon-fill: $white-1;
   right: 0;
   bottom: 0;
   display: inline-flex;
+  overflow: hidden;
   border-radius: 6px 0px;
   background-color: $color-button-bg;
   fill: $color-action-icon-fill;
@@ -19,6 +20,12 @@ $color-action-icon-fill: $white-1;
   align-items: center;
   width: 32px;
   height: 21px;
+  transition: all .3s ease;
+
+  &:hover {
+    background-color: $orange-2;
+    transition: all .3s ease;
+  }
 }
 
 @media screen and (min-width: 481px) {
