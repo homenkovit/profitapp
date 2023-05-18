@@ -51,6 +51,5 @@ button {
     flex-grow: 1;
     max-width: 598px;
     min-height: 100vh;
-    overflow: hidden;
   }
 }
