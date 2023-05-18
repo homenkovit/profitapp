@@ -2,7 +2,6 @@ export enum SortOrdersName {
   DATE = 'DATE',
   PRICE = 'PRICE',
   PERMANENT = 'PERMANENT',
-  ONCE = 'ONCE',
   OVERDUE = 'OVERDUE',
 }
 
