@@ -15,15 +15,11 @@ const HistoryList: FC = () => {
   const { completedOrders } = useOrder()
 
   const completedOrdersSortedByDate = useMemo(() => {
-    return [...completedOrders].sort((previous, next) => {
-      const yearsDiff = Number(next.completedYear) - Number(previous.completedYear)
-      const monthsDiff = Number(next.completedMonth) - Number(previous.completedMonth)
-
-      if (yearsDiff > 0) return 1
-      if (yearsDiff < 0) return -1
-
-      return monthsDiff
-    })
+    return [...completedOrders].sort(
+      (previous, next) =>
+        new Date(`${next.completedYear}-${Number(next.completedMonth) + 1}`).getTime() -
+        new Date(`${previous.completedYear}-${Number(previous.completedMonth) + 1}`).getTime(),
+    )
   }, [completedOrders])
 
   const groupedOrders = useMemo(() => {
