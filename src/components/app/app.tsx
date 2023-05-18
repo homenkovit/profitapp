@@ -29,7 +29,7 @@ const App: FC = () => {
 
   const createNewOrder = useCallback((): void => {
     if (!isNewOrderFormVisible) {
-      navigate('/', { replace: true })
+      navigate('/')
       setNewOrderFormVisible(true)
     }
   }, [isNewOrderFormVisible, navigate])

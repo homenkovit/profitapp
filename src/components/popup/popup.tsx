@@ -8,10 +8,12 @@ export interface PopupProperties {
   isVisible: boolean
   children: ReactNode
   className?: string
+  width?: number | string
+  height?: number | string
   onClose: () => void
 }
 
-export const Popup: FC<PopupProperties> = ({ isVisible, children, className, onClose }) => {
+export const Popup: FC<PopupProperties> = ({ isVisible, children, className, width, height, onClose }) => {
   const popupReference = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -38,7 +40,7 @@ export const Popup: FC<PopupProperties> = ({ isVisible, children, className, onC
 
   const dialog: ReactElement = (
     <div className={styles.overlay}>
-      <div ref={popupReference} className={`${styles['popup-dialog']} ${className}`}>
+      <div ref={popupReference} className={`${styles['popup-dialog']} ${className}`} style={{ width, height }}>
         <ReactFocusLock returnFocus>{children}</ReactFocusLock>
       </div>
     </div>
