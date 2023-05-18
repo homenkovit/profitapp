@@ -1,5 +1,6 @@
 /* eslint-disable max-lines */
 import { FC, FormEvent, memo, useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 
 import { ReactComponent as IconGoogle } from '../../assets/images/google.svg'
 import { ReactComponent as IconError } from '../../assets/images/error.svg'
@@ -18,9 +19,12 @@ interface AuthorizationProperties {
 }
 
 const Authorization: FC<AuthorizationProperties> = ({ type, onCancel }) => {
+  const { pathname } = useLocation()
   const { authError, signUpWithEmail, signInWithEmail, signUpWithGoogle, signInWithGoogle, resetPassword } = useAuth()
   const [emailValue, setEmail] = useState<string>('')
   const [error, setError] = useState<string | undefined>(authError)
+
+  const isLoginPage = pathname === '/login'
 
   useEffect(() => {
     setError(authError)
@@ -129,9 +133,11 @@ const Authorization: FC<AuthorizationProperties> = ({ type, onCancel }) => {
           <button type="submit" className="btn btn-primary">
             {isSignUp ? 'Зарегистрироваться' : 'Войти'}
           </button>
-          <button type="reset" className="btn btn-default" onClick={onCancel}>
-            Отмена
-          </button>
+          {!isLoginPage && (
+            <button type="reset" className="btn btn-default" onClick={onCancel}>
+              Отмена
+            </button>
+          )}
         </div>
         {!isSignUp && (
           <p className={styles['remember-text']}>

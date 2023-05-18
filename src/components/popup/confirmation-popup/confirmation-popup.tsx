@@ -28,7 +28,7 @@ const ConfirmationPopup: FC<ConfirmationPopupProperties> = ({
       <div className={styles.icon}>{emoji}</div>
       <div className={styles.message}>{message}</div>
     </div>
-    <div className={styles.footer}>{actionsList}</div>
+    <div className={`${styles.footer} ${actionsList.length > 2 ? styles.column : ''}`}>{actionsList}</div>
   </Popup>
 )
 

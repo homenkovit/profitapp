@@ -15,6 +15,13 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+input,
+textarea,
+select,
+button {
+  font-family: inherit;
+}
+
 body,
 ul,
 p {

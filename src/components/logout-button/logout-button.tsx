@@ -11,7 +11,7 @@ import { LogoutWarningPopup } from './components/logout-warning-popup'
 import styles from './logout-button.module.scss'
 
 const LogoutButton: FC = () => {
-  const { signOut } = useAuth()
+  const { user, signOut } = useAuth()
   const { orders } = useOrder()
 
   const [isLogoutPopupVisible, setLogoutPopupVisible] = useState<boolean>(false)
@@ -29,12 +29,12 @@ const LogoutButton: FC = () => {
   const closeSignUpPopup = useCallback(() => setSignUpPopupVisible(false), [])
 
   const handleLogoutButtonClick = useCallback((): void => {
-    if (ordersAmount > 0) {
+    if ((user?.isAnonymous || !user?.emailVerified) && ordersAmount > 0) {
       openLogoutPopup()
       return
     }
     signOut()
-  }, [ordersAmount, openLogoutPopup, signOut])
+  }, [user, ordersAmount, openLogoutPopup, signOut])
 
   return (
     <>

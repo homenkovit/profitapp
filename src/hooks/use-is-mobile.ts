@@ -2,24 +2,23 @@ import { useState, useLayoutEffect } from 'react'
 
 const MOBILE_MAX_SIZE = 480
 
-const getIsMobile = (): boolean => window.innerWidth <= MOBILE_MAX_SIZE
+const getIsMobileInitial = (): boolean => window.innerWidth <= MOBILE_MAX_SIZE
 
 export const useIsMobile = (): boolean => {
-  const [isMobile, setIsMobile] = useState<boolean>(getIsMobile())
+  const [isMobile, setIsMobile] = useState<boolean>(getIsMobileInitial)
 
   useLayoutEffect(() => {
-    const windowListener = (): void => {
-      if (getIsMobile()) {
-        setIsMobile(true)
-      } else {
-        setIsMobile(false)
-      }
+    const matchMedia = window.matchMedia(`(max-width: ${MOBILE_MAX_SIZE}px)`)
+    setIsMobile(matchMedia.matches)
+
+    const handleChange = (event: MediaQueryListEvent): void => {
+      setIsMobile(event.matches)
     }
 
-    window.addEventListener('resize', windowListener)
+    matchMedia.addEventListener('change', handleChange)
 
     return () => {
-      window.removeEventListener('resize', windowListener)
+      matchMedia.removeEventListener('change', handleChange)
     }
   }, [])
 

@@ -27,17 +27,6 @@
     padding-top: 36px;
     padding-bottom: 20px;
     border-radius: 80% 80% 0 0;
-
-    &::after {
-      content: "";
-      z-index: -1;
-      position: absolute;
-      display: block;
-      width: 423px;
-      height: 152px;
-      border-radius: 50%;
-      background-color: #ffffff;
-    }
   }
 
   .header {
