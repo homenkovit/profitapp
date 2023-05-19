@@ -11,6 +11,7 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 
 const rootDirectory = path.resolve(__dirname, './src/')
 const buildDirectory = path.resolve(__dirname, './dist/')
+const publicDirectory = path.resolve(__dirname, './public/')
 
 export default defineConfig({
   plugins: [
@@ -22,6 +23,7 @@ export default defineConfig({
     }),
   ],
   root: rootDirectory,
+  publicDir: publicDirectory,
   build: {
     emptyOutDir: true,
     minify: true,
