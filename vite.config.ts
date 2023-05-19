@@ -30,17 +30,30 @@ export default defineConfig({
     rollupOptions: {
       output: {
         dir: buildDirectory,
-        assetFileNames: 'static/[name]-[hash][extname]',
+        entryFileNames: `scripts/[name]-[hash].js`,
+        chunkFileNames: `scripts/[name]-[hash].js`,
+        assetFileNames: `static/[name]-[hash][extname]`,
 
-        // eslint-disable-next-line consistent-return
-        manualChunks: (id: string): string | undefined => {
-          if (id.includes('react')) {
+        manualChunks: (id, { getModuleInfo }): string => {
+          if ((getModuleInfo(id)?.dynamicImporters?.length ?? 0) > 0) {
+            const splitId = id.split('/')
+            const fileName = splitId.pop()?.split('.').shift()
+            if (fileName === 'index') {
+              // directory name
+              return splitId.at(-1) ?? fileName
+            }
+            return fileName ?? ''
+          }
+
+          if (id.includes('react-dom')) {
             return 'react-vendors'
           }
 
           if (id.includes('node_modules')) {
             return 'vendor'
           }
+
+          return 'index'
         },
       },
     },
