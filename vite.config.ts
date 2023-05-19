@@ -45,10 +45,6 @@ export default defineConfig({
             return fileName ?? ''
           }
 
-          if (id.includes('react-dom')) {
-            return 'react-vendors'
-          }
-
           if (id.includes('node_modules')) {
             return 'vendor'
           }
