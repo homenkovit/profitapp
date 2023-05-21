@@ -158,14 +158,35 @@ export const OrderProvider: FC<{ children?: React.ReactNode }> = ({ children }) 
   )
 
   const completeOrder = useCallback(
-    (id: string) =>
-      updateDoc(doc(ordersCollection, id), {
+    (id: string) => {
+      const additionalOptions: Partial<StoreOrder> = {}
+      const currentOrder = orders.find((order) => order.id === id)
+
+      const currentYear = new Date().getFullYear()
+      const currentMonth = new Date().getMonth()
+
+      if (currentOrder?.year !== undefined && currentOrder.year > currentYear) {
+        additionalOptions.year = currentYear
+        additionalOptions.month = currentMonth
+      }
+
+      if (
+        currentOrder?.month !== undefined &&
+        currentOrder.month > currentMonth &&
+        additionalOptions.month === undefined
+      ) {
+        additionalOptions.month = currentMonth
+      }
+
+      return updateDoc(doc(ordersCollection, id), {
         isCompleted: true,
         updatedAt: serverTimestamp(),
         completedYear: new Date().getFullYear(),
         completedMonth: new Date().getMonth(),
-      }),
-    [ordersCollection],
+        ...additionalOptions,
+      })
+    },
+    [orders, ordersCollection],
   )
 
   const editOrder = useCallback(
@@ -199,7 +220,9 @@ export const OrderProvider: FC<{ children?: React.ReactNode }> = ({ children }) 
 
     const overdueOrders = orders.filter(
       (order) =>
-        !order.isPermanent && ((order.month && order.month < currentMonth) || (order.year && order.year < currentYear)),
+        !order.isPermanent &&
+        ((order.year && order.year < currentYear) ||
+          (order.year === currentYear && order.month && order.month < currentMonth)),
     )
 
     if (overdueOrders.length > 0) {
