@@ -6,7 +6,7 @@ import styles from './top-bar.module.scss'
 
 const TopBar: FC = () => {
   return (
-    <div className={styles['top-bar']}>
+    <div id="top-bar" className={styles['top-bar']}>
       <div id={TOP_BAR_PORTAL_ID} className={styles['top-bar-content']} />
       <TopBarRightActions />
     </div>

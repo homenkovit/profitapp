@@ -2,16 +2,19 @@ import { FC, memo, useMemo } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import { ReactComponent as IconCalendar } from 'assets/images/calendar.svg'
+import { ReactComponent as IconArrowLeft } from 'assets/images/arrow-left.svg'
 
 import { MONTHS } from 'global/constants'
 import { useOrder } from 'contexts/order-context'
 import type { Order } from 'contexts/order-context'
+import { useIsMobile } from 'hooks/use-is-mobile'
 import { TopBarPortal } from 'components/top-bar'
 import { OrderItem } from 'components/order-item'
 
 import styles from './history-list.module.scss'
 
 const HistoryList: FC = () => {
+  const isMobile = useIsMobile()
   const { completedOrders } = useOrder()
 
   const completedOrdersSortedByDate = useMemo(() => {
@@ -24,6 +27,7 @@ const HistoryList: FC = () => {
 
   const groupedOrders = useMemo(() => {
     return completedOrdersSortedByDate.reduce((accumulator, order) => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const key = `${MONTHS[order.completedMonth!]}, ${order.completedYear}`
       const ordersByYear = accumulator[key] ?? []
 
@@ -37,7 +41,8 @@ const HistoryList: FC = () => {
     <>
       <TopBarPortal>
         <NavLink to="/" className={styles.link}>
-          ← обратно к заказчикам
+          {isMobile && <IconArrowLeft aria-hidden />}
+          <span className={isMobile ? 'visually-hidden' : ''}>← обратно к заказчикам</span>
         </NavLink>
       </TopBarPortal>
       <h1 className={styles.head}>История заказов</h1>
