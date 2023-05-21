@@ -5,7 +5,6 @@
   position: sticky;
   display: flex;
   align-items: center;
-  padding: 16px;
   margin: 0 -16px 4px;
   background-image: linear-gradient(to bottom, $white-1, 95%, rgba($white-1, 0.5));
 }
@@ -23,8 +22,6 @@
 
 @media screen and (max-width: 480px) {
   .top-bar {
-    background-image: linear-gradient(to bottom, $white-1, 95%, rgba($white-1, 0));
-
     :global(#root:has(#current-income:checked)) & {
       top: 130px;
     }
