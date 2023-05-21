@@ -20,8 +20,8 @@ const HistoryList: FC = () => {
   const completedOrdersSortedByDate = useMemo(() => {
     return [...completedOrders].sort(
       (previous, next) =>
-        new Date(`${next.completedYear}-${Number(next.completedMonth) + 1}`).getTime() -
-        new Date(`${previous.completedYear}-${Number(previous.completedMonth) + 1}`).getTime(),
+        new Date(Number(next.completedYear), Number(next.completedMonth) + 1).getTime() -
+        new Date(Number(previous.completedYear), Number(previous.completedMonth) + 1).getTime(),
     )
   }, [completedOrders])
 

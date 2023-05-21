@@ -1,12 +1,15 @@
+@import '../../styles/pallete.scss';
+
 .container {
-  overflow: hidden;
+  overflow: auto;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
 }
 
 .card {
   overflow: hidden;
-  background-color: #ffffff;
+  margin: 30px;
+  background-color: $white-1;
 }
 
 @media screen and (max-width: 480px) {
@@ -27,7 +30,7 @@
     &::after {
       content: "";
       z-index: -1;
-      position: absolute;
+      position: fixed;
       top: 50%;
       width: 1856px;
       height: 793px;

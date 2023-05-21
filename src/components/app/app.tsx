@@ -21,7 +21,7 @@ const App: FC = () => {
 
   useEffect(() => {
     if (location.pathname !== previousLocation.pathname) {
-      document.querySelector('#root')?.scroll({ top: 0, behavior: 'smooth' })
+      document.querySelector('body')?.scroll({ top: 0, behavior: 'smooth' })
     }
   }, [location, previousLocation])
 
