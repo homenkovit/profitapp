@@ -17,9 +17,6 @@ export const convertSortOrdersTypeToText = (sortType: SortOrders): string => {
   if (sortType.name === SortOrdersName.PERMANENT) {
     return 'постоянные'
   }
-  if (sortType.name === SortOrdersName.ONCE) {
-    return 'разовые'
-  }
   if (sortType.name === SortOrdersName.OVERDUE) {
     return 'просроченные'
   }

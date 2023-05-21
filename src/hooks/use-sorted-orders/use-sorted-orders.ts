@@ -42,11 +42,29 @@ export const useSortedOrders = (orders: Order[]): UseSortedOrdersReturn => {
       localStorage.setItem(LOCAL_STORAGE_SORT_KEY, JSON.stringify(sortType))
 
       if (sortType.name === SortOrdersName.DATE && sortType.type === 'asc') {
-        setSortedOrders([...orders].sort((previous, next) => Number(previous.createdAt) - Number(next.createdAt)))
+        setSortedOrders(
+          [...orders].sort((previous, next) => {
+            if (next.isPermanent) return -1
+
+            return (
+              new Date(`${previous.year}-${Number(previous.month) + 1}`).getTime() -
+              new Date(`${next.year}-${Number(next.month) + 1}`).getTime()
+            )
+          }),
+        )
         return
       }
       if (sortType.name === SortOrdersName.DATE && sortType.type === 'desc') {
-        setSortedOrders([...orders].sort((previous, next) => Number(next.createdAt) - Number(previous.createdAt)))
+        setSortedOrders(
+          [...orders].sort((previous, next) => {
+            if (next.isPermanent) return -1
+
+            return (
+              new Date(`${next.year}-${Number(next.month) + 1}`).getTime() -
+              new Date(`${previous.year}-${Number(previous.month) + 1}`).getTime()
+            )
+          }),
+        )
         return
       }
       if (sortType.name === SortOrdersName.PRICE && sortType.type === 'asc') {
@@ -64,20 +82,6 @@ export const useSortedOrders = (orders: Order[]): UseSortedOrdersReturn => {
               return -1
             }
             if (previous.isPermanent < next.isPermanent) {
-              return 1
-            }
-            return 0
-          }),
-        )
-        return
-      }
-      if (sortType.name === SortOrdersName.ONCE) {
-        setSortedOrders(
-          [...orders].sort((previous, next) => {
-            if (previous.isPermanent < next.isPermanent) {
-              return -1
-            }
-            if (previous.isPermanent > next.isPermanent) {
               return 1
             }
             return 0
