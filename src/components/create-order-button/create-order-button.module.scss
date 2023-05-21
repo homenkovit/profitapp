@@ -1,7 +1,7 @@
 @import '../../styles/pallete.scss';
 
 .add-new-order-button {
-  color: #ffffff;
+  color: $white-1;
   text-align: center;
   background-size: 300% 100%;
   background-image: linear-gradient(to right, $orange-1, $orange-1, $orange-1, $red-1);

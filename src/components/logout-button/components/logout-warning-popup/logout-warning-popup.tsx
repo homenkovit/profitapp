@@ -28,7 +28,7 @@ const LogoutWarningPopup: FC<LogoutWarningPopupProperties> = ({ isVisible, onClo
           Зарегистрироваться
         </button>,
         <button key="cancel" type="button" className="btn btn-danger" onClick={onCancel}>
-          Окей, отмена
+          Отмена
         </button>,
       ]}
     />

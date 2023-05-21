@@ -23,7 +23,7 @@ const CreateLimitPopup: FC<CreateLimitPopupProperties> = ({ isVisible, onSignIn,
       return `Чтобы создать больше ${CREATION_LIMIT} заказов, пожалуйста, подтвердите свой почту!`
     }
 
-    return 'По какой-то причине вы не можете создать больше заказов.'
+    return 'К сожалению, Вы не можете создать больше заказов.'
   }, [user])
 
   return (
@@ -40,7 +40,7 @@ const CreateLimitPopup: FC<CreateLimitPopupProperties> = ({ isVisible, onSignIn,
           Зарегистрироваться
         </button>,
         <button key="cancel" type="button" className="btn btn-danger" onClick={onCancel}>
-          Окей, отмена
+          Отмена
         </button>,
       ]}
       onClose={onCancel}
