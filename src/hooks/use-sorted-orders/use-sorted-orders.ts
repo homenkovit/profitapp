@@ -47,8 +47,8 @@ export const useSortedOrders = (orders: Order[]): UseSortedOrdersReturn => {
             if (next.isPermanent) return -1
 
             return (
-              new Date(`${previous.year}-${Number(previous.month) + 1}`).getTime() -
-              new Date(`${next.year}-${Number(next.month) + 1}`).getTime()
+              new Date(Number(previous.year), Number(previous.month) + 1).getTime() -
+              new Date(Number(next.year), Number(next.month) + 1).getTime()
             )
           }),
         )
@@ -60,8 +60,8 @@ export const useSortedOrders = (orders: Order[]): UseSortedOrdersReturn => {
             if (next.isPermanent) return -1
 
             return (
-              new Date(`${next.year}-${Number(next.month) + 1}`).getTime() -
-              new Date(`${previous.year}-${Number(previous.month) + 1}`).getTime()
+              new Date(Number(next.year), Number(next.month) + 1).getTime() -
+              new Date(Number(previous.year), Number(previous.month) + 1).getTime()
             )
           }),
         )

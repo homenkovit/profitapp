@@ -3,12 +3,16 @@
 }
 
 html,
-body,
-#root {
+body {
   width: 100vw;
-  height: 100vh;
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+html,
+body,
+#root {
+  height: 100%;
 }
 
 body {
@@ -20,6 +24,11 @@ textarea,
 select,
 button {
   font-family: inherit;
+  color: inherit;
+}
+
+select {
+  background-color: transparent;
 }
 
 body,
@@ -57,6 +66,6 @@ button {
   main {
     flex-grow: 1;
     max-width: 598px;
-    min-height: 100vh;
+    min-height: 100%;
   }
 }
