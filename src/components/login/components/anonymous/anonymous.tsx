@@ -1,9 +1,11 @@
 import { FC, memo } from 'react'
 
-import { useAuth } from '../../../../contexts/auth-context'
-import { useIsMobile } from '../../../../hooks/use-is-mobile'
-import { ReactComponent as IconLogoForDesktop } from '../../../../assets/images/logo-without-bg.svg'
-import { ReactComponent as IconLogoForMobile } from '../../../../assets/images/logo.svg'
+import { ReactComponent as IconLogoForDesktop } from 'assets/images/logo-without-bg.svg'
+import { ReactComponent as IconLogoForMobile } from 'assets/images/logo.svg'
+import containerBackgroundImage from 'assets/images/login-page-bg.png'
+
+import { useAuth } from 'contexts/auth-context'
+import { useIsMobile } from 'hooks/use-is-mobile'
 
 import styles from './anonymous.module.scss'
 
@@ -12,7 +14,7 @@ const Anonymous: FC = () => {
   const isMobile = useIsMobile()
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} style={{ backgroundImage: `url(${containerBackgroundImage})` }}>
       <div className={styles.header}>
         {isMobile ? <IconLogoForMobile /> : <IconLogoForDesktop />}
         <h1 className={styles.head}>

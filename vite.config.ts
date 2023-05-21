@@ -11,6 +11,7 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 
 const rootDirectory = path.resolve(__dirname, './src/')
 const buildDirectory = path.resolve(__dirname, './dist/')
+const publicDirectory = path.resolve(__dirname, './public/')
 
 export default defineConfig({
   plugins: [
@@ -22,6 +23,7 @@ export default defineConfig({
     }),
   ],
   root: rootDirectory,
+  publicDir: publicDirectory,
   build: {
     emptyOutDir: true,
     minify: true,
@@ -30,17 +32,26 @@ export default defineConfig({
     rollupOptions: {
       output: {
         dir: buildDirectory,
-        assetFileNames: 'static/[name]-[hash][extname]',
+        entryFileNames: `scripts/[name]-[hash].js`,
+        chunkFileNames: `scripts/[name]-[hash].js`,
+        assetFileNames: `static/[name]-[hash][extname]`,
 
-        // eslint-disable-next-line consistent-return
-        manualChunks: (id: string): string | undefined => {
-          if (id.includes('react')) {
-            return 'react-vendors'
+        manualChunks: (id, { getModuleInfo }): string => {
+          if ((getModuleInfo(id)?.dynamicImporters?.length ?? 0) > 0) {
+            const splitId = id.split('/')
+            const fileName = splitId.pop()?.split('.').shift()
+            if (fileName === 'index') {
+              // directory name
+              return splitId.at(-1) ?? fileName
+            }
+            return fileName ?? ''
           }
 
           if (id.includes('node_modules')) {
             return 'vendor'
           }
+
+          return 'index'
         },
       },
     },
