@@ -24,7 +24,7 @@ $color-calendar-icon: $gray-2;
 .date {
   z-index: 1;
   position: sticky;
-  top: 38px;
+  top: 48px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -46,9 +46,17 @@ $color-calendar-icon: $gray-2;
 
 @media screen and (max-width: 480px) {
   .date {
-    top: 166px;
     background-image: linear-gradient(to bottom, #fafaff, 95%, rgba(255, 255, 255, 0.5));
+
+    :global(#root:has(#current-income:checked)) & {
+      top: 166px;
+    }
+
+    :global(#root:has(#monthly-income:checked)) & {
+      top: 228px;
+    }
   }
+
 
   .list > li:not(:last-child) {
     margin-bottom: 16px;
