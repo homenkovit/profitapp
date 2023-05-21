@@ -3,6 +3,7 @@ import { FC, memo } from 'react'
 import { ReactComponent as IconLogo } from 'assets/images/logo.svg'
 
 import { useAuth } from 'contexts/auth-context'
+import { CreateOrderButton } from 'components/create-order-button'
 import { Statistics } from 'components/statistics'
 
 import styles from './header.module.scss'
@@ -33,9 +34,7 @@ const Header: FC<HeaderProperties> = ({ createNewOrder }) => {
           Хорошего тебе дня!
         </p>
       )}
-      <button type="button" className={styles['add-new-order-button']} onClick={createNewOrder}>
-        Новый заказ
-      </button>
+      <CreateOrderButton onCreate={createNewOrder} />
       <Statistics />
     </header>
   )

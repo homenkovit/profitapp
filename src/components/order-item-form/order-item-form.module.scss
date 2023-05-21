@@ -28,7 +28,6 @@ $color-error: $red-1;
   padding: 6px 8px;
   border: 1px solid $color-field-border;
   border-radius: 3px;
-  font-family: inherit;
   font-size: inherit;
   &.invalid {
     border-color: $color-error;
@@ -75,7 +74,7 @@ textarea.field {
   position: relative;
   z-index: 1;
   padding: 4px 22px 4px 6px;
-  transform: translateX(-6px);
+  transform: translate(-6px, -4px);
   cursor: pointer;
   border: none;
   border-radius: 4px;

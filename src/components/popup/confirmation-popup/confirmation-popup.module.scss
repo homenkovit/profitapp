@@ -56,5 +56,9 @@ $color-cancel-button-bg-mobile: $gray-4;
         }
       }
     }
+
+    &.column {
+      flex-direction: column;
+    }
   }
 }

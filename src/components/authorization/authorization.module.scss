@@ -35,11 +35,11 @@
   margin-top: 24px;
   & > :first-child {
     flex-grow: 1;
-    margin-right: 13px;
   }
-  & > :last-child {
+  & > :last-child:not(:only-child) {
     flex-shrink: 0;
     min-width: 104px;
+    margin-left: 13px;
   }
 }
 
@@ -123,9 +123,13 @@
       font-size: 13px;
       font-weight: 500;
       text-transform: uppercase;
-      &:first-child {
-        margin-right: 0;
-        margin-bottom: 12px;
+      &:not(:only-child) {
+        &:first-child {
+          margin-bottom: 12px;
+        }
+        &:last-child {
+          margin-left: 0;
+        }
       }
     }
   }

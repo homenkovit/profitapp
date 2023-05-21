@@ -1,13 +1,7 @@
-@import '../../../../styles/pallete.scss';
-
 .top-bar-right-actions {
   display: flex;
   align-items: center;
   margin-left: auto;
-}
-
-.logout {
-  display: flex;
 }
 
 @media screen and (min-width: 481px) and (max-width: 720px) {
