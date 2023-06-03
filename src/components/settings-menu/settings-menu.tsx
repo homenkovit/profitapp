@@ -16,8 +16,16 @@ export interface SettingsMenuProperties {
 export const SettingsMenu: FC<SettingsMenuProperties> = ({ className }) => {
   const popoverReference = useRef<Instance>()
 
-  const onHistoryButtonClick = (): void => {
+  const closePopover = (): void => {
     popoverReference.current?.hide()
+  }
+
+  const onHistoryButtonClick = (): void => {
+    closePopover()
+  }
+
+  const onUserButtonClick = (): void => {
+    closePopover()
   }
 
   // const onDarkModeButtonClick = (): void => {
@@ -31,7 +39,7 @@ export const SettingsMenu: FC<SettingsMenuProperties> = ({ className }) => {
       onMount={(instance): void => {
         popoverReference.current = instance
       }}
-      content={<SettingsMenuContent onHistoryClick={onHistoryButtonClick} />}
+      content={<SettingsMenuContent onHistoryClick={onHistoryButtonClick} onUserClick={onUserButtonClick} />}
     >
       <button
         type="button"

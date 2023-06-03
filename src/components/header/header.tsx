@@ -17,7 +17,6 @@ const Header: FC<HeaderProperties> = ({ createNewOrder }) => {
 
   return (
     <header className={styles.header}>
-      <h1 className="visually-hidden">ProfitApp</h1>
       <IconLogo className={styles.logo} aria-label="Profit App logo" />
       {user && (
         <p className={styles.greeting}>

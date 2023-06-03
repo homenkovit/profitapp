@@ -11,6 +11,9 @@ const OrderList = lazy(() => import('components/order-list').then((component) =>
 const HistoryList = lazy(() =>
   import('components/history-list').then((component) => ({ default: component.HistoryList })),
 )
+const UserSettings = lazy(() =>
+  import('components/user-settings').then((component) => ({ default: component.UserSettings })),
+)
 
 const Router = createBrowserRouter([
   {
@@ -34,6 +37,14 @@ const Router = createBrowserRouter([
         element: (
           <Suspense fallback={<PageLoader />}>
             <HistoryList />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'user',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <UserSettings />
           </Suspense>
         ),
       },

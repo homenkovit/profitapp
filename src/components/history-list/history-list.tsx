@@ -1,20 +1,17 @@
 import { FC, memo, useMemo } from 'react'
-import { NavLink } from 'react-router-dom'
 
 import { ReactComponent as IconCalendar } from 'assets/images/calendar.svg'
-import { ReactComponent as IconArrowLeft } from 'assets/images/arrow-left.svg'
 
 import { MONTHS } from 'global/constants'
 import { useOrder } from 'contexts/order-context'
 import type { Order } from 'contexts/order-context'
-import { useIsMobile } from 'hooks/use-is-mobile'
 import { TopBarPortal } from 'components/top-bar'
+import { BackToOrdersLink } from 'components/back-to-orders-link'
 import { OrderItem } from 'components/order-item'
 
 import styles from './history-list.module.scss'
 
 const HistoryList: FC = () => {
-  const isMobile = useIsMobile()
   const { completedOrders } = useOrder()
 
   const completedOrdersSortedByDate = useMemo(() => {
@@ -40,10 +37,7 @@ const HistoryList: FC = () => {
   return (
     <>
       <TopBarPortal>
-        <NavLink to="/" className={styles.link}>
-          {isMobile && <IconArrowLeft aria-hidden />}
-          <span className={isMobile ? 'visually-hidden' : ''}>← обратно к заказчикам</span>
-        </NavLink>
+        <BackToOrdersLink />
       </TopBarPortal>
       <h1 className={styles.head}>История заказов</h1>
       {Object.entries(groupedOrders).map(([date, orders]) => (
