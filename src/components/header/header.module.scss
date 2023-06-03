@@ -41,12 +41,12 @@
   .greeting {
     margin-bottom: 30px;
     font-size: 14px;
-    color: #909090;
+    color: $gray-2;
     text-align: center;
   }
 
   .greeting span {
-    color: #000000;
+    color: $black-1;
   }
 }
 

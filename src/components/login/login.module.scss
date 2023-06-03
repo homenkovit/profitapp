@@ -1,3 +1,5 @@
+@import '../../styles/pallete.scss';
+
 .container {
   overflow: hidden;
   width: 100vw;
@@ -6,7 +8,24 @@
 
 .card {
   overflow: hidden;
-  background-color: #ffffff;
+  background-color: $white-1;
+}
+
+.header {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.head {
+  margin: 0;
+  padding: 0 64px;
+  font-size: 12px;
+  font-weight: 400;
+  color: $gray-7;
+}
+
+.logo {
+  margin-bottom: 16px;
 }
 
 @media screen and (max-width: 480px) {
@@ -14,7 +33,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    padding-top: 180px;
+    padding-top: 32px;
   }
 }
 
@@ -23,14 +42,15 @@
     position: relative;
     display: grid;
     place-items: center;
+    padding: 0 16px;
 
     &::after {
       content: "";
       z-index: -1;
       position: absolute;
       top: 50%;
-      width: 1856px;
-      height: 793px;
+      width: 160%;
+      height: 100vh;
       display: block;
       border-radius: 50%;
       background-color: #FF3855;
@@ -41,9 +61,9 @@
   .card {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    width: 732px;
-    height: 498px;
+    max-width: 732px;
+    min-height: 463px;
     border-radius: 20px;
-    box-shadow: 0px 15px 39px rgba(0, 0, 0, 0.12);
+    box-shadow: 0px 15px 39px rgba($black-1, 0.12);
   }
 }
