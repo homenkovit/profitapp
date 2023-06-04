@@ -23,6 +23,8 @@ import type { SortOrders } from 'hooks/use-sorted-orders'
 import type { Order, StoreOrder } from './types'
 
 interface OrderStore {
+  isOrdersLoading: boolean
+  isCompletedOrdersLoading: boolean
   orders: Order[]
   sortedOrders: Order[]
   completedOrders: Order[]
@@ -52,6 +54,8 @@ export const OrderProvider: FC<{ children?: React.ReactNode }> = ({ children }) 
   const database = useMemo(() => getFirestore(), [])
   const ordersCollection = useMemo(() => collection(database, 'orders'), [database])
 
+  const [isOrdersLoading, setOrdersLoading] = useState<boolean>(true)
+  const [isCompletedOrdersLoading, setCompletedOrdersLoading] = useState<boolean>(true)
   const [orders, setOrders] = useState<Order[]>([])
   const [completedOrders, setCompletedOrders] = useState<Order[]>([])
   const [currentYearCompletedOrders, setCurrentYearCompletedOrders] = useState<Order[]>([])
@@ -103,6 +107,7 @@ export const OrderProvider: FC<{ children?: React.ReactNode }> = ({ children }) 
           }
         }),
       )
+      setCompletedOrdersLoading(false)
     })
   }, [ordersCollection, user])
 
@@ -149,6 +154,7 @@ export const OrderProvider: FC<{ children?: React.ReactNode }> = ({ children }) 
           }
         }),
       )
+      setOrdersLoading(false)
     })
   }, [ordersCollection, user])
 
@@ -240,6 +246,8 @@ export const OrderProvider: FC<{ children?: React.ReactNode }> = ({ children }) 
 
   const value: OrderStore = useMemo(
     () => ({
+      isOrdersLoading,
+      isCompletedOrdersLoading,
       orders,
       sortedOrders,
       completedOrders,
@@ -251,6 +259,8 @@ export const OrderProvider: FC<{ children?: React.ReactNode }> = ({ children }) 
       deleteOrder,
     }),
     [
+      isOrdersLoading,
+      isCompletedOrdersLoading,
       addOrder,
       completeOrder,
       completedOrders,
