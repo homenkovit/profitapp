@@ -17,17 +17,17 @@ const LogoutWarningPopup: FC<LogoutWarningPopupProperties> = ({ isVisible, onClo
     <ConfirmationPopup
       isVisible={isVisible}
       width="410px"
-      emoji="😳"
+      emoji="😟"
       message="Если вы выйдете из анонимного режима, вы потеряете все ваши заказы! Чтобы сохранить их, зарегистрируйтесь."
       onClose={onClose}
       actionsList={[
-        <button key="signin" type="button" className="btn btn-primary" onClick={signOut}>
-          Выйти
-        </button>,
-        <button key="signup" type="button" className="btn btn-default" onClick={onSignUp}>
+        <button key="signup" type="button" className="btn btn-primary" onClick={onSignUp}>
           Зарегистрироваться
         </button>,
-        <button key="cancel" type="button" className="btn btn-danger" onClick={onCancel}>
+        <button key="signin" type="button" className="btn btn-danger" onClick={signOut}>
+          Выйти
+        </button>,
+        <button key="cancel" type="button" className="btn btn-default" onClick={onCancel}>
           Отмена
         </button>,
       ]}

@@ -8,7 +8,7 @@ import { OrderProvider } from './contexts/order-context'
 import { Router } from './router'
 
 import 'styles/modules.scss'
-import 'styles/base.css'
+import 'styles/base.scss'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBuJvNVlN8mZQhI3MLlP7bbw0erP7LXUIY',

@@ -37,22 +37,25 @@ $color-cancel-button-bg-mobile: $gray-4;
 
 @media screen and (max-width: 480px) {
   .body {
-    padding: 0 16px;
     margin-bottom: 26px;
   }
 
   .footer {
+    flex-direction: column;
     :global {
       button {
         &.btn {
           height: 37px;
           flex-grow: 1;
-          border-radius: 0;
+          border-radius: 20px;
           text-transform: uppercase;
         }
         &.btn-default {
           border: none;
           background-color: $color-cancel-button-bg-mobile;
+        }
+        &:not(:last-child) {
+          margin-bottom: 8px;
         }
       }
     }

@@ -1,4 +1,5 @@
 @import '../../styles/pallete.scss';
+@import '../../styles/variables.scss';
 
 .header {
   flex-shrink: 0;
@@ -19,13 +20,13 @@
   }
 
   .header::after {
-    content: "";
+    content: '';
     position: fixed;
     right: 0;
     bottom: 0;
     left: 0;
     height: 50px;
-    background-image: linear-gradient(180deg, transparent 0%, #FAFAFF 100%);
+    background-image: linear-gradient(180deg, transparent 0%, #fafaff 100%);
   }
 }
 
@@ -56,7 +57,7 @@
     overflow-y: auto;
     position: sticky;
     top: 0;
-    width: 168px;
+    width: $header-width;
     height: 100vh;
     text-align: center;
   }

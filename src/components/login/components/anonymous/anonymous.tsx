@@ -16,7 +16,7 @@ const Anonymous: FC = () => {
     <div className={styles.container} style={{ backgroundImage: `url(${containerBackgroundImage})` }}>
       {!isMobile && (
         <div className={styles.header}>
-          <IconLogoForDesktop />
+          <IconLogoForDesktop width={111} height={114} />
           <h1 className={styles.head}>
             <strong>ProfitApp</strong> - инструмент контроля заказов для фрилансера
           </h1>
