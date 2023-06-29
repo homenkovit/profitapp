@@ -8,6 +8,7 @@ import { MONTHS } from 'global/constants'
 import { useOrder } from 'contexts/order-context'
 import type { Order } from 'contexts/order-context'
 import { useIsMobile } from 'hooks/use-is-mobile'
+import { PageLoader } from 'router/components/page-loader'
 import { TopBarPortal } from 'components/top-bar'
 import { OrderItem } from 'components/order-item'
 
@@ -15,7 +16,7 @@ import styles from './history-list.module.scss'
 
 const HistoryList: FC = () => {
   const isMobile = useIsMobile()
-  const { completedOrders } = useOrder()
+  const { isCompletedOrdersLoading, completedOrders } = useOrder()
 
   const completedOrdersSortedByDate = useMemo(() => {
     return [...completedOrders].sort(
@@ -36,6 +37,10 @@ const HistoryList: FC = () => {
       return { ...accumulator, [key]: ordersByYear }
     }, {} as Record<string, Order[]>)
   }, [completedOrdersSortedByDate])
+
+  if (isCompletedOrdersLoading) {
+    return <PageLoader />
+  }
 
   return (
     <>
