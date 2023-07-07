@@ -65,3 +65,21 @@ $color-icon: $violet-2;
     background-color: $violet-1;
   }
 }
+
+@media (hover: none) {
+  .btn-default:hover {
+    background-color: $color-btn-default-bg;
+  }
+
+  .btn-primary:hover {
+    background-color: $color-btn-primary-bg;
+  }
+
+  .btn-danger:hover {
+    background-color: $color-btn-danger-bg;
+  }
+
+  .menu-btn:hover {
+    background-color: transparent;
+  }
+}

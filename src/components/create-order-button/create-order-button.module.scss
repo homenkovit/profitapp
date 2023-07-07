@@ -42,3 +42,10 @@
     line-height: 30px;
   }
 }
+
+@media (hover: none) {
+  .add-new-order-button:hover {
+    background-position: 0 0;
+    transition: none;
+  }
+}

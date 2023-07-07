@@ -33,3 +33,10 @@ $color-action-icon-fill: $white-1;
     border-radius: 9px 0;
   }
 }
+
+@media (hover: none) {
+  .actions button:hover {
+    background-color: $color-button-bg;
+    transition: none;
+  }
+}

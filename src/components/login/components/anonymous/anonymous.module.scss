@@ -1,5 +1,7 @@
 @import '../../../../styles/pallete.scss';
 
+$color-btn-text: $white-1;
+
 .container {
   background-repeat: no-repeat;
   background-position: center;
@@ -17,7 +19,7 @@
 
 .button {
   border: 1px solid $white-1;
-  color: $white-1;
+  color: $color-btn-text;
   transition: all 0.3s ease;
 
   &:hover {
@@ -55,5 +57,12 @@
     padding: 6px 16px;
     border-radius: 4px;
     font-size: 14px;
+  }
+}
+
+@media (hover: none) {
+  .button:hover {
+    background-color: transparent;
+    color: $color-btn-text;
   }
 }

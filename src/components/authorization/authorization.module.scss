@@ -24,7 +24,7 @@
 .error {
   display: flex;
   align-items: center;
-  color: #E02F36;
+  color: $red-1;
   svg {
     margin-right: 8px;
     fill: currentColor;
@@ -164,5 +164,11 @@
 @media screen and (min-width: 481px) {
   .error {
     margin-top: 16px;
+  }
+}
+
+@media (hover: none) {
+  .remember-button:hover {
+    text-decoration: none;
   }
 }
