@@ -1,3 +1,7 @@
+@import '../../../../styles/pallete.scss';
+
+$color-btn-text: $white-1;
+
 .container {
   background-repeat: no-repeat;
   background-position: center;
@@ -6,43 +10,34 @@
 }
 
 .head {
+  margin-top: 12px;
+  margin-bottom: 72px;
+  font-size: 14px;
   font-weight: 400;
-
-  strong {
-    font-weight: 700;
-  }
+  color: $white-1;
 }
 
 .button {
-  height: 30px;
-  border: 1px solid #ffffff;
-  line-height: 28px;
-  color: #ffffff;
+  border: 1px solid $white-1;
+  color: $color-btn-text;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: $white-1;
+    color: $black-1;
+  }
 }
 
 @media screen and (max-width: 480px) {
   .container {
     margin-top: auto;
-    padding-top: 36px;
-    padding-bottom: 20px;
-    border-radius: 80% 80% 0 0;
-  }
-
-  .header {
-    position: absolute;
-    top: 32px;
-    width: 100%;
-  }
-
-  .head {
-    padding: 0 64px;
-    margin-top: 16px;
-    font-size: 12px;
-    color: #4c4c4c;
+    padding-top: 24px;
+    padding-bottom: 16px;
+    clip-path: ellipse(80% 100% at 50% 100%);
   }
 
   .button {
-    padding: 0 30px;
+    padding: 6px 16px;
     border-radius: 20px;
     font-size: 12px;
     font-weight: 500;
@@ -55,19 +50,19 @@
     display: grid;
     place-content: center;
     place-items: center;
-  }
-
-  .head {
-    padding: 0 60px;
-    margin-top: 12px;
-    margin-bottom: 72px;
-    font-size: 14px;
-    color: #ffffff;
+    padding: 0 30px;
   }
 
   .button {
-    padding: 0 20px;
+    padding: 6px 16px;
     border-radius: 4px;
     font-size: 14px;
+  }
+}
+
+@media (hover: none) {
+  .button:hover {
+    background-color: transparent;
+    color: $color-btn-text;
   }
 }

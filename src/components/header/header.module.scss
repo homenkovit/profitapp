@@ -1,4 +1,5 @@
 @import '../../styles/pallete.scss';
+@import '../../styles/variables.scss';
 
 .header {
   flex-shrink: 0;
@@ -19,13 +20,13 @@
   }
 
   .header::after {
-    content: "";
+    content: '';
     position: fixed;
     right: 0;
     bottom: 0;
     left: 0;
     height: 50px;
-    background-image: linear-gradient(180deg, transparent 0%, #FAFAFF 100%);
+    background-image: linear-gradient(180deg, transparent 0%, $gray-3 100%);
   }
 }
 
@@ -41,12 +42,12 @@
   .greeting {
     margin-bottom: 30px;
     font-size: 14px;
-    color: #909090;
+    color: $gray-2;
     text-align: center;
   }
 
   .greeting span {
-    color: #000000;
+    color: $black-1;
   }
 }
 
@@ -56,7 +57,7 @@
     overflow-y: auto;
     position: sticky;
     top: 0;
-    width: 168px;
+    width: $header-width;
     height: 100vh;
     text-align: center;
   }
