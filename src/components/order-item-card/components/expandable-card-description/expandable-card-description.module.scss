@@ -73,3 +73,9 @@ $color-ic-expand: $violet-2;
     }
   }
 }
+
+@media (hover: none) {
+  .expand-button:hover::after {
+    opacity: 0;
+  }
+}

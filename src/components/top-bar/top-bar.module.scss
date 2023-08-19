@@ -5,8 +5,8 @@
   position: sticky;
   display: flex;
   align-items: center;
-  margin: 0 -16px 4px;
-  background-image: linear-gradient(to bottom, $white-1, 95%, rgba($white-1, 0.5));
+  background-image: linear-gradient(to bottom, $white-1, 95%, transparent);
+  margin: 0 -16px;
 }
 
 .top-bar-content {
@@ -17,11 +17,13 @@
 @media screen and (min-width: 481px) {
   .top-bar {
     top: 0;
+    padding: 8px 16px 12px;
   }
 }
 
 @media screen and (max-width: 480px) {
   .top-bar {
+    padding: 0 16px;
     :global(#root:has(#current-income:checked)) & {
       top: 130px;
     }
@@ -35,5 +37,9 @@
   .top-bar-content {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .top-bar {
+    padding-bottom: 20px;
   }
 }

@@ -6,7 +6,6 @@ $color-text: $gray-2;
   display: inline-flex;
   flex-wrap: wrap;
   gap: 6px;
-  padding: 16px;
 }
 
 .list li {
@@ -21,12 +20,15 @@ $color-text: $gray-2;
     height: 1px;
     margin: -1px;
   }
+
+  .list {
+    padding: 16px 0;
+  }
 }
 
 @media screen and (min-width: 481px) {
   .text {
-    margin-right: -4px;
-    margin-left: 16px;
+    margin-right: 8px;
     font-size: 12px;
     color: $color-text;
   }
@@ -35,5 +37,6 @@ $color-text: $gray-2;
 @media screen and (min-width: 481px) and (max-width: 720px) {
   .text {
     margin-bottom: 8px;
+    margin-top: 8px;
   }
 }
