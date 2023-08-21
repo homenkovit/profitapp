@@ -20,15 +20,16 @@ interface AuthorizationProperties {
 
 const Authorization: FC<AuthorizationProperties> = ({ type, onCancel }) => {
   const { pathname } = useLocation()
-  const { authError, signUpWithEmail, signInWithEmail, signUpWithGoogle, signInWithGoogle, resetPassword } = useAuth()
+  const { errorMessage, signUpWithEmail, signInWithEmail, signUpWithGoogle, signInWithGoogle, resetPassword } =
+    useAuth()
   const [emailValue, setEmail] = useState<string>('')
-  const [error, setError] = useState<string | undefined>(authError)
+  const [error, setError] = useState<string | undefined>(errorMessage)
 
   const isLoginPage = pathname === '/login'
 
   useEffect(() => {
-    setError(authError)
-  }, [authError])
+    setError(errorMessage)
+  }, [errorMessage])
 
   const isSignUp = type === AuthorizationType.SIGN_UP
 

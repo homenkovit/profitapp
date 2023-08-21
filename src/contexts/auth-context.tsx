@@ -19,6 +19,9 @@ import {
   AuthErrorCodes,
   updatePassword,
   deleteUser as firebaseDeleteUser,
+  reauthenticateWithCredential,
+  AuthCredential,
+  reauthenticateWithPopup,
 } from 'firebase/auth'
 import { collection, deleteDoc, getDocs, getFirestore, query, where } from 'firebase/firestore'
 
@@ -29,11 +32,13 @@ const AuthErrorMap = {
   [AuthErrorCodes.USER_DELETED]: 'Пользователь не найден',
   [AuthErrorCodes.INVALID_PASSWORD]: 'Неверный пароль',
   [AuthErrorCodes.EMAIL_EXISTS]: 'Пользователь уже существует',
+  [AuthErrorCodes.WEAK_PASSWORD]: 'Пароль должен содержать минимум 6 символов',
 } as Record<AuthErrorCode, string>
 
 interface AuthStore {
   user: AuthStoreUser
-  authError?: string
+  errorMessage?: string
+  errorCode?: AuthErrorCode
   signUpWithGoogle: () => void
   signInWithGoogle: () => void
   signUpWithEmail: (email: string, password: string, name?: string) => void
@@ -62,20 +67,28 @@ export const AuthProvider: FC<{ children?: React.ReactNode }> = ({ children }) =
   const auth = getAuth()
 
   const [user, setUser] = useState<AuthStoreUser>()
-  const [authError, setAuthError] = useState<string>()
+  const [errorMessage, setErrorMessage] = useState<string>()
+  const [errorCode, setErrorCode] = useState<AuthErrorCode>()
+
+  const clearError = useCallback(() => {
+    setErrorCode(undefined)
+    setErrorMessage(undefined)
+  }, [])
 
   useEffect(() => {
     return onAuthStateChanged(auth, (changedUser) => {
       if (changedUser) {
-        setAuthError(undefined)
+        clearError()
       }
 
       setUser(changedUser)
     })
-  }, [auth])
+  }, [auth, clearError])
 
   const signUpWithEmail = useCallback(
     (email: string, password: string, name?: string) => {
+      clearError()
+
       if (user) {
         linkWithCredential(user, EmailAuthProvider.credential(email, password))
           .then((result) => {
@@ -86,8 +99,9 @@ export const AuthProvider: FC<{ children?: React.ReactNode }> = ({ children }) =
             }
           })
           .catch((error) => {
-            const errorCode = error.code as AuthErrorCode
-            setAuthError(AuthErrorMap[errorCode])
+            const code = error.code as AuthErrorCode
+            setErrorCode(code)
+            setErrorMessage(AuthErrorMap[code])
             console.error('Error while signing up with email and password', error)
           })
       } else {
@@ -100,35 +114,56 @@ export const AuthProvider: FC<{ children?: React.ReactNode }> = ({ children }) =
             }
           })
           .catch((error) => {
-            const errorCode = error.code as AuthErrorCode
-            setAuthError(AuthErrorMap[errorCode])
+            const code = error.code as AuthErrorCode
+            setErrorCode(code)
+            setErrorMessage(AuthErrorMap[code])
             console.error('Error while creating new user with email and password', error)
           })
       }
     },
-    [auth, user],
+    [auth, user, clearError],
   )
 
   const signInWithEmail = useCallback(
     (email: string, password: string) => {
+      if (!auth.currentUser) return
+
+      if (errorCode === AuthErrorCodes.CREDENTIAL_TOO_OLD_LOGIN_AGAIN || errorCode === AuthErrorCodes.TOKEN_EXPIRED) {
+        reauthenticateWithCredential(auth.currentUser, new AuthCredential())
+      }
+
+      clearError()
+
       signInWithEmailAndPassword(auth, email, password).catch((error) => {
-        const errorCode = error.code as AuthErrorCode
-        setAuthError(AuthErrorMap[errorCode])
+        const code = error.code as AuthErrorCode
+        setErrorCode(code)
+        setErrorMessage(AuthErrorMap[code])
         console.error('Error while signing in with email and password', error)
       })
     },
-    [auth],
+    [auth, errorCode, clearError],
   )
 
   const signInWithGoogle = useCallback(() => {
+    if (!auth.currentUser) return
+
+    if (errorCode === AuthErrorCodes.CREDENTIAL_TOO_OLD_LOGIN_AGAIN || errorCode === AuthErrorCodes.TOKEN_EXPIRED) {
+      reauthenticateWithPopup(auth.currentUser, new GoogleAuthProvider())
+    }
+
+    clearError()
+
     signInWithPopup(auth, new GoogleAuthProvider()).catch((error) => {
-      const errorCode = error.code as AuthErrorCode
-      setAuthError(AuthErrorMap[errorCode])
-      console.error('Error while signing in', error)
+      const code = error.code as AuthErrorCode
+      setErrorCode(code)
+      setErrorMessage(AuthErrorMap[code])
+      console.error('Error while signing in with Google', error)
     })
-  }, [auth])
+  }, [auth, errorCode, clearError])
 
   const signUpWithGoogle = useCallback(() => {
+    clearError()
+
     if (user) {
       linkWithPopup(user, new GoogleAuthProvider())
         .then((result) => {
@@ -139,43 +174,56 @@ export const AuthProvider: FC<{ children?: React.ReactNode }> = ({ children }) =
           }
         })
         .catch((error) => {
-          const errorCode = error.code as AuthErrorCode
-          setAuthError(AuthErrorMap[errorCode])
+          const code = error.code as AuthErrorCode
+          setErrorCode(code)
+          setErrorMessage(AuthErrorMap[code])
+          console.error('Error while signing up with Google', error)
         })
     } else {
       signInWithGoogle()
     }
-  }, [user, signInWithGoogle])
+  }, [user, signInWithGoogle, clearError])
 
   const signOut = useCallback(() => {
+    clearError()
+
     firebaseSignOut(auth).catch((error) => {
-      const errorCode = error.code as AuthErrorCode
-      setAuthError(AuthErrorMap[errorCode])
+      const code = error.code as AuthErrorCode
+      setErrorCode(code)
+      setErrorMessage(AuthErrorMap[code])
       console.error('Error while signing out', error)
     })
-  }, [auth])
+  }, [auth, clearError])
 
   const signInAnonymously = useCallback(() => {
+    clearError()
+
     firebaseSignInAnonymously(auth).catch((error) => {
-      const errorCode = error.code as AuthErrorCode
-      setAuthError(AuthErrorMap[errorCode])
+      const code = error.code as AuthErrorCode
+      setErrorCode(code)
+      setErrorMessage(AuthErrorMap[code])
       console.error('Error while signing in anonymously', error)
     })
-  }, [auth])
+  }, [auth, clearError])
 
   const resetPassword = useCallback(
     (email: string) => {
+      clearError()
+
       sendPasswordResetEmail(auth, email).catch((error) => {
-        const errorCode = error.code as AuthErrorCode
-        setAuthError(AuthErrorMap[errorCode])
+        const code = error.code as AuthErrorCode
+        setErrorCode(code)
+        setErrorMessage(AuthErrorMap[code])
         console.error('Error while sending reset password email', error)
       })
     },
-    [auth],
+    [auth, clearError],
   )
 
   const changeName = useCallback(
     (newName: string) => {
+      clearError()
+
       if (!auth.currentUser) return
 
       updateProfile(auth.currentUser, { displayName: newName })
@@ -183,24 +231,34 @@ export const AuthProvider: FC<{ children?: React.ReactNode }> = ({ children }) =
           setUser((previous) => ({ ...(previous as User), displayName: newName }))
         })
         .catch((error) => {
+          const code = error.code as AuthErrorCode
+          setErrorCode(code)
+          setErrorMessage(AuthErrorMap[code])
           console.error('Error while changing user name', error)
         })
     },
-    [auth.currentUser],
+    [auth.currentUser, clearError],
   )
 
   const changePassword = useCallback(
     (newPassword: string) => {
+      clearError()
+
       if (!auth.currentUser) return
 
       updatePassword(auth.currentUser, newPassword).catch((error) => {
+        const code = error.code as AuthErrorCode
+        setErrorCode(code)
+        setErrorMessage(AuthErrorMap[code])
         console.error('Error while changing password', error)
       })
     },
-    [auth.currentUser],
+    [auth.currentUser, clearError],
   )
 
   const deleteUser = useCallback(() => {
+    clearError()
+
     if (!auth.currentUser) return
 
     const { uid } = auth.currentUser
@@ -210,20 +268,27 @@ export const AuthProvider: FC<{ children?: React.ReactNode }> = ({ children }) =
     getDocs(ordersQuery).then((querySnapshot) => {
       querySnapshot.forEach((document_) => {
         deleteDoc(document_.ref).catch((error) => {
+          const code = error.code as AuthErrorCode
+          setErrorCode(code)
+          setErrorMessage(AuthErrorMap[code])
           console.error('Error while deleting document', error)
         })
       })
     })
 
     firebaseDeleteUser(auth.currentUser).catch((error) => {
+      const code = error.code as AuthErrorCode
+      setErrorCode(code)
+      setErrorMessage(AuthErrorMap[code])
       console.error('Error while deleting user', error)
     })
-  }, [auth.currentUser])
+  }, [auth.currentUser, clearError])
 
   const value: AuthStore = useMemo(
     () => ({
       user,
-      authError,
+      errorMessage,
+      errorCode,
       signUpWithGoogle,
       signInWithGoogle,
       signUpWithEmail,
@@ -236,7 +301,8 @@ export const AuthProvider: FC<{ children?: React.ReactNode }> = ({ children }) =
       deleteUser,
     }),
     [
-      authError,
+      errorMessage,
+      errorCode,
       resetPassword,
       signInAnonymously,
       signInWithEmail,

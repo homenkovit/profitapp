@@ -1,4 +1,5 @@
-import { FC, FormEvent, memo, useState } from 'react'
+/* eslint-disable max-lines */
+import { FC, FormEvent, memo, useEffect, useState } from 'react'
 
 import { ReactComponent as IconError } from 'assets/images/error.svg'
 
@@ -7,12 +8,16 @@ import { useAuth } from 'contexts/auth-context'
 import styles from './form.module.scss'
 
 const Form: FC = () => {
-  const { user, changeName, changePassword } = useAuth()
+  const { errorMessage, user, changeName, changePassword } = useAuth()
 
   const [name, setName] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [repeatPassword, setRepeatPassword] = useState<string>('')
   const [error, setError] = useState<string | undefined>(undefined)
+
+  useEffect(() => {
+    setError(errorMessage)
+  }, [errorMessage])
 
   const onSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
