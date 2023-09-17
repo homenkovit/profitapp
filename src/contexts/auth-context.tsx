@@ -126,10 +126,12 @@ export const AuthProvider: FC<{ children?: React.ReactNode }> = ({ children }) =
 
   const signInWithEmail = useCallback(
     (email: string, password: string) => {
-      if (!auth.currentUser) return
-
-      if (errorCode === AuthErrorCodes.CREDENTIAL_TOO_OLD_LOGIN_AGAIN || errorCode === AuthErrorCodes.TOKEN_EXPIRED) {
+      if (
+        auth.currentUser &&
+        (errorCode === AuthErrorCodes.CREDENTIAL_TOO_OLD_LOGIN_AGAIN || errorCode === AuthErrorCodes.TOKEN_EXPIRED)
+      ) {
         reauthenticateWithCredential(auth.currentUser, new AuthCredential())
+        return
       }
 
       clearError()
@@ -145,10 +147,12 @@ export const AuthProvider: FC<{ children?: React.ReactNode }> = ({ children }) =
   )
 
   const signInWithGoogle = useCallback(() => {
-    if (!auth.currentUser) return
-
-    if (errorCode === AuthErrorCodes.CREDENTIAL_TOO_OLD_LOGIN_AGAIN || errorCode === AuthErrorCodes.TOKEN_EXPIRED) {
+    if (
+      auth.currentUser &&
+      (errorCode === AuthErrorCodes.CREDENTIAL_TOO_OLD_LOGIN_AGAIN || errorCode === AuthErrorCodes.TOKEN_EXPIRED)
+    ) {
       reauthenticateWithPopup(auth.currentUser, new GoogleAuthProvider())
+      return
     }
 
     clearError()
