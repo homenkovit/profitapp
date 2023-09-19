@@ -20,15 +20,16 @@ interface AuthorizationProperties {
 
 const Authorization: FC<AuthorizationProperties> = ({ type, onCancel }) => {
   const { pathname } = useLocation()
-  const { authError, signUpWithEmail, signInWithEmail, signUpWithGoogle, signInWithGoogle, resetPassword } = useAuth()
+  const { errorMessage, signUpWithEmail, signInWithEmail, signUpWithGoogle, signInWithGoogle, resetPassword } =
+    useAuth()
   const [emailValue, setEmail] = useState<string>('')
-  const [error, setError] = useState<string | undefined>(authError)
+  const [error, setError] = useState<string | undefined>(errorMessage)
 
   const isLoginPage = pathname === '/login'
 
   useEffect(() => {
-    setError(authError)
-  }, [authError])
+    setError(errorMessage)
+  }, [errorMessage])
 
   const isSignUp = type === AuthorizationType.SIGN_UP
 
@@ -37,14 +38,14 @@ const Authorization: FC<AuthorizationProperties> = ({ type, onCancel }) => {
 
     const formData = new FormData(event.currentTarget as HTMLFormElement)
 
-    const name = formData.get('name')?.toString()
-    const email = formData.get('email')?.toString()
-    const password = formData.get('password')?.toString()
-    const passwordApprove = formData.get('passwordApprove')?.toString()
+    const name = formData.get('name')?.toString().trim()
+    const email = formData.get('email')?.toString().trim()
+    const password = formData.get('password')?.toString().trim()
+    const passwordApprove = formData.get('passwordApprove')?.toString().trim()
 
     if (email?.length && password?.length) {
       if (isSignUp) {
-        if (password === passwordApprove && name) {
+        if (password === passwordApprove) {
           signUpWithEmail(email, password, name)
         } else {
           setError('Пароль не совпадает')
@@ -83,7 +84,7 @@ const Authorization: FC<AuthorizationProperties> = ({ type, onCancel }) => {
         {isSignUp && (
           <label htmlFor="name" className={styles.label}>
             <span className="visually-hidden">Введите имя</span>
-            <input type="text" id="name" name="name" placeholder="Введите имя" className={styles.input} required />
+            <input type="text" id="name" name="name" placeholder="Введите имя" className={styles.input} />
           </label>
         )}
         <label htmlFor="email" className={styles.label}>

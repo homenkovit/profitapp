@@ -17,6 +17,7 @@ const OrderList: FC = () => {
 
   return (
     <>
+      <h1 className="visually-hidden">ProfitApp</h1>
       <TopBarPortal>
         <SortBar />
       </TopBarPortal>

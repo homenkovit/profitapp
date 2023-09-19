@@ -1,0 +1,32 @@
+@import '../../styles/pallete.scss';
+
+$color-link-text: $violet-2;
+
+.link {
+  font-size: 14px;
+  color: $color-link-text;
+
+  &:not(:hover) {
+    text-decoration: none;
+  }
+
+  @media screen and (max-width: 480px) {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 33px;
+    border-radius: 22px;
+    background-color: $blue-1;
+    box-shadow: 0px 3px 20px rgba(0, 0, 0, 0.3);
+    fill: $white-1;
+  }
+
+  @media screen and (min-width: 481px) {
+    background-color: $white-1;
+  }
+}
+

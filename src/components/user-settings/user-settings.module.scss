@@ -1,0 +1,25 @@
+@import '../../styles/pallete.scss';
+
+$color-divider: $gray-5;
+
+.heading {
+  font-size: 18px;
+  font-weight: 400;
+  margin-bottom: 16px;
+
+  @media screen and (max-width: 480px) {
+    margin-top: 8px;
+  }
+
+  @media screen and (min-width: 481px) {
+    margin-top: 0;
+  }
+}
+
+.divider {
+  display: block;
+  height: 1px;
+  border: none;
+  background-color: $color-divider;
+  margin: 32px 0 16px;
+}

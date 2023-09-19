@@ -1,15 +1,6 @@
 @import '../../styles/pallete.scss';
 
-$color-link-text: $violet-2;
 $color-calendar-icon: $gray-2;
-
-.link {
-  font-size: 14px;
-  color: $color-link-text;
-  &:not(:hover) {
-    text-decoration: none;
-  }
-}
 
 .head {
   margin: 0 0 2px;
@@ -40,21 +31,6 @@ $color-calendar-icon: $gray-2;
 }
 
 @media screen and (max-width: 480px) {
-  .link {
-    position: fixed;
-    right: 16px;
-    bottom: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 52px;
-    height: 33px;
-    border-radius: 22px;
-    background-color: $blue-1;
-    box-shadow: 0px 3px 20px rgba(0, 0, 0, 0.3);
-    fill: $white-1;
-  }
-
   .head {
     margin-top: 8px;
   }
@@ -75,11 +51,6 @@ $color-calendar-icon: $gray-2;
 }
 
 @media screen and (min-width: 481px) {
-  .link {
-    padding: 16px;
-    background-color: $white-1;
-  }
-
   .date {
     top: 34px;
   }

@@ -22,6 +22,10 @@ const App: FC = () => {
   useEffect(() => {
     if (location.pathname !== previousLocation.pathname) {
       document.querySelector('body')?.scroll({ top: 0, behavior: 'smooth' })
+
+      if (location.pathname !== '/') {
+        setNewOrderFormVisible(false)
+      }
     }
   }, [location, previousLocation])
 
