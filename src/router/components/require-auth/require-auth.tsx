@@ -8,6 +8,11 @@ const RequireAuth = ({ children }: { children: JSX.Element }): JSX.Element | nul
 
   if (auth.user === undefined) return null
 
+  if (!auth.user && location.search === '?demo=true') {
+    auth.signInAnonymously()
+    return null
+  }
+
   if (!auth.user) {
     // Redirect them to the /login page, but save the current location they were
     // trying to go to when they were redirected. This allows us to send them
