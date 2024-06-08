@@ -1,7 +1,7 @@
 import { FC, useCallback, ChangeEvent, useState, memo } from 'react'
 
-import { ReactComponent as IconPriceTab } from '../../assets/images/price-tab.svg'
-import { ReactComponent as IconChartTab } from '../../assets/images/chart-tab.svg'
+import IconPriceTab from '../../assets/images/price-tab.svg?react'
+import IconChartTab from '../../assets/images/chart-tab.svg?react'
 import { useIsMobile } from '../../hooks/use-is-mobile'
 
 import { useChartData } from './use-chart-data'
@@ -46,12 +46,16 @@ const Statistics: FC = () => {
 
   return (
     <div
-      className={`${styles.statistics} ${
-        currentTab === StatisticsTabs.CURRENT_INCOME ? styles['first-tab-selected'] : ''
-      }`}
+      className={`
+        ${styles.statistics} ${currentTab === StatisticsTabs.CURRENT_INCOME ? styles['first-tab-selected'] : ''}
+      `}
     >
       <div className={styles.tabs} onChange={onTabChange}>
-        <label htmlFor="current-income" className={currentTab === StatisticsTabs.CURRENT_INCOME ? styles.active : ''}>
+        <label
+          htmlFor="current-income"
+          className={currentTab === StatisticsTabs.CURRENT_INCOME ? styles.active : ''}
+          aria-label="Текущий месяц"
+        >
           <IconPriceTab />
           <input
             type="radio"
@@ -62,7 +66,11 @@ const Statistics: FC = () => {
             defaultChecked
           />
         </label>
-        <label htmlFor="monthly-income" className={currentTab === StatisticsTabs.MONTHLY_INCOME ? styles.active : ''}>
+        <label
+          htmlFor="monthly-income"
+          className={currentTab === StatisticsTabs.MONTHLY_INCOME ? styles.active : ''}
+          aria-label="Текущий год"
+        >
           <IconChartTab />
           <input
             type="radio"

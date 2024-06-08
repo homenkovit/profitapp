@@ -1,6 +1,6 @@
 import { FC, memo, useLayoutEffect, useState } from 'react'
 
-import { ReactComponent as IconExpand } from '../../assets/images/expand.svg'
+import IconExpand from '../../assets/images/expand.svg?react'
 
 import styles from './info-block.module.scss'
 

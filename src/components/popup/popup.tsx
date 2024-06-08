@@ -29,7 +29,7 @@ export const Popup: FC<PopupProperties> = ({ isVisible, children, className, wid
 
     popup?.addEventListener('keydown', popupKeyDownHandler)
 
-    return () => {
+    return (): void => {
       popup?.removeEventListener('keydown', popupKeyDownHandler)
     }
   }, [popupReference, onClose, isVisible])

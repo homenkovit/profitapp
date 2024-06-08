@@ -1,6 +1,6 @@
 import { FC, memo, useCallback, useMemo, useState } from 'react'
 
-import { ReactComponent as IconLogout } from 'assets/images/logout.svg'
+import IconLogout from 'assets/images/logout.svg?react'
 
 import { useAuth } from 'contexts/auth-context'
 import { useOrder } from 'contexts/order-context'

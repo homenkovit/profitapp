@@ -17,7 +17,7 @@ export const useIsMobile = (): boolean => {
 
     matchMedia.addEventListener('change', handleChange)
 
-    return () => {
+    return (): void => {
       matchMedia.removeEventListener('change', handleChange)
     }
   }, [])
