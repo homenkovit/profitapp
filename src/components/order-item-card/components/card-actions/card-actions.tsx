@@ -1,8 +1,8 @@
 import { FC, memo, useCallback, useState } from 'react'
 
-import { ReactComponent as IconComplete } from 'assets/images/complete-small.svg'
-import { ReactComponent as IconEdit } from 'assets/images/edit-small.svg'
-import { ReactComponent as IconDelete } from 'assets/images/delete-small.svg'
+import IconComplete from 'assets/images/complete-small.svg?react'
+import IconEdit from 'assets/images/edit-small.svg?react'
+import IconDelete from 'assets/images/delete-small.svg?react'
 
 import { useOrder } from 'contexts/order-context'
 import { CompleteOrderPopup } from 'components/popup/complete-order-popup'

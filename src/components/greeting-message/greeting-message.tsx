@@ -20,7 +20,7 @@ const GreetingMessage: FC = () => {
       localStorage.removeItem(LOCAL_STORAGE_IS_GREETING_COLLAPSED)
     }
 
-    return () => {
+    return (): void => {
       localStorage.removeItem(LOCAL_STORAGE_IS_GREETING_COLLAPSED)
     }
   }, [])

@@ -3,7 +3,7 @@
 import { FC, FormEvent, useState, useMemo, useRef, useEffect, memo, useCallback } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
 
-import { ReactComponent as IconErrorSmall } from 'assets/images/error-small.svg'
+import IconErrorSmall from 'assets/images/error-small.svg?react'
 
 import { MONTHS } from 'global/constants'
 import { encodeText, decodeText } from 'global/helpers'
@@ -147,7 +147,7 @@ const OrderItemForm: FC<OrderItemFormProperties> = ({ data, onClose, className }
 
     form?.addEventListener('keydown', formKeyDownEventHandler)
 
-    return () => {
+    return (): void => {
       form?.removeEventListener('keydown', formKeyDownEventHandler)
     }
   }, [checkFormChanges, formReference, onClose])

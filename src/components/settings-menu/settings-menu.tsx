@@ -2,7 +2,7 @@ import { FC, memo, useRef } from 'react'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Instance } from 'tippy.js'
 
-import { ReactComponent as IconSettings } from 'assets/images/settings.svg'
+import IconSettings from 'assets/images/settings.svg?react'
 
 import { Popover } from 'components/popover'
 

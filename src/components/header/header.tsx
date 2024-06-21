@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
 
-import { ReactComponent as IconLogo } from 'assets/images/logo.svg'
+import IconLogo from 'assets/images/logo.svg?react'
 
 import { useAuth } from 'contexts/auth-context'
 import { CreateOrderButton } from 'components/create-order-button'
