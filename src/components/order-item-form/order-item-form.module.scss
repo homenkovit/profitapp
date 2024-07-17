@@ -29,6 +29,9 @@ $color-error: $red-1;
   border: 1px solid $color-field-border;
   border-radius: 3px;
   font-size: inherit;
+  appearance: textfield;
+  -moz-appearance: textfield;
+
   &.invalid {
     border-color: $color-error;
   }
@@ -40,8 +43,6 @@ $color-error: $red-1;
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
   }
-  appearance: textfield;
-  -moz-appearance: textfield;
   &::-webkit-input-placeholder,
   &:-moz-placeholder,
   &::-moz-placeholder {
