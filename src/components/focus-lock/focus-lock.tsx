@@ -10,13 +10,15 @@ interface FocusLockProperties extends React.HTMLAttributes<HTMLDivElement> {
 
 const FocusLock: FC<FocusLockProperties> = ({ children, ...otherProperties }) => {
   const rootNode = useRef<HTMLDivElement>(null)
-  const focusableItems = useRef<NodeListOf<HTMLElement>>()
+  const focusableItems = useRef<Array<HTMLElement>>()
 
   useEffect(() => {
     if (!rootNode.current) return undefined
 
     const updateFocusableItems = (): void => {
-      focusableItems.current = rootNode.current?.querySelectorAll(FOCUSABLE_ELEMENTS)
+      const focusableElements = rootNode.current?.querySelectorAll<HTMLElement>(FOCUSABLE_ELEMENTS)
+      const visibleFocusableElements = [...(focusableElements ?? [])].filter((element) => element.offsetParent !== null)
+      focusableItems.current = visibleFocusableElements
     }
 
     updateFocusableItems()
