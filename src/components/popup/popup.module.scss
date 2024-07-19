@@ -5,26 +5,15 @@ $color-overlay-bg: $black-3;
 $color-dialog-bg: $gray-3;
 $color-dialog-bg-mobile: $white-1;
 
-.overlay {
-  display: flex;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
-  background: $color-overlay-bg;
-  // TODO: z-index
-  z-index: 1000;
-}
-
 .popup-dialog {
   padding: 16px;
+  border: none;
   box-shadow: 0px 10px 30px $color-dialog-box-shadow;
   overflow: hidden;
+
+  &::backdrop {
+    background-color: $color-overlay-bg;
+  }
 }
 
 @media screen and (min-width: 481px) {

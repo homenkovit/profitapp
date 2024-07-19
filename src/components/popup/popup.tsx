@@ -1,7 +1,6 @@
-import { FC, ReactElement, ReactNode, useEffect, useRef } from 'react'
+import { FC, ReactNode, useEffect, useRef } from 'react'
 import ReactFocusLock from 'react-focus-lock'
 
-import { createPopupContainer } from './helpers/create-popup-container'
 import styles from './popup.module.scss'
 
 export interface PopupProperties {
@@ -14,37 +13,31 @@ export interface PopupProperties {
 }
 
 export const Popup: FC<PopupProperties> = ({ isVisible, children, className, width, height, onClose }) => {
-  const popupReference = useRef<HTMLDivElement>(null)
+  const reference = useRef<HTMLDialogElement>(null)
 
   useEffect(() => {
-    if (!isVisible) return undefined
+    const dialog = reference.current
 
-    const popup = popupReference?.current
-
-    const popupKeyDownHandler = (event: KeyboardEvent): void => {
-      if (['Escape', 'Esc'].includes(event.key)) {
-        onClose()
-      }
+    if (isVisible) {
+      dialog?.showModal()
+    } else {
+      dialog?.close()
     }
 
-    popup?.addEventListener('keydown', popupKeyDownHandler)
+    dialog?.addEventListener('close', onClose)
 
     return (): void => {
-      popup?.removeEventListener('keydown', popupKeyDownHandler)
+      dialog?.removeEventListener('close', onClose)
     }
-  }, [popupReference, onClose, isVisible])
+  }, [onClose, isVisible])
 
   if (!isVisible) {
     return null
   }
 
-  const dialog: ReactElement = (
-    <div className={styles.overlay}>
-      <div ref={popupReference} className={`${styles['popup-dialog']} ${className}`} style={{ width, height }}>
-        <ReactFocusLock returnFocus>{children}</ReactFocusLock>
-      </div>
-    </div>
+  return (
+    <dialog ref={reference} className={`${styles['popup-dialog']} ${className ?? ''}`} style={{ width, height }}>
+      <ReactFocusLock>{children}</ReactFocusLock>
+    </dialog>
   )
-
-  return createPopupContainer(dialog)
 }
