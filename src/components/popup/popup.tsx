@@ -1,5 +1,6 @@
 import { FC, ReactNode, useEffect, useRef } from 'react'
-import ReactFocusLock from 'react-focus-lock'
+
+import { FocusLock } from 'components/focus-lock'
 
 import styles from './popup.module.scss'
 
@@ -13,15 +14,18 @@ export interface PopupProperties {
 }
 
 export const Popup: FC<PopupProperties> = ({ isVisible, children, className, width, height, onClose }) => {
+  const activeElement = useRef<HTMLElement>()
   const reference = useRef<HTMLDialogElement>(null)
 
   useEffect(() => {
     const dialog = reference.current
 
     if (isVisible) {
+      activeElement.current = document.activeElement as HTMLElement
       dialog?.showModal()
     } else {
       dialog?.close()
+      activeElement.current?.focus()
     }
 
     dialog?.addEventListener('close', onClose)
@@ -37,7 +41,7 @@ export const Popup: FC<PopupProperties> = ({ isVisible, children, className, wid
 
   return (
     <dialog ref={reference} className={`${styles['popup-dialog']} ${className ?? ''}`} style={{ width, height }}>
-      <ReactFocusLock>{children}</ReactFocusLock>
+      <FocusLock>{children}</FocusLock>
     </dialog>
   )
 }
