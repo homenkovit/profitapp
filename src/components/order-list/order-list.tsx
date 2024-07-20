@@ -21,7 +21,7 @@ const OrderList: FC = () => {
       <TopBarPortal>
         <SortBar />
       </TopBarPortal>
-      <ul className={styles.list}>
+      <ul id="order-list" className={styles.list}>
         {sortedOrders.map((order) => (
           <li key={order.id}>
             <OrderItem data={order} />

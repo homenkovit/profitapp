@@ -30,7 +30,7 @@ const FocusLock: FC<FocusLockProperties> = ({ children, ...otherProperties }) =>
     return (): void => {
       observer.disconnect()
     }
-  }, [rootNode])
+  }, [])
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent): void => {
@@ -64,7 +64,7 @@ const FocusLock: FC<FocusLockProperties> = ({ children, ...otherProperties }) =>
     return (): void => {
       window.removeEventListener('keydown', handleKeyPress)
     }
-  }, [focusableItems])
+  }, [])
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading

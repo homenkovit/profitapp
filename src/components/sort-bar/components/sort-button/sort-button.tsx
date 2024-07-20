@@ -52,7 +52,14 @@ const SortButton: FC<SortButtonProperties> = ({ sortOrdersName }) => {
   }, [selected, sortOrders, sortOrdersName, sortOrdersType])
 
   return (
-    <button type="button" onClick={buttonClickHandler} className={buttonClassNames}>
+    <button
+      type="button"
+      role="radio"
+      aria-checked={selected}
+      tabIndex={selected ? 0 : -1}
+      onClick={buttonClickHandler}
+      className={buttonClassNames}
+    >
       {convertSortOrdersTypeToText({ name: sortOrdersName, type: sortOrdersType })}
     </button>
   )
