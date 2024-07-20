@@ -10,15 +10,14 @@ interface FocusLockProperties extends React.HTMLAttributes<HTMLDivElement> {
 
 const FocusLock: FC<FocusLockProperties> = ({ children, ...otherProperties }) => {
   const rootNode = useRef<HTMLDivElement>(null)
-  const focusableItems = useRef<Array<HTMLElement>>()
+  const focusableItems = useRef<NodeListOf<HTMLElement>>()
 
   useEffect(() => {
     if (!rootNode.current) return undefined
 
     const updateFocusableItems = (): void => {
       const focusableElements = rootNode.current?.querySelectorAll<HTMLElement>(FOCUSABLE_ELEMENTS)
-      const visibleFocusableElements = [...(focusableElements ?? [])].filter((element) => element.offsetParent !== null)
-      focusableItems.current = visibleFocusableElements
+      focusableItems.current = focusableElements
     }
 
     updateFocusableItems()
@@ -36,9 +35,10 @@ const FocusLock: FC<FocusLockProperties> = ({ children, ...otherProperties }) =>
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent): void => {
       if (!focusableItems.current) return
+      const visibleFocusableElements = [...focusableItems.current].filter((element) => element.offsetParent !== null)
 
       const { key, shiftKey } = event
-      const { length, 0: firstItem, [length - 1]: lastItem } = focusableItems.current
+      const { length, 0: firstItem, [length - 1]: lastItem } = visibleFocusableElements
 
       if (key === TAB_KEY) {
         if (length === 1) {
