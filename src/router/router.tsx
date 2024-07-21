@@ -2,9 +2,10 @@ import { lazy, Suspense } from 'react'
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 
 import { App } from 'components/app'
+import { PageTitle } from 'components/page-title'
 
-import RequireAuth from './components/require-auth/require-auth'
-import PageLoader from './components/page-loader/page-loader'
+import { RequireAuth } from './components/require-auth'
+import { PageLoader } from './components/page-loader'
 
 const Login = lazy(() => import('components/login').then((component) => ({ default: component.Login })))
 const OrderList = lazy(() => import('components/order-list').then((component) => ({ default: component.OrderList })))
@@ -28,6 +29,7 @@ const Router = createBrowserRouter([
         path: '',
         element: (
           <Suspense fallback={<PageLoader />}>
+            <PageTitle title="Заказы" />
             <OrderList />
           </Suspense>
         ),
@@ -36,6 +38,7 @@ const Router = createBrowserRouter([
         path: 'history',
         element: (
           <Suspense fallback={<PageLoader />}>
+            <PageTitle title="История заказов" />
             <HistoryList />
           </Suspense>
         ),
@@ -44,6 +47,7 @@ const Router = createBrowserRouter([
         path: 'user',
         element: (
           <Suspense fallback={<PageLoader />}>
+            <PageTitle title="Настройки пользователя" />
             <UserSettings />
           </Suspense>
         ),
@@ -58,6 +62,7 @@ const Router = createBrowserRouter([
     path: '/login',
     element: (
       <Suspense fallback={<PageLoader />}>
+        <PageTitle title="Login" />
         <Login />
       </Suspense>
     ),
