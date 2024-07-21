@@ -29,7 +29,7 @@ const Router = createBrowserRouter([
         path: '',
         element: (
           <Suspense fallback={<PageLoader />}>
-            <PageTitle title="Заказы" />
+            <PageTitle title="Главная" />
             <OrderList />
           </Suspense>
         ),
@@ -47,7 +47,7 @@ const Router = createBrowserRouter([
         path: 'user',
         element: (
           <Suspense fallback={<PageLoader />}>
-            <PageTitle title="Настройки пользователя" />
+            <PageTitle title="Мой аккаунт" />
             <UserSettings />
           </Suspense>
         ),
@@ -62,7 +62,7 @@ const Router = createBrowserRouter([
     path: '/login',
     element: (
       <Suspense fallback={<PageLoader />}>
-        <PageTitle title="Login" />
+        <PageTitle title="Логин" />
         <Login />
       </Suspense>
     ),
