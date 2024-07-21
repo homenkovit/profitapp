@@ -1,7 +1,8 @@
 /* eslint-disable unicorn/prefer-module */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable import/no-default-export */
-import path from 'node:path'
+// eslint-disable-next-line unicorn/import-style
+import { resolve } from 'node:path'
 
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
@@ -9,51 +10,52 @@ import svgr from 'vite-plugin-svgr'
 import checker from 'vite-plugin-checker'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
-const rootDirectory = path.resolve(__dirname, './src/')
-const buildDirectory = path.resolve(__dirname, './dist/')
-const publicDirectory = path.resolve(__dirname, './public/')
+const rootDirectory = resolve('./src/')
+const buildDirectory = resolve('./dist/')
+const publicDirectory = resolve('./public/')
 
-export default defineConfig({
-  plugins: [
-    react(),
-    svgr(),
-    tsconfigPaths(),
-    checker({
-      typescript: true,
-    }),
-  ],
-  root: rootDirectory,
-  publicDir: publicDirectory,
-  build: {
-    emptyOutDir: true,
-    minify: true,
-    sourcemap: true,
-    chunkSizeWarningLimit: 200,
-    rollupOptions: {
-      output: {
-        dir: buildDirectory,
-        entryFileNames: `scripts/[name]-[hash].js`,
-        chunkFileNames: `scripts/[name]-[hash].js`,
-        assetFileNames: `static/[name]-[hash][extname]`,
+export default defineConfig(({ mode }) => {
+  const isDevelopment = mode === 'development'
 
-        manualChunks: (id, { getModuleInfo }): string => {
-          if ((getModuleInfo(id)?.dynamicImporters?.length ?? 0) > 0) {
-            const splitId = id.split('/')
-            const fileName = splitId.pop()?.split('.').shift()
-            if (fileName === 'index') {
-              // directory name
-              return splitId.at(-1) ?? fileName
+  return {
+    plugins: [
+      react(),
+      svgr(),
+      tsconfigPaths(),
+      checker({
+        typescript: true,
+      }),
+    ],
+    root: rootDirectory,
+    publicDir: publicDirectory,
+    css: {
+      devSourcemap: isDevelopment,
+    },
+    build: {
+      emptyOutDir: true,
+      minify: true,
+      sourcemap: isDevelopment,
+      chunkSizeWarningLimit: 200,
+      outDir: buildDirectory,
+      cssCodeSplit: false,
+      rollupOptions: {
+        output: {
+          entryFileNames: `scripts/[name]-[hash].js`,
+          chunkFileNames: (chunkInfo): string => {
+            if (chunkInfo.name === 'index') {
+              return `scripts/${chunkInfo.facadeModuleId?.split('/').at(-2)}-[hash].js`
             }
-            return fileName ?? ''
-          }
+            return `scripts/[name]-[hash].js`
+          },
+          assetFileNames: `static/[name]-[hash][extname]`,
 
-          if (id.includes('node_modules')) {
-            return 'vendor'
-          }
-
-          return 'index'
+          manualChunks: {
+            react: ['react', 'react-dom', 'react-router-dom'],
+            firebase: ['firebase/app', 'firebase/auth', 'firebase/firestore'],
+            vendor: ['@tippyjs/react', 'react-textarea-autosize'],
+          },
         },
       },
     },
-  },
+  }
 })
