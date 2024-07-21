@@ -52,7 +52,7 @@ export default defineConfig(({ mode }) => {
           manualChunks: {
             react: ['react', 'react-dom', 'react-router-dom'],
             firebase: ['firebase/app', 'firebase/auth', 'firebase/firestore'],
-            vendor: ['@tippyjs/react', 'react-textarea-autosize'],
+            vendor: ['@tippyjs/react'],
           },
         },
       },

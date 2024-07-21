@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable max-lines */
 import { FC, FormEvent, useState, useMemo, useRef, useEffect, memo, useCallback } from 'react'
-import TextareaAutosize from 'react-textarea-autosize'
 
 import IconErrorSmall from 'assets/images/error-small.svg?react'
 
@@ -172,7 +171,7 @@ const OrderItemForm: FC<OrderItemFormProperties> = ({ data, onClose, className }
             <label className={styles.label} htmlFor={Field.DESCRIPTION}>
               Описание заказа
             </label>
-            <TextareaAutosize
+            <textarea
               className={`${styles.field} ${validationFields.has(Field.DESCRIPTION) ? styles.invalid : ''}`}
               name={Field.DESCRIPTION}
               id={Field.DESCRIPTION}
@@ -181,7 +180,8 @@ const OrderItemForm: FC<OrderItemFormProperties> = ({ data, onClose, className }
               placeholder="Введите описание заказа"
               onChange={(event): void => setDescription(event.target.value)}
               onBlur={(): void => validateField(fieldDescription.current)}
-              maxRows={6}
+              rows={6}
+              // eslint-disable-next-line jsx-a11y/no-autofocus
               autoFocus
             />
           </fieldset>
