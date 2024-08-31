@@ -3,7 +3,7 @@ import { FC, memo, useMemo } from 'react'
 import IconCalendar from 'assets/images/calendar.svg?react'
 
 import { MONTHS } from 'global/constants'
-import { useOrder } from 'contexts/order-context'
+import { useOrderValue } from 'contexts/order-context'
 import type { Order } from 'contexts/order-context'
 import { PageLoader } from 'router/components/page-loader'
 import { TopBarPortal } from 'components/top-bar'
@@ -13,7 +13,7 @@ import { OrderItem } from 'components/order-item'
 import styles from './history-list.module.scss'
 
 const HistoryList: FC = () => {
-  const { isCompletedOrdersLoading, completedOrders } = useOrder()
+  const { isCompletedOrdersLoading, completedOrders } = useOrderValue()
 
   const completedOrdersSortedByDate = useMemo(() => {
     return [...completedOrders].sort(

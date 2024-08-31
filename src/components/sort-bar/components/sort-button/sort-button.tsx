@@ -1,6 +1,6 @@
 import { FC, memo, useCallback, useEffect, useMemo, useState } from 'react'
 
-import { useOrder } from 'contexts/order-context'
+import { useOrderHandlers } from 'contexts/order-context'
 import { SortOrdersName, LOCAL_STORAGE_SORT_KEY } from 'hooks/use-sorted-orders'
 import type { SortOrders, SortOrdersType } from 'hooks/use-sorted-orders'
 
@@ -15,7 +15,7 @@ const SortButton: FC<SortButtonProperties> = ({ sortOrdersName }) => {
   const localStorageSort = localStorage.getItem(LOCAL_STORAGE_SORT_KEY)
   const sortOrdersFromLocalStorage = localStorageSort ? (JSON.parse(localStorageSort) as SortOrders) : null
 
-  const { sortOrders } = useOrder()
+  const { sortOrders } = useOrderHandlers()
 
   const [sortOrdersType, setSortOrdersType] = useState<SortOrdersType | undefined>(
     getSortOrdersType(sortOrdersName, sortOrdersFromLocalStorage?.type),

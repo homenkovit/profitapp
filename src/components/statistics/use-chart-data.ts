@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState, useCallback } from 'react'
 
 import { MONTHS } from 'global/constants'
-import { useOrder } from 'contexts/order-context'
+import { useOrderValue } from 'contexts/order-context'
 import { ChartItem } from 'components/chart/types'
 
 interface UseChartData {
@@ -14,7 +14,7 @@ interface UseChartData {
 const getInitialPlansAndFact = (): Array<ChartItem> => MONTHS.map(() => ({ plan: 0, fact: 0 }))
 
 export const useChartData = (): UseChartData => {
-  const { orders, currentYearCompletedOrders } = useOrder()
+  const { orders, currentYearCompletedOrders } = useOrderValue()
   const [plansAndFacts, setPlansAndFacts] = useState<ChartItem[]>(getInitialPlansAndFact())
   const currentYear = useMemo(() => new Date().getFullYear(), [])
   const currentMonthIndex = useMemo(() => new Date().getMonth(), [])

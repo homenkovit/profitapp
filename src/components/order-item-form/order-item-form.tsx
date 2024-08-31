@@ -7,7 +7,7 @@ import IconErrorSmall from 'assets/images/error-small.svg?react'
 import { MONTHS } from 'global/constants'
 import { encodeText, decodeText } from 'global/helpers'
 import { useAuth } from 'contexts/auth-context'
-import { useOrder, StoreOrder } from 'contexts/order-context'
+import { useOrderHandlers, StoreOrder } from 'contexts/order-context'
 import type { Order } from 'contexts/order-context'
 
 import { Field } from './constants'
@@ -24,7 +24,7 @@ const REQUIRED_FIELDS = [Field.DESCRIPTION, Field.PRICE]
 
 const OrderItemForm: FC<OrderItemFormProperties> = ({ data, onClose, className }) => {
   const { user } = useAuth()
-  const { addOrder, editOrder } = useOrder()
+  const { addOrder, editOrder } = useOrderHandlers()
 
   const currentYear = new Date().getFullYear()
   const yearsList = useMemo((): number[] => Array.from({ length: 6 }, (_, index) => currentYear + index), [currentYear])

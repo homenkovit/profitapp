@@ -22,30 +22,44 @@ import type { SortOrders } from 'hooks/use-sorted-orders'
 
 import type { Order, StoreOrder } from './types'
 
-interface OrderStore {
+interface OrderStoreValue {
   isOrdersLoading: boolean
   isCompletedOrdersLoading: boolean
   orders: Order[]
   sortedOrders: Order[]
   completedOrders: Order[]
   currentYearCompletedOrders: Order[]
-  sortOrders: (sortType: SortOrders) => void
+}
+
+interface OrderStoreHandlers {
   addOrder: (order: StoreOrder) => Promise<DocumentReference<DocumentData>>
   completeOrder: (id: string) => Promise<void>
   editOrder: (id: string, data: Partial<StoreOrder>) => Promise<void>
   deleteOrder: (id: string) => Promise<void>
+  sortOrders: (sortType: SortOrders) => void
 }
 
-const OrderContext = createContext<OrderStore | null>(null)
+const OrderContextValue = createContext<OrderStoreValue | null>(null)
+const OrderContextHandlers = createContext<OrderStoreHandlers | null>(null)
 
-export const useOrder = (): OrderStore => {
-  const store = useContext(OrderContext)
+export const useOrderValue = (): OrderStoreValue => {
+  const store = useContext(OrderContextValue)
 
   if (!store) {
     throw new Error("Order store isn't initialized yet")
   }
 
   return store
+}
+
+export const useOrderHandlers = (): OrderStoreHandlers => {
+  const handlers = useContext(OrderContextHandlers)
+
+  if (!handlers) {
+    throw new Error("Order store isn't initialized yet")
+  }
+
+  return handlers
 }
 
 export const OrderProvider: FC<{ children?: React.ReactNode }> = ({ children }) => {
@@ -79,31 +93,11 @@ export const OrderProvider: FC<{ children?: React.ReactNode }> = ({ children }) 
     return onSnapshot(ordersQuery, (querySnapshot) => {
       setCompletedOrders(
         querySnapshot.docs.map((document_) => {
-          const {
-            description,
-            isPermanent,
-            year,
-            month,
-            price,
-            isCompleted,
-            createdAt,
-            updatedAt,
-            completedYear,
-            completedMonth,
-          } = document_.data() as StoreOrder
+          const documentData = document_.data() as StoreOrder
 
           return {
             id: document_.id,
-            description,
-            isPermanent,
-            year,
-            month,
-            price,
-            isCompleted,
-            completedYear,
-            completedMonth,
-            createdAt,
-            updatedAt,
+            ...documentData,
           }
         }),
       )
@@ -126,31 +120,11 @@ export const OrderProvider: FC<{ children?: React.ReactNode }> = ({ children }) 
     return onSnapshot(ordersQuery, (querySnapshot) => {
       setOrders(
         querySnapshot.docs.map((document_) => {
-          const {
-            description,
-            isPermanent,
-            year,
-            month,
-            isOverdue,
-            originalYear,
-            originalMonth,
-            price,
-            createdAt,
-            updatedAt,
-          } = document_.data() as StoreOrder
+          const documentData = document_.data() as StoreOrder
 
           return {
             id: document_.id,
-            description,
-            isPermanent,
-            year,
-            month,
-            isOverdue,
-            originalYear,
-            originalMonth,
-            price,
-            createdAt,
-            updatedAt,
+            ...documentData,
           }
         }),
       )
@@ -244,7 +218,7 @@ export const OrderProvider: FC<{ children?: React.ReactNode }> = ({ children }) 
     }
   }, [editOrder, orders])
 
-  const value: OrderStore = useMemo(
+  const value: OrderStoreValue = useMemo(
     () => ({
       isOrdersLoading,
       isCompletedOrdersLoading,
@@ -252,26 +226,24 @@ export const OrderProvider: FC<{ children?: React.ReactNode }> = ({ children }) 
       sortedOrders,
       completedOrders,
       currentYearCompletedOrders,
-      sortOrders,
-      addOrder,
-      completeOrder,
-      editOrder,
-      deleteOrder,
     }),
-    [
-      isOrdersLoading,
-      isCompletedOrdersLoading,
-      addOrder,
-      completeOrder,
-      completedOrders,
-      currentYearCompletedOrders,
-      deleteOrder,
-      editOrder,
-      orders,
-      sortOrders,
-      sortedOrders,
-    ],
+    [isOrdersLoading, isCompletedOrdersLoading, orders, sortedOrders, completedOrders, currentYearCompletedOrders],
   )
 
-  return <OrderContext.Provider value={value}>{children}</OrderContext.Provider>
+  const handlers = useMemo(
+    () => ({
+      addOrder,
+      completeOrder,
+      editOrder,
+      deleteOrder,
+      sortOrders,
+    }),
+    [addOrder, completeOrder, editOrder, deleteOrder, sortOrders],
+  )
+
+  return (
+    <OrderContextValue.Provider value={value}>
+      <OrderContextHandlers.Provider value={handlers}>{children}</OrderContextHandlers.Provider>
+    </OrderContextValue.Provider>
+  )
 }

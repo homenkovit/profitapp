@@ -3,7 +3,7 @@ import { FC, memo, useCallback, useMemo, useState } from 'react'
 import IconLogout from 'assets/images/logout.svg?react'
 
 import { useAuth } from 'contexts/auth-context'
-import { useOrder } from 'contexts/order-context'
+import { useOrderValue } from 'contexts/order-context'
 import { AuthorizationPopup } from 'components/popup/authorization-popup'
 import { AuthorizationType } from 'components/authorization'
 
@@ -12,7 +12,7 @@ import styles from './logout-button.module.scss'
 
 const LogoutButton: FC = () => {
   const { user, signOut } = useAuth()
-  const { orders } = useOrder()
+  const { orders } = useOrderValue()
 
   const [isLogoutPopupVisible, setLogoutPopupVisible] = useState<boolean>(false)
   const [isSignUpPopupVisible, setSignUpPopupVisible] = useState<boolean>(false)
