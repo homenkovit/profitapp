@@ -40,13 +40,13 @@ const ExpandableCardDescription: FC<ExpandableCardDescriptionProperties> = ({ de
       className={styles['expand-button']}
       onClick={(): void => setIsDescriptionExpand(!isDescriptionExpand)}
     >
-      <div
+      <span
         ref={descriptionReference}
         className={`${cardStyles.description} ${isDescriptionExpand ? styles['full-text'] : ''}`}
       >
         {isOrderOverdue && <IconOverdue className={cardStyles['overdue-icon']} />}
         {decodeText(description)}
-      </div>
+      </span>
       <IconExpand className={`${styles['expand-icon']} ${isDescriptionExpand ? styles.expanded : ''}`} aria-hidden />
     </button>
   )
