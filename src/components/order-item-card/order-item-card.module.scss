@@ -40,6 +40,33 @@ $line-height-description-mobile: 16px;
   &.overdue {
     border-color: $color-card-border-overdue;
   }
+
+  &.open {
+    animation: showCard 0.3s ease both;
+  }
+
+  &.hide {
+    animation: hideCard 0.3s ease both;
+  }
+}
+
+
+@keyframes showCard {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes hideCard {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 .overdue-icon {

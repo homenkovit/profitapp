@@ -6,10 +6,105 @@ $color-toggle-active: $violet-2;
 $color-field-border: $black-5;
 $color-error: $red-1;
 
+// Variables for animation
+$card-max-height: 71px;
+$form-max-height: 301px;
+$duration-form-wrapper: 0.3s;
+$duration-form: 0.5s;
+
+.formWrapper {
+  transition: max-height $duration-form-wrapper ease-out;
+
+  &.open {
+    max-height: 0;
+  }
+
+  &.openEdit {
+    max-height: $card-max-height;
+  }
+
+  &.open, &.openEdit {
+    animation: showFormWrapper $duration-form-wrapper ease-in-out both;
+  }
+
+  &.close {
+    animation: closeFormWrapper $duration-form-wrapper ease-in-out both;
+  }
+
+  &.closeEdit {
+    animation: closeEditFormWrapper $duration-form-wrapper ease-in-out both;
+  }
+}
+
 .form {
   padding: 16px;
   border-radius: 6px;
   box-shadow: 0px 4px 15px $color-form-box-shadow;
+
+  &.open, &.close, &.openEdit, &.closeEdit {
+    animation-duration: $duration-form;
+    animation-fill-mode: both;
+  }
+
+  &.open, &.openEdit {
+    animation-name: fadeInForm;
+  }
+
+  &.close, &.closeEdit {
+    animation-name: fadeOutForm;
+  }
+}
+
+@keyframes showFormWrapper {
+  from {
+    height: 0;
+    opacity: 0;
+    margin-bottom: 0;
+  }
+  to {
+    height: 100%;
+    max-height: $form-max-height;
+    opacity: 1;
+    margin-bottom: 20px;
+  }
+}
+
+@keyframes closeFormWrapper {
+  from {
+    height: 100%;
+    max-height: $form-max-height;
+    margin-bottom: 20px;
+    opacity: 1;
+  }
+  to {
+    height: 0;
+    max-height: 0;
+    margin-bottom: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes closeEditFormWrapper {
+  from {
+    height: 100%;
+    max-height: $form-max-height;
+    opacity: 1;
+  }
+  to {
+    height: 0;
+    max-height: $card-max-height;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeInForm {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+@keyframes fadeOutForm {
+  0% {opacity: 1;}
+  100% {opacity: 0;}
 }
 
 .fieldset {
