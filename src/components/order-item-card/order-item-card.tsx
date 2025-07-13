@@ -33,7 +33,7 @@ const OrderItemCard: FC<OrderItemCardProperties> = ({ data, onClickEdit }) => {
   }, [data.description])
 
   return (
-    <div className={getCardStyles(styles, data)}>
+    <div className={`${getCardStyles(styles, data)} ${styles.open}`}>
       {isExpandButtonVisible ? (
         <ExpandableCardDescription description={data.description} isOrderOverdue={Boolean(data.isOverdue)} />
       ) : (

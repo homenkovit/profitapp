@@ -30,7 +30,7 @@ export const useChartData = (): UseChartData => {
 
   const definePlanColumnHeight = useCallback(
     (planValue: number): string => {
-      return planValue === 0 ? 'initial' : `${(planValue * 100) / maxPlan}%`
+      return planValue === 0 ? `0%` : `${(planValue * 100) / maxPlan}%`
     },
     [maxPlan],
   )

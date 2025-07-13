@@ -1,4 +1,5 @@
 @import '../../../styles/pallete.scss';
+@import '../../../styles/variables.scss';
 
 $column-plan: rgba($white-1, 20%);
 $column-fact: $violet-7;
@@ -75,6 +76,7 @@ $label: $gray-1;
 	background-color: $column-plan;
 	border-radius: 10px;
   overflow: hidden;
+  transition: $column-transition;
 
   &.active {
     .column-fact {
@@ -87,6 +89,7 @@ $label: $gray-1;
 	align-self: flex-end;
 	width: 100%;
 	background-color: $column-fact;
+  transition: $column-transition;
 }
 
 .month-number {
