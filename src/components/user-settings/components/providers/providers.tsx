@@ -1,6 +1,6 @@
 import { FC, memo, useMemo } from 'react'
 
-import { ReactComponent as IconGoogle } from 'assets/images/google.svg'
+import IconGoogle from 'assets/images/google.svg?react'
 
 import { useAuth } from 'contexts/auth-context'
 

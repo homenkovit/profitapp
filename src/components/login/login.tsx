@@ -1,7 +1,7 @@
 import { FC, memo, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { ReactComponent as IconLogoForMobile } from 'assets/images/logo.svg'
+import IconLogoForMobile from 'assets/images/logo.svg?react'
 
 import { useIsMobile } from 'hooks/use-is-mobile'
 

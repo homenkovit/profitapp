@@ -1,7 +1,7 @@
 import { FC, memo, useCallback, useState } from 'react'
 
 import { useAuth } from 'contexts/auth-context'
-import { useOrder } from 'contexts/order-context'
+import { useOrderValue } from 'contexts/order-context'
 import { AuthorizationPopup } from 'components/popup/authorization-popup'
 import { AuthorizationType } from 'components/authorization'
 
@@ -15,7 +15,7 @@ interface CreateOrderButtonProperties {
 
 const CreateOrderButton: FC<CreateOrderButtonProperties> = ({ onCreate }) => {
   const { user } = useAuth()
-  const { orders } = useOrder()
+  const { orders } = useOrderValue()
 
   const [isLimitPopupVisible, setLimitPopupVisible] = useState<boolean>(false)
   const [popupType, setPopupType] = useState<AuthorizationType | undefined>()

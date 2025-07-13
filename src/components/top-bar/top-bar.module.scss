@@ -5,13 +5,14 @@
   position: sticky;
   display: flex;
   align-items: center;
-  background-image: linear-gradient(to bottom, $white-1, 95%, transparent);
+  background-image: linear-gradient(to bottom, $white-1, 95%, rgba(255, 255, 255, 0)); // Can't use transparent here because of the way the gradient is rendered in Firefox
   margin: 0 -16px;
 }
 
 .top-bar-content {
   display: flex;
   align-items: center;
+  order: -1;
 }
 
 @media screen and (min-width: 481px) {

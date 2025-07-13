@@ -1,7 +1,7 @@
 import { FC, memo } from 'react'
 import { NavLink } from 'react-router-dom'
 
-import { ReactComponent as IconArrowLeft } from 'assets/images/arrow-left.svg'
+import IconArrowLeft from 'assets/images/arrow-left.svg?react'
 
 import { useIsMobile } from 'hooks/use-is-mobile'
 

@@ -1,9 +1,9 @@
 import { FC, memo, useMemo } from 'react'
 
-import { ReactComponent as IconCalendar } from 'assets/images/calendar.svg'
+import IconCalendar from 'assets/images/calendar.svg?react'
 
 import { MONTHS } from 'global/constants'
-import { useOrder } from 'contexts/order-context'
+import { useOrderValue } from 'contexts/order-context'
 import type { Order } from 'contexts/order-context'
 import { PageLoader } from 'router/components/page-loader'
 import { TopBarPortal } from 'components/top-bar'
@@ -13,7 +13,7 @@ import { OrderItem } from 'components/order-item'
 import styles from './history-list.module.scss'
 
 const HistoryList: FC = () => {
-  const { isCompletedOrdersLoading, completedOrders } = useOrder()
+  const { isCompletedOrdersLoading, completedOrders } = useOrderValue()
 
   const completedOrdersSortedByDate = useMemo(() => {
     return [...completedOrders].sort(
@@ -24,15 +24,18 @@ const HistoryList: FC = () => {
   }, [completedOrders])
 
   const groupedOrders = useMemo(() => {
-    return completedOrdersSortedByDate.reduce((accumulator, order) => {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const key = `${MONTHS[order.completedMonth!]}, ${order.completedYear}`
-      const ordersByYear = accumulator[key] ?? []
+    return completedOrdersSortedByDate.reduce(
+      (accumulator, order) => {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const key = `${MONTHS[order.completedMonth!]}, ${order.completedYear}`
+        const ordersByYear = accumulator[key] ?? []
 
-      ordersByYear.push(order)
+        ordersByYear.push(order)
 
-      return { ...accumulator, [key]: ordersByYear }
-    }, {} as Record<string, Order[]>)
+        return { ...accumulator, [key]: ordersByYear }
+      },
+      {} as Record<string, Order[]>,
+    )
   }, [completedOrdersSortedByDate])
 
   if (isCompletedOrdersLoading) {

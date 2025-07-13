@@ -1,7 +1,7 @@
 import { FC, memo } from 'react'
 
 import { Popup } from '../popup'
-import { ReactComponent as IconLogo } from '../../../assets/images/logo.svg'
+import IconLogo from '../../../assets/images/logo.svg?react'
 import { Authorization, AuthorizationType } from '../../authorization'
 
 import styles from './authorization-popup.module.scss'

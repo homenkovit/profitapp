@@ -5,6 +5,7 @@ $color-overlay-bg: $black-3;
 $color-dialog-bg: $gray-3;
 $color-dialog-bg-mobile: $white-1;
 
+// TODO: check and delete if don't need this
 .overlay {
   display: flex;
   position: fixed;
@@ -55,13 +56,20 @@ $color-dialog-bg-mobile: $white-1;
 
 .popup-dialog {
   padding: 16px;
+  border: none;
   box-shadow: 0px 10px 30px $color-dialog-box-shadow;
   overflow: hidden;
-
   animation: showModal 0.3s ease both;
 
   &.hide {
     animation: hideModal 300ms ease both;
+  }
+
+  &::backdrop {
+    background-color: $color-overlay-bg;
+    // TODO: z-index
+    z-index: 1000;
+    animation: showOverlay 300ms ease both;
   }
 }
 
@@ -77,7 +85,6 @@ $color-dialog-bg-mobile: $white-1;
   .popup-dialog {
     width: 240px;
     border-radius: 6px;
-    margin: 16px;
     background-color: $color-dialog-bg-mobile;
   }
 }

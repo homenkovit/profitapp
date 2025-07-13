@@ -1,6 +1,6 @@
 import { FC, memo, useLayoutEffect, useRef, useState } from 'react'
 
-import { ReactComponent as IconOverdue } from 'assets/images/overdue.svg'
+import IconOverdue from 'assets/images/overdue.svg?react'
 
 import { decodeText } from 'global/helpers'
 import type { Order } from 'contexts/order-context'

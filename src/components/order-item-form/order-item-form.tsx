@@ -1,14 +1,13 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable max-lines */
 import { FC, FormEvent, useState, useMemo, useRef, useEffect, memo, useCallback } from 'react'
-import TextareaAutosize from 'react-textarea-autosize'
 
-import { ReactComponent as IconErrorSmall } from 'assets/images/error-small.svg'
+import IconErrorSmall from 'assets/images/error-small.svg?react'
 
 import { MONTHS } from 'global/constants'
 import { encodeText, decodeText } from 'global/helpers'
 import { useAuth } from 'contexts/auth-context'
-import { useOrder, StoreOrder } from 'contexts/order-context'
+import { useOrderHandlers, StoreOrder } from 'contexts/order-context'
 import type { Order } from 'contexts/order-context'
 import { useToggleFormAnimation } from 'components/order-item-form/hooks/use-toggle-form-animation'
 
@@ -26,8 +25,8 @@ const REQUIRED_FIELDS = [Field.DESCRIPTION, Field.PRICE]
 
 const OrderItemForm: FC<OrderItemFormProperties> = ({ data, onClose, className }) => {
   const { user } = useAuth()
-  const { addOrder, editOrder } = useOrder()
   const { animation, closeFormWithAnimation } = useToggleFormAnimation(onClose, data)
+  const { addOrder, editOrder } = useOrderHandlers()
 
   const currentYear = new Date().getFullYear()
   const yearsList = useMemo((): number[] => Array.from({ length: 6 }, (_, index) => currentYear + index), [currentYear])
@@ -153,7 +152,7 @@ const OrderItemForm: FC<OrderItemFormProperties> = ({ data, onClose, className }
 
     form?.addEventListener('keydown', formKeyDownEventHandler)
 
-    return () => {
+    return (): void => {
       form?.removeEventListener('keydown', formKeyDownEventHandler)
     }
   }, [checkFormChanges, closeFormWithAnimation, formReference, onClose])
@@ -179,7 +178,7 @@ const OrderItemForm: FC<OrderItemFormProperties> = ({ data, onClose, className }
               <label className={styles.label} htmlFor={Field.DESCRIPTION}>
                 Описание заказа
               </label>
-              <TextareaAutosize
+              <textarea
                 className={`${styles.field} ${validationFields.has(Field.DESCRIPTION) ? styles.invalid : ''}`}
                 name={Field.DESCRIPTION}
                 id={Field.DESCRIPTION}
@@ -187,8 +186,9 @@ const OrderItemForm: FC<OrderItemFormProperties> = ({ data, onClose, className }
                 ref={fieldDescription}
                 placeholder="Введите описание заказа"
                 onChange={(event): void => setDescription(event.target.value)}
-                onBlur={(event): void => validateField(fieldDescription.current, event)}
-                maxRows={6}
+                onBlur={(): void => validateField(fieldDescription.current)}
+                rows={6}
+                // eslint-disable-next-line jsx-a11y/no-autofocus
                 autoFocus
               />
             </fieldset>

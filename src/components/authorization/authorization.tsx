@@ -2,8 +2,8 @@
 import { FC, FormEvent, memo, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 
-import { ReactComponent as IconGoogle } from '../../assets/images/google.svg'
-import { ReactComponent as IconError } from '../../assets/images/error.svg'
+import IconGoogle from '../../assets/images/google.svg?react'
+import IconError from '../../assets/images/error.svg?react'
 import { useAuth } from '../../contexts/auth-context'
 
 import styles from './authorization.module.scss'

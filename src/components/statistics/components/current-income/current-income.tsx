@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
 
-import { ReactComponent as IconInfo } from 'assets/images/info.svg'
+import IconInfo from 'assets/images/info.svg?react'
 
 import type { ChartItem } from 'components/chart/types'
 

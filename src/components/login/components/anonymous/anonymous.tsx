@@ -1,7 +1,7 @@
 import { FC, memo } from 'react'
 
-import { ReactComponent as IconLogoForDesktop } from 'assets/images/logo-without-bg.svg'
-import containerBackgroundImage from 'assets/images/login-page-bg.png'
+import IconLogoForDesktop from 'assets/images/logo-without-bg.svg?react'
+import containerBackgroundImage from 'assets/images/login-page-bg.webp'
 
 import { useAuth } from 'contexts/auth-context'
 import { useIsMobile } from 'hooks/use-is-mobile'

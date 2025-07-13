@@ -1,10 +1,10 @@
 import { FC, memo, useCallback, useState } from 'react'
 
-import { ReactComponent as IconComplete } from 'assets/images/complete-small.svg'
-import { ReactComponent as IconEdit } from 'assets/images/edit-small.svg'
-import { ReactComponent as IconDelete } from 'assets/images/delete-small.svg'
+import IconComplete from 'assets/images/complete-small.svg?react'
+import IconEdit from 'assets/images/edit-small.svg?react'
+import IconDelete from 'assets/images/delete-small.svg?react'
 
-import { useOrder } from 'contexts/order-context'
+import { useOrderHandlers } from 'contexts/order-context'
 import { CompleteOrderPopup } from 'components/popup/complete-order-popup'
 import { DeleteOrderPopup } from 'components/popup/delete-order-popup'
 
@@ -16,7 +16,7 @@ interface CardActionsProperties {
 }
 
 const CardActions: FC<CardActionsProperties> = ({ orderId, onClickEdit }) => {
-  const { completeOrder, deleteOrder } = useOrder()
+  const { completeOrder, deleteOrder } = useOrderHandlers()
 
   const [isCompletePopupVisible, setCompletePopupVisible] = useState<boolean>(false)
   const [isDeletePopupVisible, setDeletePopupVisible] = useState<boolean>(false)

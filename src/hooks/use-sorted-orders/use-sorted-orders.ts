@@ -46,10 +46,12 @@ export const useSortedOrders = (orders: Order[]): UseSortedOrdersReturn => {
           [...orders].sort((previous, next) => {
             if (next.isPermanent) return -1
 
-            return (
-              new Date(Number(previous.year), Number(previous.month) + 1).getTime() -
-              new Date(Number(next.year), Number(next.month) + 1).getTime()
-            )
+            const previousDate = new Date(
+              previous.createdAt.seconds * 1000 + previous.createdAt.nanoseconds / 1_000_000,
+            ).getTime()
+            const nextDate = new Date(next.createdAt.seconds * 1000 + next.createdAt.nanoseconds / 1_000_000).getTime()
+
+            return previousDate - nextDate
           }),
         )
         return
@@ -59,10 +61,12 @@ export const useSortedOrders = (orders: Order[]): UseSortedOrdersReturn => {
           [...orders].sort((previous, next) => {
             if (next.isPermanent) return -1
 
-            return (
-              new Date(Number(next.year), Number(next.month) + 1).getTime() -
-              new Date(Number(previous.year), Number(previous.month) + 1).getTime()
-            )
+            const previousDate = new Date(
+              previous.createdAt.seconds * 1000 + previous.createdAt.nanoseconds / 1_000_000,
+            ).getTime()
+            const nextDate = new Date(next.createdAt.seconds * 1000 + next.createdAt.nanoseconds / 1_000_000).getTime()
+
+            return nextDate - previousDate
           }),
         )
         return
@@ -84,7 +88,13 @@ export const useSortedOrders = (orders: Order[]): UseSortedOrdersReturn => {
             if (previous.isPermanent < next.isPermanent) {
               return 1
             }
-            return 0
+
+            const previousDate = new Date(
+              previous.createdAt.seconds * 1000 + previous.createdAt.nanoseconds / 1_000_000,
+            ).getTime()
+            const nextDate = new Date(next.createdAt.seconds * 1000 + next.createdAt.nanoseconds / 1_000_000).getTime()
+
+            return nextDate - previousDate
           }),
         )
         return
@@ -122,7 +132,7 @@ export const useSortedOrders = (orders: Order[]): UseSortedOrdersReturn => {
     } catch (error) {
       console.error(`Can't parse sort type ${sortTypeFromLocalStorage} from local storage: ${error}`)
     }
-  }, [orders, sortOrders])
+  }, [sortOrders])
 
   return { sortedOrders, sortOrders }
 }

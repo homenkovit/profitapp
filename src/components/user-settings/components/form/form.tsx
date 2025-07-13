@@ -1,7 +1,7 @@
 /* eslint-disable max-lines */
 import { FC, FormEvent, memo, useCallback, useEffect, useState } from 'react'
 
-import { ReactComponent as IconError } from 'assets/images/error.svg'
+import IconError from 'assets/images/error.svg?react'
 
 import { useAuth } from 'contexts/auth-context'
 import { ConfirmationPopup } from 'components/popup/confirmation-popup'

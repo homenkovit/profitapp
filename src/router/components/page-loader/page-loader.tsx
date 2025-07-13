@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
 
-import { ReactComponent as IconSpinner } from 'assets/images/spinner.svg'
+import IconSpinner from 'assets/images/spinner.svg?react'
 
 import styles from './page-loader.module.scss'
 

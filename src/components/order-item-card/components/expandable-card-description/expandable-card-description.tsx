@@ -1,7 +1,7 @@
 import { FC, memo, useLayoutEffect, useRef, useState } from 'react'
 
-import { ReactComponent as IconExpand } from 'assets/images/expand.svg'
-import { ReactComponent as IconOverdue } from 'assets/images/overdue.svg'
+import IconExpand from 'assets/images/expand.svg?react'
+import IconOverdue from 'assets/images/overdue.svg?react'
 
 import { decodeText } from 'global/helpers'
 import { useIsMobile } from 'hooks/use-is-mobile'
@@ -40,13 +40,13 @@ const ExpandableCardDescription: FC<ExpandableCardDescriptionProperties> = ({ de
       className={styles['expand-button']}
       onClick={(): void => setIsDescriptionExpand(!isDescriptionExpand)}
     >
-      <div
+      <span
         ref={descriptionReference}
         className={`${cardStyles.description} ${isDescriptionExpand ? styles['full-text'] : ''}`}
       >
         {isOrderOverdue && <IconOverdue className={cardStyles['overdue-icon']} />}
         {decodeText(description)}
-      </div>
+      </span>
       <IconExpand className={`${styles['expand-icon']} ${isDescriptionExpand ? styles.expanded : ''}`} aria-hidden />
     </button>
   )

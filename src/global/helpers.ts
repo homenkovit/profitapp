@@ -15,7 +15,7 @@ const htmlUnEscapes: Record<string, string> = {
 }
 
 export const encodeText = (text: string): string => {
-  return text.replace(/["&'<>]/g, (match) => {
+  return text.replaceAll(/["&'<>]/g, (match) => {
     return htmlEscapes[match]
   })
 }
@@ -25,7 +25,7 @@ export const decodeText = (text: string | undefined): string | undefined => {
     return undefined
   }
 
-  return text.replace(/&(amp|lt|gt|quot|#39);/g, (match) => {
+  return text.replaceAll(/&(amp|lt|gt|quot|#39);/g, (match) => {
     return htmlUnEscapes[match]
   })
 }
