@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable max-lines */
-import { FC, FormEvent, useState, useMemo, useRef, useEffect, memo, useCallback } from 'react'
+import { FC, FormEvent, useState, useMemo, useRef, useEffect, memo, useCallback, FocusEvent } from 'react'
 
 import IconErrorSmall from 'assets/images/error-small.svg?react'
 
@@ -48,7 +48,10 @@ const OrderItemForm: FC<OrderItemFormProperties> = ({ data, onClose, className }
   const fieldPrice = useRef<HTMLInputElement>(null)
   const cancelButton = useRef<HTMLButtonElement>(null)
 
-  const validateField = (field: HTMLTextAreaElement | HTMLInputElement | null, event?: any): void => {
+  const validateField = (
+    field: HTMLTextAreaElement | HTMLInputElement | null,
+    event?: FocusEvent<HTMLInputElement>,
+  ): void => {
     const relatedTarget = event?.relatedTarget
     const isClickedOnCancel = relatedTarget === cancelButton.current
 
